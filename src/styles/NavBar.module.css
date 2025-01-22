@@ -1,0 +1,31 @@
+/* NavBar.module.css */
+
+/* General Navbar styling */
+.NavBar {
+  background-color: #f5f5dc;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #d2b48c;
+}
+
+/* Navbar links styling */
+.NavLink {
+  color: #4b0082;
+  margin: 0 0.5rem;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.NavLink:hover {
+  color: #6a5acd;
+  transform: scale(1.1);
+}
+
+/* Active link styling */
+.Active {
+  color: #6a5acd;
+  font-weight: 700;
+  border-bottom: 2px solid #6a5acd;
+}
