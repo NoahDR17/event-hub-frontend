@@ -15,6 +15,17 @@
   border: 1px solid #d2b48c;
 }
 
+.SignUpBackground {
+  background-image: url('https://res.cloudinary.com/du7daaai2/image/upload/v1737558490/sign-up-background_vydkzo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .FillerImage {
   object-fit: cover;
   height: 100%;

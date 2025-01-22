@@ -1,0 +1,72 @@
+/* SignUpForm.module.css */
+
+.Row {
+  height: calc(100vh - 81px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  padding: 30px 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0);
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px); /* Adds a frosted glass effect */
+}
+
+.Header {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c97cff;
+  margin-bottom: 1rem;
+}
+
+.Input {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0);
+  box-sizing: border-box;
+  border-radius: 2px;
+  color: #4b0082;
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease-in-out;
+}
+
+.Input:hover {
+  background: rgba(255, 255, 255);
+}
+
+.Link {
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  margin: auto;
+  margin-top: 1rem;
+  color: #cb82ff;
+  transition: color 0.3s ease-in-out;
+}
+
+.Link:hover {
+  color: #5bf0e7;
+}
+
+.Link span {
+  color: #5bf0e7;
+}
+
+.SignInCol {
+  height: 320px;
+}
+
+.SignUpCol {
+  height: 375px;
+}
