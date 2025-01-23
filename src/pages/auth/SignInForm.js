@@ -55,7 +55,7 @@ function SignInForm() {
   return (
     <Row className={styles.Row}>
       <Col className="my-auto p-0 p-md-2" md={6}>
-        <Container className={`${appStyles.Content} p-4 `}>
+        <Container className={styles.content}>
           <h1 className={styles.Header}>sign in</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="username">
@@ -103,12 +103,11 @@ function SignInForm() {
               </Alert>
             ))}
           </Form>
-        </Container>
-        <Container className={`mt-3 ${appStyles.Content}`}>
           <Link className={styles.Link} to="/signup">
             Don't have an account? <span>Sign up now!</span>
           </Link>
         </Container>
+        
       </Col>
       <Col
         md={6}
@@ -116,7 +115,8 @@ function SignInForm() {
       >
         <Image
           className={`${appStyles.FillerImage}`}
-          src={"https://codeinstitute.s3.amazonaws.com/AdvancedReact/hero.jpg"}
+          src={"https://res-console.cloudinary.com/du7daaai2/thumbnails/v1/image/upload/v1737555665/c2lnbi11cF9yYjB4bnQ=/drilldown"}
+          style={{ height: "97%", paddingTop: "10px" }}
         />
       </Col>
     </Row>

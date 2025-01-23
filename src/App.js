@@ -6,12 +6,14 @@ import "./api/axiosDefaults";
 import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
 
-function App() {  
+function App() {
   const location = useLocation();
-  const isSignUpPage = location.pathname === "/signup";
+  
+  // Check if current route is '/signup' or '/signin'
+  const isAuthPage = location.pathname === "/signup" || location.pathname === "/signin";
 
   return (
-    <div className={`${styles.App} ${isSignUpPage ? styles.SignUpBackground : ""}`}>
+    <div className={`${styles.App} ${isAuthPage ? styles.AuthBackground : ""}`}>
       <NavBar />
       <Container className={styles.Main}>
         <Switch>
