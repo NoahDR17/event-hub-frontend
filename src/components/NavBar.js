@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
 import { axiosReq } from "../api/axiosDefaults";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
+import Avatar from "./Avatar";
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
@@ -51,6 +52,14 @@ const NavBar = () => {
       className={styles.NavLink}
       to={`/profiles/${currentUser?.profile_id}`}
     >
+      <Avatar
+        src={currentUser?.profile_image} text={
+          currentUser?.username && currentUser.username.length < 10
+            ? currentUser.username.charAt(0).toUpperCase() + currentUser.username.slice(1)
+            : "Profile"
+        }
+        height={40}
+      />
     </NavLink>
   </>;
   const loggedOutIcons = (
