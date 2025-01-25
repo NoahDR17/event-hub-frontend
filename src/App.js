@@ -5,6 +5,8 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import "./api/axiosDefaults";
 import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
+import ProfilePage from "./pages/profiles/ProfilePage";
+import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 
 function App() {
   const location = useLocation();
@@ -17,10 +19,17 @@ function App() {
       <NavBar />
       <Container className={styles.Main}>
         <Switch>
-          <Route exact path="/" render={() => <h1>Home page</h1>} />
-          <Route exact path="/signin" render={() => <SignInForm />} />
-          <Route exact path="/signup" render={() => <SignUpForm />} />
-          <Route render={() => <p>Page not found!</p>} />
+        <Route exact path="/" render={() => <h1>Home page</h1>} />
+        <Route exact path="/signin" render={() => <SignInForm />} />
+        <Route exact path="/signup" render={() => <SignUpForm />} />
+        <Route exact path="/events/create" render={() => <h1>event create</h1>} />
+        <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
+        <Route
+            exact
+            path="/profiles/:id/edit"
+            render={() => <ProfileEditForm />}
+          />
+        <Route render={() => <p>Page not found!</p>} />
         </Switch>
       </Container>
     </div>

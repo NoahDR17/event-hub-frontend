@@ -1,0 +1,70 @@
+/* ProfileEditForm.module.css */
+
+.Container {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .Heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .ProfileImage {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .Label {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    display: inline-block;
+  }
+  
+  .Textarea,
+  .Input,
+  .Select {
+    margin-bottom: 1rem;
+  }
+  
+  .ErrorText {
+    color: #d9534f;
+    font-size: 0.85rem;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .ButtonsContainer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .ImageUploadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .UploadLabel {
+    display: inline-block;
+    margin: 0.5rem 0;
+    cursor: pointer;
+    color: #fff;
+    background-color: #007bff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+  }
+  
+  .UploadLabel:hover {
+    background-color: #0056b3;
+  }
+  
