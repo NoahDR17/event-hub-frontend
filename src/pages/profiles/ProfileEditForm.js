@@ -19,6 +19,7 @@ function ProfileEditForm() {
 
   const [profileImage, setProfileImage] = useState("");
   const [errors, setErrors] = useState({});
+  const [originalRole, setOriginalRole] = useState(""); // Store original role separately
 
   const { id } = useParams();
   const history = useHistory();
@@ -31,6 +32,7 @@ function ProfileEditForm() {
         const { data } = await axiosReq.get(`/profiles/${id}/`);
         setProfileData(data);
         setProfileImage(data.image);
+        setOriginalRole(data.role); // Save the original role
       } catch (err) {
         console.error(err);
       }
@@ -71,6 +73,7 @@ function ProfileEditForm() {
 
     try {
       await axiosReq.put(`/profiles/${id}/`, formData);
+      setOriginalRole(role); // Lock the role after successful submission
       history.push(`/profiles/${id}/`);
     } catch (err) {
       console.error(err);
@@ -91,7 +94,7 @@ function ProfileEditForm() {
               {profileImage ? (
                 <>
                   <figure>
-                    <Image className={styles.Image} src={profileImage} rounded />
+                    <Image className={styles.ProfileImage} src={profileImage} rounded />
                   </figure>
                   <div>
                     <Form.Label
@@ -124,7 +127,7 @@ function ProfileEditForm() {
             </Form.Group>
 
             <Form.Group controlId="profileName">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Full Name</Form.Label>
               <Form.Control
                 type="text"
                 value={name}
@@ -156,11 +159,22 @@ function ProfileEditForm() {
 
             <Form.Group controlId="profileRole">
               <Form.Label>Role</Form.Label>
-              <Form.Control as="select" name="role" value={role} onChange={handleChange}>
+              <Form.Control
+                as="select"
+                name="role"
+                value={role}
+                onChange={handleChange}
+                disabled={originalRole !== "basic"} // Allow editing only if the original role is "basic"
+              >
                 <option value="basic">Basic User</option>
                 <option value="organiser">Event Organiser</option>
                 <option value="musician">Musician/Band</option>
               </Form.Control>
+              {originalRole !== "basic" && (
+                <div className="text-muted mt-1">
+                  Your role is locked because it is no longer "Basic".
+                </div>
+              )}
               {errors?.role?.map((message, idx) => (
                 <div className="text-danger" key={idx}>
                   {message}

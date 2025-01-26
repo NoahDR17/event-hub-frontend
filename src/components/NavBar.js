@@ -14,7 +14,6 @@ const NavBar = () => {
 
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
-
   const handleSignOut = async () => {
     try {
       await axiosReq.post("dj-rest-auth/logout/");
@@ -24,7 +23,7 @@ const NavBar = () => {
     } catch (err) {
       console.log(err);
     }
-    console.log('Sign out: Successful')
+    console.log("Sign out: Successful");
   };
 
   const createEventIcon = (
@@ -35,33 +34,30 @@ const NavBar = () => {
     >
       <i className="fas fa-plus-square"></i>Create Event
     </NavLink>
-  )
+  );
 
-  const loggedInIcons = <>
-    <NavLink
-      className={styles.NavLink}
-      activeClassName={styles.Active}
-      to="/liked"
-    >
-      <i className="fas fa-heart"></i>Liked
-    </NavLink>
-    <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
-      <i className="fas fa-sign-out-alt"></i>Sign out
-    </NavLink>
-    <NavLink
-      className={styles.NavLink}
-      to={`/profiles/${currentUser?.profile_id}`}
-    >
-      <Avatar
-        src={currentUser?.profile_image} text={
-          currentUser?.username && currentUser.username.length < 10
-            ? currentUser.username.charAt(0).toUpperCase() + currentUser.username.slice(1)
-            : "Profile"
-        }
-        height={40}
-      />
-    </NavLink>
-  </>;
+  const loggedInIcons = (
+    <>
+      <NavLink className={styles.NavLink} activeClassName={styles.Active} to="/liked">
+        <i className="fas fa-heart"></i>Liked
+      </NavLink>
+      <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
+        <i className="fas fa-sign-out-alt"></i>Sign out
+      </NavLink>
+      <NavLink className={styles.NavLink} to={`/profiles/${currentUser?.profile_id}`}>
+        <Avatar
+          src={currentUser?.profile_image}
+          text={
+            currentUser?.username && currentUser.username.length < 15
+              ? currentUser.username.charAt(0).toUpperCase() + currentUser.username.slice(1)
+              : "Profile"
+          }
+          height={40}
+        />
+      </NavLink>
+    </>
+  );
+
   const loggedOutIcons = (
     <>
       <NavLink
@@ -84,12 +80,16 @@ const NavBar = () => {
   return (
     <Navbar className={styles.NavBar} expand="md" fixed="top">
       <Container>
+        {/* Logo/Home */}
         <NavLink to="/">
           <Navbar.Brand>
             <img src={logo} alt="logo" height="50" />
           </Navbar.Brand>
         </NavLink>
-        {currentUser && createEventIcon}
+
+        {/* Only show createEventIcon if user is organiser */}
+        {currentUser?.role === "organiser" && createEventIcon}
+
         <Navbar.Toggle
           ref={ref}
           onClick={() => setExpanded(!expanded)}
@@ -113,6 +113,8 @@ const NavBar = () => {
             >
               <i className="fas fa-stream"></i>Events
             </NavLink>
+
+            {/* Logged-in vs. Logged-out icons */}
             {currentUser ? loggedInIcons : loggedOutIcons}
           </Nav>
         </Navbar.Collapse>

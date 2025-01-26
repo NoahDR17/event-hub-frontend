@@ -49,7 +49,6 @@ function ProfilePage() {
     role,
     upcoming_events = [],
     past_events = [],
-    // Make sure your serializer returns these:
     genres,
     instruments,
   } = profile;
@@ -80,7 +79,6 @@ function ProfilePage() {
             </Card.Body>
           </Card>
 
-          {/* Profile Details Card */}
           <Card className="mb-4">
             <Card.Header as="h5">Your Profile Details</Card.Header>
             <Card.Body>
@@ -108,7 +106,6 @@ function ProfilePage() {
             </Card.Body>
           </Card>
 
-          {/* Conditionally render musician info */}
           {role === "musician" && (
             <Card className="mb-4">
               <Card.Header as="h5">Musician Details</Card.Header>
@@ -165,7 +162,6 @@ function ProfilePage() {
             )}
           </Card>
 
-          {/* Role Card */}
           <Card className="mb-4">
             <Card.Header as="h5">User Type</Card.Header>
             <Card.Body>

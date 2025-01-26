@@ -40,11 +40,13 @@ const SignUpForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log(signUpData);
         try {
             await axios.post("/dj-rest-auth/registration/", signUpData);
             localStorage.setItem("accountCreated", "true");
             history.push("/signin");
         } catch (err) {
+            console.log(err.response?.data);
             setErrors(err.response?.data);
         }
     };
@@ -100,7 +102,7 @@ const SignUpForm = () => {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId="role">
+                        {/* <Form.Group controlId="role">
                             <Form.Control
                                 as="select"
                                 name="role"
@@ -155,7 +157,7 @@ const SignUpForm = () => {
                                     ))}
                                 </Form.Group>
                             </>
-                        )}
+                        )} */}
 
                         <Button
                             className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`}
