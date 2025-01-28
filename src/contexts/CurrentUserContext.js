@@ -15,13 +15,24 @@ export const CurrentUserProvider = ({ children }) => {
 
   const handleMount = async () => {
     try {
-      const { data } = await axiosReq.get("dj-rest-auth/user/");
-      setCurrentUser(data);
-      console.log("user", data)
+      // Fetch user data to get the ID
+      const { data: userData } = await axiosReq.get("dj-rest-auth/user/");
+      console.log("User data:", userData);
+  
+      // Extract the user's ID
+      const userId = userData.pk;
+  
+      // Fetch profile data using the user ID
+      const { data: profileData } = await axiosReq.get(`/profiles/${userId}/`);
+      console.log("Profile data:", profileData);
+  
+      // Set the current user to the profile data
+      setCurrentUser(profileData);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
+  
 
   useEffect(() => {
     handleMount();

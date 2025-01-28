@@ -1,0 +1,29 @@
+.Container {
+    min-height: 343px;
+  }
+
+/* Image preview styling */
+.ImagePreview {
+    width: 100%;
+    max-width: 500px;
+    max-height: 300px;
+    object-fit: cover; 
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    @media (max-width: 768px) {
+      max-width: 100%; 
+      max-height: 200px; 
+    }
+  }
+  
+.ImagePreview {
+    transition: max-width 0.3s ease-in-out, max-height 0.3s ease-in-out;
+}
+  
+.Image {
+    max-height: 400px;
+    object-fit: cover;
+    width: 100%;
+}

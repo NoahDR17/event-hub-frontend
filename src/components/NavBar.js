@@ -44,12 +44,12 @@ const NavBar = () => {
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
         <i className="fas fa-sign-out-alt"></i>Sign out
       </NavLink>
-      <NavLink className={styles.NavLink} to={`/profiles/${currentUser?.profile_id}`}>
+      <NavLink className={styles.NavLink} to={`/profiles/${currentUser?.id}`}>
         <Avatar
-          src={currentUser?.profile_image}
+          src={currentUser?.image}
           text={
-            currentUser?.username && currentUser.username.length < 15
-              ? currentUser.username.charAt(0).toUpperCase() + currentUser.username.slice(1)
+            currentUser?.owner && currentUser.owner.length < 15
+              ? currentUser.owner.charAt(0).toUpperCase() + currentUser.owner.slice(1)
               : "Profile"
           }
           height={40}
