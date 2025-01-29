@@ -1,13 +1,44 @@
+/* EventDetail.module.css */
+
+.EventDetail {
+  margin-top: 20px;
+}
+
 .Image {
-    max-height: 400px;
-    object-fit: cover;
-    width: 100%;
-  }
-  
-  .MusicianImage {
-    max-width: 50px;
-    max-height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.MusiciansList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.MusicianCard {
+  display: flex;
+  align-items: center;
+}
+
+.MusicianLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.MusicianImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.MusicianName {
+  font-size: 1rem;
+}
+
+.Error {
+  color: red;
+}
