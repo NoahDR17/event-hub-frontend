@@ -4,3 +4,10 @@
     width: 100%;
   }
   
+  .MusicianImage {
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+  }

@@ -6,8 +6,10 @@ import btnStyles from "../../styles/Button.module.css";
 import Asset from "../../components/Asset";
 import Upload from "../../assets/upload.png";
 import { axiosReq } from "../../api/axiosDefaults";
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 function ProfileEditForm() {
+
   const [profileData, setProfileData] = useState({
     name: "",
     content: "",
@@ -20,6 +22,7 @@ function ProfileEditForm() {
   const [profileImage, setProfileImage] = useState("");
   const [errors, setErrors] = useState({});
   const [originalRole, setOriginalRole] = useState(""); // Store original role separately
+  const setCurrentUser = useSetCurrentUser();
 
   const { id } = useParams();
   const history = useHistory();
@@ -72,7 +75,16 @@ function ProfileEditForm() {
     }
 
     try {
-      await axiosReq.put(`/profiles/${id}/`, formData);
+      const { data } = await axiosReq.put(`/profiles/${id}/`, formData);
+      // Update the user context with the new data
+      setCurrentUser((currentUser) => ({
+        ...currentUser,
+        name: data.name,
+        profile_image: data.image,
+        role: data.role,
+        genres: data.genres,
+        instruments: data.instruments,
+      }));
       setOriginalRole(role); // Lock the role after successful submission
       history.push(`/profiles/${id}/`);
     } catch (err) {

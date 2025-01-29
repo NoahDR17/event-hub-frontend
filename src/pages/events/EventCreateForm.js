@@ -9,6 +9,7 @@ import {
   Image,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import Select from "react-select";
 
 import Asset from "../../components/Asset";
 import Upload from "../../assets/upload.png";
@@ -35,7 +36,7 @@ function EventCreateForm() {
     eventData;
 
   const [musicianProfiles, setMusicianProfiles] = useState([]);
-
+  const [searchQuery, setSearchQuery] = useState("");
   const imageInput = useRef(null);
   const history = useHistory();
 
@@ -58,6 +59,10 @@ function EventCreateForm() {
     fetchMusicians();
   }, []);
 
+  const filteredMusicians = musicianProfiles.filter((profile) =>
+    profile.owner.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const handleChange = (event) => {
     setEventData({
       ...eventData,
@@ -76,21 +81,19 @@ function EventCreateForm() {
     }
   };
 
-  const handleMusiciansChange = (event) => {
-    const selectedOptions = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value
-    );
+  const handleMusiciansChange = (selectedOptions) => {
+    const selectedIds = selectedOptions ? selectedOptions.map(option => option.value) : [];
     setEventData({
       ...eventData,
-      musicians: selectedOptions,
+      musicians: selectedIds,
     });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Build 
+    console.log("Event Data to be submitted:", eventData);
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
@@ -106,8 +109,13 @@ function EventCreateForm() {
       musicians.forEach((musicianId) => formData.append("musicians", musicianId));
     }
 
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
+
     try {
       const { data } = await axiosReq.post("/events/", formData);
+      console.log("Event created successfully:", data);
       history.push(`/events/${data.id}`);
     } catch (err) {
       console.error("Error creating event:", err);
@@ -216,19 +224,37 @@ function EventCreateForm() {
       <Form.Group>
         <Form.Label>Musicians (Optional)</Form.Label>
         <Form.Control
-          as="select"
-          multiple
+          type="text"
+          placeholder="Search musicians by name..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className={`${styles.Input} mb-2`}
+        />
+
+        <Select
+          isMulti
           name="musicians"
-          value={musicians}
+          options={filteredMusicians.map((profile) => ({
+            value: profile.id,
+            label: profile.owner,
+          }))}
+          classNamePrefix="select"
           onChange={handleMusiciansChange}
-          className={styles.Select}
-        >
-          {musicianProfiles.map((profile) => (
-            <option key={profile.id} value={profile.owner_id}>
-              {profile.owner}
-            </option>
-          ))}
-        </Form.Control>
+          value={musicians
+            .map((id) => {
+              const profile = musicianProfiles.find((m) => m.id === id);
+              return profile
+                ? { value: profile.id, label: profile.owner }
+                : null;
+            })
+            .filter((option) => option !== null)}
+          placeholder="Select musicians..."
+          noOptionsMessage={() =>
+            searchQuery
+              ? "No musicians found."
+              : "Type to search for musicians."
+          }
+        />
       </Form.Group>
       {errors?.musicians?.map((message, idx) => (
         <Alert variant="warning" key={idx} className={styles.Alert}>
