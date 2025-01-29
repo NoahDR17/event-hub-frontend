@@ -14,7 +14,7 @@ import EventDetailPage from "./pages/events/EventDetailPage";
 
 function App() {
   const location = useLocation();
-  const currentUser = useCurrentUser();  // Check who is logged in
+  const currentUser = useCurrentUser();
   console.log("currentuser", currentUser)
   // Check if current route is '/signup' or '/signin'
   const isAuthPage = location.pathname === "/signup" || location.pathname === "/signin";

@@ -7,15 +7,24 @@ import {
   Button,
   Image,
   ListGroup,
+  Spinner,
+  Alert,
 } from "react-bootstrap";
 import axios from "axios";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import styles from "../../styles/ProfilePage.module.css";
+import btnStyles from "../../styles/Button.module.css";
 
 function ProfilePage() {
   const { id } = useParams();
   const history = useHistory();
+  const currentUser = useCurrentUser();
   const [profile, setProfile] = useState(null);
   const [errors, setErrors] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const [showAllUpcomingEvents, setShowAllUpcomingEvents] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -23,21 +32,37 @@ function ProfilePage() {
         const { data } = await axios.get(`/profiles/${id}/`);
         setProfile(data);
       } catch (err) {
-        console.error(err);
-        setErrors(err.response?.data);
+        console.error("Error fetching profile:", err);
+        setErrors(err.response?.data || "Error fetching profile.");
+      } finally {
+        setLoading(false);
       }
     };
     fetchProfile();
   }, [id]);
 
-  if (!profile && !errors) {
-    return <Container className="my-4">Loading...</Container>;
+  if (loading) {
+    return (
+      <Container className="my-4 d-flex justify-content-center">
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      </Container>
+    );
   }
 
   if (errors) {
     return (
       <Container className="my-4">
-        <h4 className="text-danger">Error loading profile!</h4>
+        <Alert variant="danger">{errors}</Alert>
+      </Container>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <Container className="my-4">
+        <Alert variant="warning">Profile not found.</Alert>
       </Container>
     );
   }
@@ -53,29 +78,38 @@ function ProfilePage() {
     instruments,
   } = profile;
 
+  const isOwner = currentUser?.id === profile?.id;
+  const handleToggleUpcomingEvents = () => {
+    setShowAllUpcomingEvents((prevState) => !prevState);
+  };
+
+  const displayedUpcomingEvents = showAllUpcomingEvents
+    ? upcoming_events
+    : upcoming_events.slice(0, 5);
+
   return (
     <Container className="my-4">
       <Row>
         <Col lg={8}>
-          {/* Main Profile Card */}
           <Card className="mb-4">
             <Card.Body className="text-center">
               <Image
-                src={image}
+                src={image || "/default_profile.png"}
                 roundedCircle
                 alt="Profile Avatar"
-                className="mb-3"
-                style={{ width: "150px", height: "150px", objectFit: "cover" }}
+                className={`${styles.ProfileImage} mb-3`}
               />
               <Card.Title>{owner?.username}</Card.Title>
               <Card.Text>{content || "No bio available."}</Card.Text>
-              <Button
-                variant="outline-primary"
-                className="mt-2"
-                onClick={() => history.push(`/profiles/${id}/edit`)}
-              >
-                Edit Profile
-              </Button>
+              {isOwner && (
+                <Button
+                  variant="outline-primary"
+                  className={`${btnStyles.Button} mt-2`}
+                  onClick={() => history.push(`/profiles/${id}/edit`)}
+                >
+                  Edit Profile
+                </Button>
+              )}
             </Card.Body>
           </Card>
 
@@ -126,8 +160,9 @@ function ProfilePage() {
               <ListGroup variant="flush">
                 {past_events.map((event) => (
                   <ListGroup.Item key={event.id}>
-                    {event.title}
-                    <small className="text-muted d-block">
+                    <Link to={`/events/${event.id}`}>{event.title}</Link>
+                    <br />
+                    <small className="text-muted">
                       {new Date(event.event_date).toLocaleString()}
                     </small>
                   </ListGroup.Item>
@@ -145,16 +180,28 @@ function ProfilePage() {
           <Card className="mb-4">
             <Card.Header as="h5">Upcoming Events</Card.Header>
             {upcoming_events.length > 0 ? (
-              <ListGroup variant="flush">
-                {upcoming_events.map((event) => (
-                  <ListGroup.Item key={event.id}>
-                    {event.title}
-                    <small className="text-muted d-block">
-                      {new Date(event.event_date).toLocaleString()}
-                    </small>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
+              <>
+                <ListGroup variant="flush">
+                  {displayedUpcomingEvents.map((event) => (
+                    <ListGroup.Item key={event.id}>
+                      <Link to={`/events/${event.id}`}>{event.title}</Link>
+                      <br />
+                      <small className="text-muted">
+                        {new Date(event.event_date).toLocaleString()}
+                      </small>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+                {upcoming_events.length > 5 && (
+                  <Button
+                    variant="link"
+                    className="mt-2 p-0"
+                    onClick={handleToggleUpcomingEvents}
+                  >
+                    {showAllUpcomingEvents ? "Show Less" : "Show More"}
+                  </Button>
+                )}
+              </>
             ) : (
               <ListGroup variant="flush">
                 <ListGroup.Item>No upcoming events.</ListGroup.Item>

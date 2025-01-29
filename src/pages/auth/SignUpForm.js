@@ -26,7 +26,7 @@ const SignUpForm = () => {
         genres: "",
         instruments: "",
     });
-    const { username, password1, password2, role, genres, instruments, } = signUpData;
+    const { username, password1, password2 } = signUpData;
     const [errors, setErrors] = useState({});
 
     const history = useHistory();
@@ -102,62 +102,6 @@ const SignUpForm = () => {
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        {/* <Form.Group controlId="role">
-                            <Form.Control
-                                as="select"
-                                name="role"
-                                value={role}
-                                required
-                                onChange={handleChange}
-                            >
-                                <option value="basic">Basic User</option>
-                                <option value="organiser">Event Organiser</option>
-                                <option value="musician">Musician/Band</option>
-                            </Form.Control>
-                            {errors?.role?.map((msg, idx) => (
-                                <div className="text-danger" key={idx}>{msg}</div>
-                            ))}
-                        </Form.Group>
-                        {errors.password2?.map((message, idx) => (
-                            <Alert key={idx} variant="warning">
-                                {message}
-                            </Alert>
-                        ))}
-                        {role === "musician" && (
-                            <>
-                                <Form.Group controlId="profileGenres">
-                                    <Form.Label className={styles.CustomLabel}>Genres</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={genres || ""}
-                                        name="genres"
-                                        onChange={handleChange}
-                                        placeholder="Rock, Pop, Jazz, etc."
-                                    />
-                                    {errors?.genres?.map((message, idx) => (
-                                        <div className="text-danger" key={idx}>
-                                            {message}
-                                        </div>
-                                    ))}
-                                </Form.Group>
-
-                                <Form.Group controlId="profileInstruments">
-                                    <Form.Label className={styles.CustomLabel}>Instruments</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={instruments || ""}
-                                        name="instruments"
-                                        onChange={handleChange}
-                                        placeholder="Guitar, Piano, Vocals, etc."
-                                    />
-                                    {errors?.instruments?.map((message, idx) => (
-                                        <div className="text-danger" key={idx}>
-                                            {message}
-                                        </div>
-                                    ))}
-                                </Form.Group>
-                            </>
-                        )} */}
 
                         <Button
                             className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`}
