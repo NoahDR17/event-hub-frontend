@@ -200,28 +200,6 @@ function EventCreateForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Event Type</Form.Label>
-        <Form.Control
-          className={styles.Select}
-          as="select"
-          name="event_type"
-          value={event_type}
-          onChange={handleChange}
-        >
-          <option value="CONFERENCE">Conference</option>
-          <option value="MEETUP">Meetup</option>
-          <option value="WORKSHOP">Workshop</option>
-          <option value="PARTY">Party</option>
-          <option value="OTHER">Other</option>
-        </Form.Control>
-      </Form.Group>
-      {errors?.event_type?.map((message, idx) => (
-        <Alert variant="warning" key={idx} className={styles.Alert}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
         <Form.Label>Musicians (Optional)</Form.Label>
         <Form.Control
           type="text"
