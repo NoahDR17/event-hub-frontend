@@ -99,7 +99,7 @@ function ProfilePage() {
                 alt="Profile Avatar"
                 className={`${styles.ProfileImage} mb-3`}
               />
-              <Card.Title>{owner}</Card.Title>
+              <Card.Title>{profile.name}</Card.Title>
               <Card.Text>{content || "No bio available."}</Card.Text>
               {isOwner && (
                 <Button

@@ -21,8 +21,8 @@ function App() {
   const isEventsPage = location.pathname.startsWith("/events/");
 
   return (
-    <div className={`${styles.App} ${isAuthPage ? styles.AuthBackground : ""},
-                     ${styles.App} ${isEventsPage ? styles.EventsBackground : ""} `}>
+    <div className={`${styles.App} ${isAuthPage ? styles.AuthBackground : ""}
+                    ${styles.App} ${isEventsPage ? styles.EventsBackground : ""} `}>
       <NavBar />
       <Container className={styles.Main}>
         <Switch>
