@@ -32,17 +32,29 @@ function SignInForm() {
     event.preventDefault();
     try {
       const response = await axios.post("/dj-rest-auth/login/", signInData);
-      const { access, refresh } = response.data;
-      setCurrentUser(response.data.user);
+      const { access, refresh, user } = response.data;
+  
+      const userId = user.pk;
+  
+      const profileResponse = await axios.get(`/profiles/${userId}/`, {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      });
+      const profileData = profileResponse.data;
+  
+      setCurrentUser(profileData);
+
       localStorage.setItem('accessToken', access);
       localStorage.setItem('refreshToken', refresh);
-      console.log(response)
+  
       history.push("/");
+      
+      console.log("Sign in: Successful", response);
     } catch (err) {
       setErrors(err.response?.data);
+      console.error("Sign in error:", err);
     }
-    console.log('Sign in: Successful')
-
   };
 
   const handleChange = (event) => {
