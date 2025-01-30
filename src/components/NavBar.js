@@ -38,6 +38,7 @@ const NavBar = () => {
 
   const loggedInIcons = (
     <>
+      {currentUser?.role === "organiser" && createEventIcon}
       <NavLink className={styles.NavLink} activeClassName={styles.Active} to="/liked">
         <i className="fas fa-heart"></i>Liked
       </NavLink>
@@ -87,8 +88,6 @@ const NavBar = () => {
           </Navbar.Brand>
         </NavLink>
 
-        {/* Only show createEventIcon if user is organiser */}
-        {currentUser?.role === "organiser" && createEventIcon}
 
         <Navbar.Toggle
           ref={ref}
@@ -116,6 +115,7 @@ const NavBar = () => {
 
             {/* Logged-in vs. Logged-out icons */}
             {currentUser ? loggedInIcons : loggedOutIcons}
+            
           </Nav>
         </Navbar.Collapse>
       </Container>
