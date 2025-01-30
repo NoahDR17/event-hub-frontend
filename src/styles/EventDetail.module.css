@@ -1,11 +1,15 @@
 .EventDetail {
-  margin-top: 20px;
+  margin-bottom: 40px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px #fffaf0 solid;
+  color: #fffaf0;
 }
 
 .Image {
   width: 100%;
   height: auto;
   object-fit: cover;
+  border-radius: 15px;
 }
 
 .MusiciansList {

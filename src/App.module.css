@@ -26,6 +26,16 @@
   justify-content: center;
 }
 
+.EventsBackground {
+  background-image: url('https://res.cloudinary.com/du7daaai2/image/upload/v1738243951/events.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .FillerImage {
   object-fit: cover;
   height: 100%;

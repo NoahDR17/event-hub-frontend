@@ -1,9 +1,11 @@
 .Container {
     min-height: 343px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px #fffaf0 solid;
+    color: #fffaf0;
   }
 
-/* Image preview styling */
-.ImagePreview {
+  .ImagePreview {
     width: 100%;
     max-width: 500px;
     max-height: 300px;

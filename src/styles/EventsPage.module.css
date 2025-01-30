@@ -1,0 +1,74 @@
+.PageContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.FixedSidebar {
+  position: fixed;
+  right: 0;
+  width: 300px;
+  padding: 2rem;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.SidebarTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+
+.FilterSelect {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+
+.EventsContainer {
+  margin-right: 320px;
+  padding: 2rem;
+  /* margin: 1px; */
+}
+
+.PageTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem;
+  color: #333;
+  text-align: center;
+}
+
+.EventsList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.EventSection {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .PageContainer {
+    flex-direction: column;
+  }
+
+  .FixedSidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+  }
+
+  .EventsContainer {
+    padding-top: 2rem;
+  }
+
+}

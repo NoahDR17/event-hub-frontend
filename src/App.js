@@ -11,22 +11,25 @@ import ProfileEditForm from "./pages/profiles/ProfileEditForm";
 import EventCreateForm from "./pages/events/EventCreateForm";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import EventDetailPage from "./pages/events/EventDetailPage";
+import EventsPage from "./pages/events/EventsPage"
 
 function App() {
   const location = useLocation();
   const currentUser = useCurrentUser();
-  console.log("currentuser", currentUser)
-  // Check if current route is '/signup' or '/signin'
+
   const isAuthPage = location.pathname === "/signup" || location.pathname === "/signin";
+  const isEventsPage = location.pathname.startsWith("/events/");
 
   return (
-    <div className={`${styles.App} ${isAuthPage ? styles.AuthBackground : ""}`}>
+    <div className={`${styles.App} ${isAuthPage ? styles.AuthBackground : ""},
+                     ${styles.App} ${isEventsPage ? styles.EventsBackground : ""} `}>
       <NavBar />
       <Container className={styles.Main}>
         <Switch>
           <Route exact path="/" render={() => <h1>Home page</h1>} />
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />
+          <Route exact path="/events" render={() => <EventsPage message="No events found." />} />
 
           <Route exact path="/events/create">
             {currentUser?.role === "organiser" ? (
@@ -42,7 +45,7 @@ function App() {
             path="/profiles/:id/edit"
             render={() => <ProfileEditForm />}
           />
-          <Route exact path="/events/:id" component={EventDetailPage} />
+          <Route exact path="/events/:id" render={() => <EventDetailPage />} />
 
           <Route render={() => <p>Page not found!</p>} />
         </Switch>

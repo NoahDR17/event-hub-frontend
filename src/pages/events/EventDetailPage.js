@@ -102,7 +102,7 @@ function EventDetailPage() {
             <strong>Description:</strong> {description}
           </p>
           <p>
-            <strong>Musicians:</strong>{" "}
+            <strong>Featuring:</strong>{" "}
             {musicianLoading ? (
               <Spinner animation="border" role="status" size="sm" className="ml-2">
                 <span className="sr-only">Loading...</span>
