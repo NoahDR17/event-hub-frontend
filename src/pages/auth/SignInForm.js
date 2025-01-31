@@ -127,7 +127,7 @@ function SignInForm() {
       >
         <Image
           className={`${appStyles.FillerImage}`}
-          src={"https://res-console.cloudinary.com/du7daaai2/thumbnails/v1/image/upload/v1737555665/c2lnbi11cF9yYjB4bnQ=/drilldown"}
+          src={"https://res.cloudinary.com/du7daaai2/image/upload/v1737555665/sign-up_rb0xnt.jpg"}
           style={{ height: "97%", paddingTop: "10px" }}
         />
       </Col>
