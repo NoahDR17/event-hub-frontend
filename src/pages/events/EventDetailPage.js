@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Image, Alert, Button, Spinner } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Image,
+  Alert,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 import { useParams, useHistory, Link } from "react-router-dom";
-import Asset from "../../components/Asset";
 import styles from "../../styles/EventDetail.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
@@ -15,6 +22,19 @@ function EventDetailPage() {
   const [errors, setErrors] = useState(null);
   const [musicianError, setMusicianError] = useState(null);
   const [musicianLoading, setMusicianLoading] = useState(false);
+
+  const handleEdit = () => {
+    history.push(`/events/${id}/edit`);
+  };
+  const handleDelete = async () => {
+    try {
+      await axiosReq.delete(`/events/${id}/`);
+      history.goBack();
+    } catch (err) {
+      console.log(err);
+      setErrors("Failed to delete the event. Please try again.");
+    }
+  };
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -34,7 +54,11 @@ function EventDetailPage() {
 
   useEffect(() => {
     const fetchMusicianProfiles = async () => {
-      if (eventData && Array.isArray(eventData.musicians) && eventData.musicians.length > 0) {
+      if (
+        eventData &&
+        Array.isArray(eventData.musicians) &&
+        eventData.musicians.length > 0
+      ) {
         setMusicianLoading(true);
         try {
           const profilePromises = eventData.musicians.map((musicianId) =>
@@ -62,50 +86,67 @@ function EventDetailPage() {
     fetchMusicianProfiles();
   }, [eventData]);
 
-
   if (errors) {
     return (
       <Container className="text-center mt-5">
         <Alert variant="danger">{errors}</Alert>
-        <Button onClick={() => history.goBack()} className={btnStyles.Button}>
+        <Button
+          onClick={() => history.goBack()}
+          className={`${btnStyles.Button} ${btnStyles.Gray}`}
+        >
           Go Back
         </Button>
       </Container>
     );
   }
 
-
   if (!eventData) {
-    return <Asset spinner message="Loading event details..." />;
+    return (
+      <Container className="text-center mt-5">
+        <Spinner animation="border" role="status">
+        </Spinner>
+        <p className="mt-3">Loading event details...</p>
+      </Container>
+    );
   }
 
-  const { title, description, location, event_type, event_date, image } = eventData;
+  const { title, description, location, event_date, image } = eventData;
 
   return (
-    <Container className={`${appStyles.Content} ${styles.EventDetail}`}>
-      <Row>
-        <Col md={8}>
-          <Image src={image} className={styles.Image} rounded fluid />
+    <Container className={`${appStyles.Content} ${styles.EventContainer}`}>
+      <Row className="align-items-center">
+        <Col md={6} className="text-center">
+          <Image
+            src={image}
+            className={styles.EventImage}
+            rounded
+            fluid
+            alt={`Image for ${title}`}
+          />
         </Col>
-        <Col md={4}>
-          <h2>{title}</h2>
+
+        {/* Right Column - Event Details */}
+        <Col md={6} className="EventInfo">
+          <h2 className={styles.EventTitle}>{title}</h2>
           <p>
-            <strong>Type:</strong> {event_type}
+            <span className={styles.EventLabel}>Date:</span>{" "}
+            {new Date(event_date).toLocaleString()}
           </p>
           <p>
-            <strong>Date:</strong> {new Date(event_date).toLocaleString()}
+            <span className={styles.EventLabel}>Location:</span> {location}
           </p>
           <p>
-            <strong>Location:</strong> {location}
+            <span className={styles.EventLabel}>Description:</span> {description}
           </p>
           <p>
-            <strong>Description:</strong> {description}
-          </p>
-          <p>
-            <strong>Featuring:</strong>{" "}
+            <span className={styles.EventLabel}>Featuring:</span>{" "}
             {musicianLoading ? (
-              <Spinner animation="border" role="status" size="sm" className="ml-2">
-                <span className="sr-only">Loading...</span>
+              <Spinner
+                animation="border"
+                role="status"
+                size="sm"
+                className="ms-2"
+              >
               </Spinner>
             ) : musicianError ? (
               <span className={styles.Error}>{musicianError}</span>
@@ -129,12 +170,27 @@ function EventDetailPage() {
               "None"
             )}
           </p>
-          <Button
-            className={`${btnStyles.Button} ${btnStyles.Blue} mt-3`}
-            onClick={() => history.goBack()}
-          >
-            Go Back
-          </Button>
+
+          <div className={styles.Buttons}>
+            <Button
+              className={`${btnStyles.Button}`}
+              onClick={handleEdit}
+            >
+              <i className="fas fa-edit"></i> Edit
+            </Button>
+            <Button
+              className={`${btnStyles.Button}`}
+              onClick={handleDelete}
+            >
+              <i className="fas fa-trash-alt"></i> Delete
+            </Button>
+            <Button
+              className={`${btnStyles.Button}`}
+              onClick={() => history.goBack()}
+            >
+              <i className="fas fa-arrow-left"></i> Go Back
+            </Button>
+          </div>
         </Col>
       </Row>
     </Container>

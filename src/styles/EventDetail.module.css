@@ -1,57 +1,108 @@
-.EventDetail {
-  margin-bottom: 40px;
-  background-color: rgba(0, 0, 0, 0.3);
+.EventContainer {
+  min-height: 343px;
+  background-color: rgba(0, 0, 0, 0.7);
   border: 2px #fffaf0 solid;
+  color: #c97cff;
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-top: 80px;
+}
+
+
+.EventImage {
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.EventTitle {
+  font-size: 2rem;
+  margin-bottom: 20px;
   color: #fffaf0;
 }
 
-.Image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 15px;
+.EventLabel {
+  font-weight: bold;
+  color: #c97cff;
 }
 
 .MusiciansList {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .MusicianCard {
   display: flex;
   align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.MusicianCard:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .MusicianLink {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: inherit;
+  color: #c97cff;
 }
 
 .MusicianImage {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
+  border-radius: 50%;
   margin-right: 10px;
+  border: 2px solid #fffaf0;
 }
 
 .MusicianName {
   font-size: 1rem;
+  font-weight: bold;
 }
 
 .Error {
   color: red;
+  font-weight: bold;
 }
 
-@media (max-width: 576px) {
-  .MusicianImage {
-    width: 40px;
-    height: 40px;
+.Buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.Buttons button {
+  font-size: 1rem;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .Buttons {
+    flex-direction: column;
   }
 
-  .MusicianName {
+  .Buttons button {
+    width: 65%;
     font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Buttons button {
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 6px 12px;
   }
 }

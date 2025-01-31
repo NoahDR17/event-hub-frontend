@@ -12,6 +12,7 @@ import EventCreateForm from "./pages/events/EventCreateForm";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import EventDetailPage from "./pages/events/EventDetailPage";
 import EventsPage from "./pages/events/EventsPage"
+import EventEditForm from "./pages/events/EventEditForm";
 
 function App() {
   const location = useLocation();
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />
           <Route exact path="/events" render={() => <EventsPage message="No events found." />} />
+          <Route exact path="/events/:id/edit" render={() => <EventEditForm />} />
 
           <Route exact path="/events/create">
             {currentUser?.role === "organiser" ? (
