@@ -130,7 +130,6 @@ function EventDetailPage() {
           <Image
             src={image}
             className={styles.EventImage}
-            rounded
             fluid
             alt={`Image for ${title}`}
           />

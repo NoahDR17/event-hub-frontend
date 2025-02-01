@@ -5,6 +5,7 @@ import {
   Alert,
   Form,
   Button,
+  Col,
 } from "react-bootstrap";
 import axios from "axios";
 import EventCard from "../../components/EventCard";
@@ -137,7 +138,7 @@ function EventsPage() {
 
   return (
     <div className={styles.PageContainer}>
-      <div className={styles.FixedSidebar}>
+      <Col md={3} className={styles.FixedSidebar}>
         <Form onSubmit={handleSearch} className={`mb-4`}>
           <Form.Group controlId="search">
             <Form.Label>Search</Form.Label>
@@ -174,9 +175,9 @@ function EventsPage() {
             </Button>
           </div>
         </Form>
-      </div>
+      </Col>
 
-      <Container fluid className={styles.EventsContainer}>
+      <Col md={9} className={styles.EventsContainer}>
         {filteredEvents.length === 0 ? (
           <Alert variant="info">No events match your search criteria.</Alert>
         ) : (
@@ -192,7 +193,7 @@ function EventsPage() {
             ))}
           </div>
         )}
-      </Container>
+      </Col>
     </div>
   );
 }

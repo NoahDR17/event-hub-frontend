@@ -1,12 +1,18 @@
 .NavBar {
-  background-color: rgb(253, 246, 255);
+  background-color: #d4d4ff;
   padding: 0.5rem 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-bottom: 2px solid #919191;
+  margin-bottom: 80px;
+}
+
+.Logo {
+  border-radius: 50%;
+  height: 65px;
 }
 
 .NavLink {
-  color: #4b0082;
+  color: #000000;
   margin: 0 0.5rem;
   text-decoration: none;
   font-size: 1.1rem;
@@ -15,12 +21,18 @@
 }
 
 .NavLink:hover {
-  color: #6a5acd;
-  transform: scale(1.1);
+  color: rgb(225, 0, 255);
+  transform: scale(1);
 }
 
 .Active {
-  color: #6a5acd;
+  color: rgb(225, 0, 255);
   font-weight: 700;
 }
 
+.NavLink i {
+  color: #9f0092;
+}
+a:hover i {
+  color: #9f0092;
+}

@@ -1,7 +1,7 @@
 .Avatar {
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #2142b2;
+    border: 2px solid #9f0092;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     margin: 0 8px;

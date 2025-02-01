@@ -1,7 +1,8 @@
 .App {
   font-family: "DM Sans", sans-serif;
-  background-color: #302836;
+  background-color: #110031;
   min-height: 100vh;
+
 }
 
 .Main {
@@ -16,7 +17,7 @@
 }
 
 .AuthBackground {
-  background-image: url('https://res.cloudinary.com/du7daaai2/image/upload/v1737558490/sign-up-background_vydkzo.jpg');
+  background-image: url('https://res.cloudinary.com/du7daaai2/image/upload/v1738243951/events.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -27,7 +28,7 @@
 }
 
 .EventsBackground {
-  background-image: url('https://res.cloudinary.com/du7daaai2/image/upload/v1738243951/events.jpg');
+  background-image: url('https://res.cloudinary.com/du7daaai2/image/upload/v1737558490/sign-up-background_vydkzo.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

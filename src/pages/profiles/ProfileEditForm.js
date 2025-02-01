@@ -93,7 +93,7 @@ function ProfileEditForm() {
       <Row className="justify-content-center">
         <Col md={8} lg={6}>
           <Container className={styles.Content}>
-            <h2>Edit Profile</h2>
+            <h2 className={styles.Heading}>Edit Profile</h2>
 
             <Form.Group className="text-center">
               {profileImage ? (
@@ -132,7 +132,7 @@ function ProfileEditForm() {
             </Form.Group>
 
             <Form.Group controlId="profileName">
-              <Form.Label>Full Name</Form.Label>
+              <Form.Label className={styles.Label}>Full Name</Form.Label>
               <Form.Control
                 type="text"
                 value={name}
@@ -147,7 +147,7 @@ function ProfileEditForm() {
             </Form.Group>
 
             <Form.Group controlId="profileContent">
-              <Form.Label>Bio / About</Form.Label>
+              <Form.Label className={styles.Label}>Bio / About</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={4}
@@ -163,7 +163,7 @@ function ProfileEditForm() {
             </Form.Group>
 
             <Form.Group controlId="profileRole">
-              <Form.Label>Role</Form.Label>
+              <Form.Label className={styles.Label}>Role</Form.Label>
               <Form.Control
                 as="select"
                 name="role"

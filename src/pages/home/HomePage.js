@@ -17,7 +17,7 @@ function HomePage() {
         <Col md={12}>
           {currentUser && currentUser.role === "organiser" ? (
             <>
-              <h1 className={styles.HomeTitle}>Welcome Organiser!</h1>
+              <h1 className={styles.HomeTitle}>Welcome {currentUser.owner.charAt(0).toUpperCase() + currentUser.owner.slice(1)}!</h1>
               <p className={styles.HomeDescription}>
                 Manage your events, monitor your upcoming shows, and connect with musicians. Create new events or manage your existing ones, all in one place.
               </p>

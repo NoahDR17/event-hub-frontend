@@ -1,12 +1,13 @@
 .PageContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .FixedSidebar {
   position: fixed;
   right: 0;
   width: 300px;
+  height: 100%;
   padding: 2rem;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
@@ -58,7 +59,7 @@
   width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .PageContainer {
     flex-direction: column;
   }

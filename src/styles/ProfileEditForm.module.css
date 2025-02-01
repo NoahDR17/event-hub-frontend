@@ -1,7 +1,5 @@
-/* ProfileEditForm.module.css */
-
-.Container {
-    background-color: #fff;
+.Content {
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -12,6 +10,7 @@
     font-weight: 600;
     margin-bottom: 1rem;
     text-align: center;
+    color: white;
   }
   
   .ProfileImage {
@@ -25,6 +24,7 @@
     font-weight: 500;
     margin-bottom: 0.3rem;
     display: inline-block;
+    color: white;
   }
   
   .Textarea,

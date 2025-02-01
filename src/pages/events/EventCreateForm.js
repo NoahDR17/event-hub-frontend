@@ -155,6 +155,7 @@ function EventCreateForm() {
           className={styles.Input}
           placeholder="Enter event description"
           maxLength={200}
+          style={{ height: '110px' }}
         />
       </Form.Group>
       {errors?.description?.map((message, idx) => (
