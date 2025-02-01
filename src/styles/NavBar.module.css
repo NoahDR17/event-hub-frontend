@@ -1,14 +1,10 @@
-/* NavBar.module.css */
-
-/* General Navbar styling */
 .NavBar {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(253, 246, 255);
   padding: 0.5rem 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-bottom: 2px solid #919191;
 }
 
-/* Navbar links styling */
 .NavLink {
   color: #4b0082;
   margin: 0 0.5rem;
@@ -23,7 +19,6 @@
   transform: scale(1.1);
 }
 
-/* Active link styling */
 .Active {
   color: #6a5acd;
   font-weight: 700;

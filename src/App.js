@@ -13,13 +13,14 @@ import { useCurrentUser } from "./contexts/CurrentUserContext";
 import EventDetailPage from "./pages/events/EventDetailPage";
 import EventsPage from "./pages/events/EventsPage"
 import EventEditForm from "./pages/events/EventEditForm";
+import HomePage from "./pages/home/HomePage";
 
 function App() {
   const location = useLocation();
   const currentUser = useCurrentUser();
 
   const isAuthPage = location.pathname === "/signup" || location.pathname === "/signin" || location.pathname.startsWith("/profiles/");
-  const isEventsPage = location.pathname.startsWith("/events/");
+  const isEventsPage = location.pathname.startsWith("/events/") || location.pathname === "/";
 
   return (
     <div className={`${styles.App} ${isAuthPage ? styles.AuthBackground : ""}
@@ -27,7 +28,7 @@ function App() {
       <NavBar />
       <Container className={styles.Main}>
         <Switch>
-          <Route exact path="/" render={() => <h1>Home page</h1>} />
+          <Route exact path="/" render={() => <HomePage />} />
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />
           <Route exact path="/events" render={() => <EventsPage message="No events found." />} />

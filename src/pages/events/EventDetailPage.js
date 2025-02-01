@@ -178,7 +178,7 @@ function EventDetailPage() {
                         className={styles.MusicianImage}
                         alt={`${profile.name}'s profile`}
                       />
-                      <span className={styles.MusicianName}>{profile.name}</span>
+                      <span className={styles.MusicianName}>{profile.owner}</span>
                     </Link>
                   </div>
                 ))}

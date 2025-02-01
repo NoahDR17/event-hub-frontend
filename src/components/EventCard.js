@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "../styles/EventCard.module.css";
 
-function EventCard({ event, musicianMap }) {
+function EventCard({ event, musicianMap, minimal }) {
   const {
     id,
     title,
@@ -40,32 +40,33 @@ function EventCard({ event, musicianMap }) {
                 {location}
               </Badge>
             </div>
-            {Array.isArray(musicians) && musicians.length > 0 && (
-              <div className={styles.Musicians}>
-                <strong>Musicians:</strong>
-                <ul className={styles.MusiciansList}>
-                  {musicians.map((musicianId) => (
-                    <li key={musicianId} className={styles.MusicianItem}>
-                      {musicianMap[musicianId] || "Unknown Musician"}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            {!minimal && (
+              <>
+                {Array.isArray(musicians) && musicians.length > 0 && (
+                  <div className={styles.Musicians}>
+                    <strong>Musicians:</strong>
+                    <ul className={styles.MusiciansList}>
+                      {musicians.map((musicianId) => (
+                        <li key={musicianId} className={styles.MusicianItem}>
+                          {musicianMap[musicianId] || "Unknown Musician"}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <Card.Text className={styles.EventDescription}>
+                  {description.length > 200
+                    ? `${description.slice(0, 200)}...`
+                    : description}
+                </Card.Text>
+              </>
             )}
-            <Card.Text className={styles.EventDescription}>
-              {description.length > 200
-                ? `${description.slice(0, 200)}...`
-                : description}
-            </Card.Text>
             <Button
               as={Link}
               to={`/events/${id}/`}
-              variant="primary"
-              className={styles.ViewButton}
+              className={styles.Button}
               aria-label={`View details for ${title}`}
-            >
-              View Details
-            </Button>
+            >View Details</Button>
           </Card.Body>
         </Col>
       </Row>
@@ -84,6 +85,7 @@ EventCard.propTypes = {
     musicians: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   }).isRequired,
   musicianMap: PropTypes.object.isRequired,
+  minimal: PropTypes.bool,
 };
 
 export default EventCard;
