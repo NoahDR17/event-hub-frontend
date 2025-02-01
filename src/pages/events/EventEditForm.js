@@ -257,15 +257,13 @@ function EventEditForm() {
         </Alert>
       ))}
 
-      <div className={styles.ButtonGroup}>
-        <Button
-          className={`${btnStyles.Button} ${btnStyles.CancelButton}`}
+      <div >
+        <Button className={styles.Button}
           onClick={() => history.goBack()}
         >
           Cancel
         </Button>
-        <Button
-          className={`${btnStyles.Button} ${btnStyles.CreateButton}`}
+        <Button className={styles.Button}
           type="submit"
         >
           Update

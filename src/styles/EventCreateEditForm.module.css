@@ -28,3 +28,23 @@
     object-fit: cover;
     width: 100%;
 }
+
+.Button {
+  border: none;
+  background-color: rgb(225, 0, 255);
+  color: aliceblue;
+  border-radius: 100px;
+  padding: 4px 10px;
+  min-width: 75px;
+  margin: 5px;
+  position: relative;
+  z-index: 2;
+  opacity: 1 !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.Button:hover {
+  cursor: pointer;
+  background-color: #6A0DAD;
+  color: #fff;
+}

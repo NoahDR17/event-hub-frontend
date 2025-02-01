@@ -190,7 +190,6 @@ function EventDetailPage() {
 
           <div className={styles.Buttons}>
             <Button
-              className={btnStyles.Button}
               onClick={() => history.goBack()}
             >
               <i className="fas fa-arrow-left"></i> Go Back
@@ -201,7 +200,7 @@ function EventDetailPage() {
 
       <Row className="mt-5">
         <Col>
-          <Container className={styles.EventContainer}>
+          <Container className={styles.EventInfo}>
             {currentUser ? (
               <CommentCreateForm
                 profile_id={currentUser.profile_id}

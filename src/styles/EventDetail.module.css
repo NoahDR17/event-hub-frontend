@@ -1,12 +1,24 @@
 .EventContainer {
   min-height: 343px;
-  background-color: rgba(0, 0, 0, 0.596);
+  background-color: rgba(0, 0, 0, 0.7);
   border: 2px #fffaf0 solid;
   color: #c97cff;
   padding: 20px;
   border-radius: 8px;
   box-sizing: border-box;
   margin-top: 80px;
+}
+
+.EventInfo {
+  min-height: 343px;
+  border: 2px #fffaf0 solid;
+  color: #c97cff;
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.EventInfo i{ 
+  color: #ee00ff;
 }
 
 
@@ -25,7 +37,7 @@
 
 .EventLabel {
   font-weight: bold;
-  color: #c97cff;
+  color: #ffffff;
 }
 
 .MusiciansList {
@@ -53,7 +65,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #c97cff;
+  color: #ffffff;
 }
 
 .MusicianImage {
@@ -85,6 +97,16 @@
   font-size: 1rem;
   border-radius: 15px;
   transition: all 0.2s ease-in-out;
+  background-color: #fff;
+  color: black;
+  border: none;
+  transition: all 0.2s ease-in-out;
+
+}
+
+.Buttons button:hover {
+  background-color: #6A0DAD;
+  color: #fff;
 }
 .dropdownContainer i {
   color: #ee00ff;

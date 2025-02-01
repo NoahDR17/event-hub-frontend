@@ -12,7 +12,7 @@
   background-color: #fffaf0;
   padding: 10px;
   border-radius: 2px;
-  border: 1px solid #d2b48c;
+  border: 1px solid #000000;
 }
 
 .AuthBackground {
@@ -60,7 +60,7 @@ a {
 
 a:hover {
   text-decoration: none;
-  color: #6a5acd;
+  color: #ffffff;
 }
 
 a:hover i {

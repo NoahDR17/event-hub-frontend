@@ -41,7 +41,7 @@ const Comment = (props) => {
         <Link to={`/profiles/${profile_id}`}>
           <Avatar src={profile_image} />
         </Link>
-        <Media.Body className="align-self-center ml-2">
+        <Media.Body className="align-self-center ml-2 commentContainer">
           <span className={styles.Owner}>{owner}</span>
           <span className={styles.Date}>{updated_at}</span>
           {showEditForm ? (
