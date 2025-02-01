@@ -1,6 +1,6 @@
 .EventContainer {
   min-height: 343px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.596);
   border: 2px #fffaf0 solid;
   color: #c97cff;
   padding: 20px;
@@ -85,6 +85,17 @@
   font-size: 1rem;
   border-radius: 15px;
   transition: all 0.2s ease-in-out;
+}
+.dropdownContainer i {
+  color: #ee00ff;
+  font-size: 1.6rem;
+  padding: 7px;
+  vertical-align: middle;
+}
+
+.dropdownContainer {
+  position: absolute;
+  right: 10px;
 }
 
 @media (max-width: 768px) {

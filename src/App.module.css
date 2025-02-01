@@ -89,6 +89,9 @@ figure {
   text-align: center;
   display: inline-block;
 }
+.commentSectionCol {
+  padding: 10px;
+}
 
 /* scrollbar */
 *::-webkit-scrollbar {
