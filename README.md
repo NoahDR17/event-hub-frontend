@@ -245,3 +245,5 @@ Verify that a logged-in or logged-out user cannot edit another user's profile in
 ## Deployment
 - Deployed on Heroku at:
 
+
+future tests - description of event can be too long look weird, either make maxlength less, or add styling to handle longer descriptions.

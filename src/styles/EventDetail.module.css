@@ -1,9 +1,8 @@
 .EventContainer {
   min-height: 343px;
   background-color: rgba(0, 0, 0, 0.7);
-  border: 2px #fffaf0 solid;
+  border: none;
   color: #c97cff;
-  padding: 20px;
   border-radius: 8px;
   box-sizing: border-box;
   margin-top: 80px;
@@ -11,16 +10,13 @@
 
 .EventInfo {
   min-height: 343px;
-  border: 2px #fffaf0 solid;
   color: #c97cff;
-  padding: 20px;
   border-radius: 8px;
   box-sizing: border-box;
 }
 .EventInfo i{ 
   color: #ee00ff;
 }
-
 
 .EventImage {
   max-height: 400px;
@@ -126,16 +122,12 @@
   }
 
   .Buttons button {
-    width: 65%;
     font-size: 0.9rem;
-    padding: 8px 16px;
   }
 }
 
 @media (max-width: 480px) {
   .Buttons button {
-    width: 100%;
     font-size: 0.8rem;
-    padding: 6px 12px;
   }
 }

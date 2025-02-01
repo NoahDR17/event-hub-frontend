@@ -91,7 +91,6 @@ function ProfilePage() {
 console.log(profile)
   return (
     <Container className="my-4">
-      {/* Wrap main profile info in a container styled like EventContainer */}
       <div className={styles.ProfileContainer}>
         <Row>
           <Col lg={8}>
@@ -118,7 +117,7 @@ console.log(profile)
             </Card>
 
             <Card className="mb-4" style={{ backgroundColor: "transparent", border: "none" }}>
-              <Card.Header as="h5" className={styles.CardHeader}>Your Profile Details</Card.Header>
+              <Card.Header as="h5" className={styles.CardHeader}>Profile Details</Card.Header>
               <Card.Body>
                 <Row>
                   <Col>

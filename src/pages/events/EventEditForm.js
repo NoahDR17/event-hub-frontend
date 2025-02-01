@@ -171,6 +171,7 @@ function EventEditForm() {
           onChange={handleChange}
           className={styles.Input}
           placeholder="Enter event description"
+          maxLength={200}
         />
       </Form.Group>
       {errors?.description?.map((message, idx) => (
@@ -192,6 +193,7 @@ function EventEditForm() {
           value={location}
           onChange={handleChange}
           placeholder="Enter event location"
+          maxLength={20}
         />
       </Form.Group>
       {errors?.location?.map((message, idx) => (

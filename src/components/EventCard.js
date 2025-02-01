@@ -40,6 +40,7 @@ function EventCard({ event, musicianMap, minimal }) {
                 {location}
               </Badge>
             </div>
+
             {!minimal && (
               <>
                 {Array.isArray(musicians) && musicians.length > 0 && (

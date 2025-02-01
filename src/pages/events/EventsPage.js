@@ -138,7 +138,7 @@ function EventsPage() {
   return (
     <div className={styles.PageContainer}>
       <div className={styles.FixedSidebar}>
-        <Form onSubmit={handleSearch} className={`mb-4 ${styles.SearchForm}`}>
+        <Form onSubmit={handleSearch} className={`mb-4`}>
           <Form.Group controlId="search">
             <Form.Label>Search</Form.Label>
             <Form.Control

@@ -154,6 +154,7 @@ function EventCreateForm() {
           onChange={handleChange}
           className={styles.Input}
           placeholder="Enter event description"
+          maxLength={200}
         />
       </Form.Group>
       {errors?.description?.map((message, idx) => (
@@ -175,6 +176,7 @@ function EventCreateForm() {
           value={location}
           onChange={handleChange}
           placeholder="Enter event location"
+          maxLength={20}
         />
       </Form.Group>
       {errors?.location?.map((message, idx) => (

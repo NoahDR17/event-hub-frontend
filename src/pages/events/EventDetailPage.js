@@ -191,9 +191,7 @@ function EventDetailPage() {
           <div className={styles.Buttons}>
             <Button
               onClick={() => history.goBack()}
-            >
-              <i className="fas fa-arrow-left"></i> Go Back
-            </Button>
+            ><i className="fas fa-arrow-left"></i> Go Back</Button>
           </div>
         </Col>
       </Row>
