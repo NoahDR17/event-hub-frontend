@@ -2,10 +2,10 @@
 
 /* General Navbar styling */
 .NavBar {
-  background-color: #f5f5dc;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 0.5rem 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-bottom: 2px solid #d2b48c;
+  border-bottom: 2px solid #919191;
 }
 
 /* Navbar links styling */

@@ -75,16 +75,9 @@ function ProfileEditForm() {
     }
 
     try {
-      const { data } = await axiosReq.put(`/profiles/${id}/`, formData);
-      // Update the user context with the new data
-      setCurrentUser((currentUser) => ({
-        ...currentUser,
-        name: data.name,
-        profile_image: data.image,
-        role: data.role,
-        genres: data.genres,
-        instruments: data.instruments,
-      }));
+      await axiosReq.put(`/profiles/${id}/`, formData);
+      const { data: updatedUser } = await axiosReq.get(`/profiles/${id}/`);
+      setCurrentUser(updatedUser);
       setOriginalRole(role); // Lock the role after successful submission
       history.push(`/profiles/${id}/`);
     } catch (err) {

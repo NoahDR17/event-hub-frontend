@@ -18,7 +18,7 @@ function App() {
   const location = useLocation();
   const currentUser = useCurrentUser();
 
-  const isAuthPage = location.pathname === "/signup" || location.pathname === "/signin";
+  const isAuthPage = location.pathname === "/signup" || location.pathname === "/signin" || location.pathname.startsWith("/profiles/");
   const isEventsPage = location.pathname.startsWith("/events/");
 
   return (

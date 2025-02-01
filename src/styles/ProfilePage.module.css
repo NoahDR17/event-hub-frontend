@@ -1,25 +1,72 @@
+/* New container style matching the event detail page */
+.ProfileContainer {
+  min-height: 343px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #fffaf0;
+  color: #c97cff;
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-top: 80px;
+}
+
+/* Update the profile image style if needed */
 .ProfileImage {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-bottom: 1rem;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 2px solid #fffaf0;
+}
+
+/* Button styling matching your event page buttons */
+.Button {
+  border: none;
+  background-color: rgb(225, 0, 255);
+  color: aliceblue;
+  border-radius: 100px;
+  padding: 4px 10px;
+  min-width: 75px;
+  margin: 5px;
+  position: relative;
+  z-index: 2;
+  opacity: 1 !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.Button:hover {
+  cursor: pointer;
+  background-color: #6A0DAD;
+  color: #fff;
+}
+
+/* Media queries for profile image responsiveness */
+@media (max-width: 768px) {
+  .ProfileImage {
+    width: 80px;
+    height: 80px;
   }
-  
-  @media (max-width: 768px) {
-    .ProfileImage {
-      width: 80px;
-      height: 80px;
-    }
+}
+
+@media (max-width: 576px) {
+  .ProfileImage {
+    width: 60px;
+    height: 60px;
   }
-  
-  @media (max-width: 576px) {
-    .ProfileImage {
-      width: 60px;
-      height: 60px;
-    }
-  }
-    
-  .Error {
-    color: red;
-  }
-  
+}
+
+/* Optionally update Card header and text colors */
+.CardHeader {
+  background-color: transparent;
+  border-bottom: 2px solid #fffaf0;
+  color: #c97cff;
+}
+
+.CardText, .CardTitle {
+  color: #fffaf0;
+}
+
+.Error {
+  color: red;
+  font-weight: bold;
+}

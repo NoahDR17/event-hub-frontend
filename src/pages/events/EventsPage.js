@@ -177,8 +177,6 @@ function EventsPage() {
       </div>
 
       <Container fluid className={styles.EventsContainer}>
-        <h1 className={`text-center mb-4 ${styles.PageTitle}`}>Events</h1>
-
         {filteredEvents.length === 0 ? (
           <Alert variant="info">No events match your search criteria.</Alert>
         ) : (
