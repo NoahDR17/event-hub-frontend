@@ -78,9 +78,14 @@ function ProfilePage() {
     followers_count,
     following_count,
     following_id,
+    name,
   } = profile;
 
   const isOwner = currentUser?.id === profile?.id;
+  const joined = created_at;
+  const displayedUpcomingEvents = showAllUpcomingEvents
+    ? upcoming_events
+    : upcoming_events.slice(0, 5);
 
   const handleToggleUpcomingEvents = () => {
     setShowAllUpcomingEvents((prevState) => !prevState);
@@ -90,14 +95,13 @@ function ProfilePage() {
     try {
       const { data } = await axiosReq.post("/followers/", {
         followed: profile.id,
-        following_id: profile.id
+        following_id: profile.id,
       });
       setProfile((prevProfile) => ({
         ...prevProfile,
         followers_count: (prevProfile.followers_count || 0) + 1,
         following_id: data.id,
       }));
-      
     } catch (err) {
       console.error(err);
     }
@@ -116,10 +120,81 @@ function ProfilePage() {
     }
   };
 
-  const joined = created_at;
-  const displayedUpcomingEvents = showAllUpcomingEvents
-    ? upcoming_events
-    : upcoming_events.slice(0, 5);
+  if (role === "basic") {
+    return (
+      <Container className="my-4">
+        <div className={styles.ProfileContainer}>
+          <Row>
+            <Col>
+              <Card className="mb-4" style={{ backgroundColor: "transparent", border: "none" }}>
+                <Card.Body className="text-center">
+                  <Image
+                    src={image || "/default_profile.png"}
+                    roundedCircle
+                    alt="Profile Avatar"
+                    className={`${styles.ProfileImage} mb-3`}
+                  />
+                  <Card.Title className={styles.CardTitle}>{name}</Card.Title>
+                  <Card.Text className={styles.CardText}>
+                    {content || "No bio available."}
+                  </Card.Text>
+                  {isOwner ? (
+                    <Button
+                      variant="outline-primary"
+                      className={`${btnStyles.Button} ${styles.Button} mt-2`}
+                      onClick={() => history.push(`/profiles/${id}/edit`)}
+                    >
+                      Edit Profile
+                    </Button>
+                  ) : (
+                    currentUser && (
+                      <Button
+                        variant="outline-primary"
+                        className={`${btnStyles.Button} ${styles.Button} mt-2`}
+                        onClick={following_id ? handleUnfollow : handleFollow}
+                      >
+                        {following_id ? "Unfollow" : "Follow"}
+                      </Button>
+                    )
+                  )}
+                </Card.Body>
+              </Card>
+
+              <Card className="mb-4" style={{ backgroundColor: "transparent", border: "none" }}>
+                <Card.Header as="h5" className={styles.CardHeader}>Profile Details</Card.Header>
+                <Card.Body>
+                  <Row>
+                    <Col>
+                      <div>
+                        <strong className={styles.CardText}>Followers:</strong> {followers_count || 0}
+                      </div>
+                      <div>
+                        <strong className={styles.CardText}>Following:</strong> {following_count || 0}
+                      </div>
+                    </Col>
+                    <Col>
+                      <div>
+                        <strong className={styles.CardText}>Joined:</strong> {joined}
+                      </div>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+
+              <Card className="mb-4" style={{ backgroundColor: "transparent", border: "none" }}>
+                <Card.Header as="h5" className={styles.CardHeader}>User Type</Card.Header>
+                <Card.Body>
+                  <Card.Text className={styles.CardText}>
+                    <strong>{role}</strong>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <Container className="my-4">
@@ -134,7 +209,7 @@ function ProfilePage() {
                   alt="Profile Avatar"
                   className={`${styles.ProfileImage} mb-3`}
                 />
-                <Card.Title className={styles.CardTitle}>{profile.name}</Card.Title>
+                <Card.Title className={styles.CardTitle}>{name}</Card.Title>
                 <Card.Text className={styles.CardText}>
                   {content || "No bio available."}
                 </Card.Text>
@@ -175,9 +250,6 @@ function ProfilePage() {
                     </div>
                   </Col>
                   <Col>
-                    <div>
-                      <strong className={styles.CardText}>Liked:</strong> 0
-                    </div>
                     <div>
                       <strong className={styles.CardText}>Joined:</strong> {joined}
                     </div>

@@ -10,21 +10,21 @@
 }
 
 .DescriptionContainer {
-  width: 100%; /* Ensures it spans the full width */
-  max-width: 100%; /* Prevents overflow */
-  word-wrap: break-word; /* Ensures long words break to fit */
-  overflow-wrap: break-word; /* Alternative for better compatibility */
-  text-align: justify; /* Distributes text evenly inside */
+  width: 100%;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: justify;
 }
 
 .DescriptionContainer p {
-  color: white; /* Ensures text is visible on black background */
-  font-size: 1rem; /* Adjusts text size */
-  line-height: 1.5; /* Improves readability */
-  margin: 0; /* Removes default margins to prevent extra spacing */
-  overflow: hidden; /* Prevents text from overflowing */
-  text-overflow: ellipsis; /* Adds "..." if text overflows */
-  white-space: normal; /* Ensures text wraps properly */
+  color: white;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 .EventInfo {
   min-height: 350px;

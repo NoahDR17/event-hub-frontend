@@ -1,4 +1,3 @@
-/* New container style matching the event detail page */
 .ProfileContainer {
   min-height: 343px;
   background-color: rgba(0, 0, 0, 0.7);
@@ -9,7 +8,6 @@
   box-sizing: border-box;
 }
 
-/* Update the profile image style if needed */
 .ProfileImage {
   width: 100px;
   height: 100px;
@@ -18,7 +16,6 @@
   border: 2px solid #fffaf0;
 }
 
-/* Button styling matching your event page buttons */
 .Button {
   border: none;
   background-color: rgb(225, 0, 255);
@@ -39,7 +36,6 @@
   color: #fff;
 }
 
-/* Media queries for profile image responsiveness */
 @media (max-width: 768px) {
   .ProfileImage {
     width: 80px;
@@ -54,7 +50,6 @@
   }
 }
 
-/* Optionally update Card header and text colors */
 .CardHeader {
   background-color: transparent;
   border-bottom: 2px solid #fffaf0;
