@@ -136,6 +136,7 @@ function EventCreateForm() {
           value={title}
           onChange={handleChange}
           placeholder="Enter event title"
+          maxLength={20}
         />
       </Form.Group>
       {errors?.title?.map((message, idx) => (

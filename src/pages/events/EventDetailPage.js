@@ -144,7 +144,9 @@ function EventDetailPage() {
               />
             </div>
           )}
-          <h2 className={styles.EventTitle}>{title}</h2>
+          <div className={styles.TitleContainer}>
+            <h2 className={styles.EventTitle}>{title}</h2>
+          </div>
           <p>
             <span className={styles.EventLabel}>Date:</span>{" "}
             {new Date(event_date).toLocaleString()}

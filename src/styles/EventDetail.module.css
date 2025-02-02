@@ -17,6 +17,13 @@
   text-align: justify;
 }
 
+.TitleContainer {
+  width: 80%;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: justify;
+}
 .DescriptionContainer p {
   color: white;
   font-size: 1rem;
