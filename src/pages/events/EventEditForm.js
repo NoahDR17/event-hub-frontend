@@ -132,12 +132,17 @@ function EventEditForm() {
 
     try {
       const { data } = await axiosReq.put(`/events/${id}/`, formData);
-      console.log("Event updated successfully:", data);
+      console.log("Event edited successfully:", data);
       history.push(`/events/${data.id}`);
     } catch (err) {
-      console.error("Error updating event:", err);
-      if (err.response?.status !== 401) {
+      console.error("Error editing event:", err);
+      if (err.response?.status === 401) {
         setErrors(err.response?.data);
+        history.push("/401");
+      }
+      if (err.response?.status === 403) {
+        setErrors(err.response?.data);
+        history.push("/403");
       }
     }
   };
@@ -153,6 +158,7 @@ function EventEditForm() {
           value={title}
           onChange={handleChange}
           placeholder="Enter event title"
+          maxLength={20}
         />
       </Form.Group>
       {errors?.title?.map((message, idx) => (
