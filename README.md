@@ -826,6 +826,188 @@ Each test case follows this structure
 
 - **Status:** ✅ **PASS**
 
+
+#  Negative Tests
+
+## Test Case: Attempting to Create an Event Without Required Fields
+- **Test ID:** NEG001
+- **Description:** Ensure that an event cannot be created without filling all required fields.
+- **Steps:**
+  1. Log in as a user with the **organizer** role.
+  2. Navigate to the **Create Event** page.
+  3. Leave the **title, description, or date fields** blank.
+  4. Attempt to submit the form.
+- **Expected Result:** The event creation fails, and an error message prompts the user to fill in the required fields.
+- **Actual Result:**✅ PASS
+---
+## Test Case: Attempting to Create an Event as a Non-Organizer
+- **Test ID:** NEG002
+- **Description:** Ensure that users without the **organizer** role cannot create events.
+- **Steps:**
+  1. Log in as a **basic user** or **musician**.
+  2. Try to navigate to the **Create Event** page manually.
+  3. Attempt to submit an event.
+- **Expected Result:** The system prevents event creation and redirects to home page.
+- **Actual Result:** ✅ PASS
+---
+## Test Case Part 1: Attempting to Edit Another User’s Event as an organiser.
+- **Test ID:** NEG003 
+- **Description:** Ensure that organisers can only edit events they have created.
+- **Steps:**
+  1. Log in as an **organizer**.
+  2. Navigate to an event created by another organizer.
+  3. Try to edit the event.
+- **Expected Result:** The system should **prevent editing** and redirect to an 403 error page stating **forbidden action** with a redirect CTA back to home page.
+- **Actual Result:** 
+- User was unable to submit the post request, and a 403 **error** was displayed in the ** console log**.
+- **Solution:** 
+- Create a new folder in pages called errors, create a "ForbiddenPage.js" file, in handle submit for the event edit logic, if error status is equal to 403, then redirect user to forbidden page.
+- in app.js add new route.
+**Perform Test Again**:
+- **Expected Result:** The system should **prevent editing** and redirect to an 403 error page stating **forbidden action** with a redirect CTA back to home page.
+- **Actual Result:** ✅ PASS
+
+## Test Case Part 2: Attempting to Edit An Organisers Event as a user with a role not equal to organiser.
+
+- **Test ID:** NEG003 
+- **Description:** Ensure that organisers can only edit events they have created.
+- **Steps:**
+  1. Log in as an user with a **role** that is not equal to "organiser".
+  2. Navigate to an event edit page.
+  3. Try to edit the event.
+- **Expected Result:** The system should **prevent editing** and redirect to an 401 error page stating **Unauthorised action** with a redirect CTA back to home page.
+- **Actual Result:** 
+- User was unable to submit the post request, instead was returned a console error of 401
+-  **Solution:** 
+- Create a new folder in pages called errors, create a "UnauthorisedPage.js" file, in handle submit for the event edit logic, if error status is equal to 401, then redirect user to Unauthorised page.
+- in app.js add new route.
+**Perform Test Again**:
+- **Expected Result:** The system should **prevent editing** and redirect to an 401 error page stating **Unauthorised action** with a redirect CTA back to home page.
+- **Actual Result:** ✅ PASS
+
+---
+
+## Test Case: Entering Invalid Date/Time Format in Event Creation
+- **Test ID:** NEG004
+- **Description:** Ensure that invalid date/time formats are not accepted when creating or editing an event.
+- **Steps:**
+  1. Log in as an **organizer**.
+  2. Navigate to the **Create Event** page.
+  3. Enter an **invalid date/time format** (e.g., `35/14/2025`).
+- **Expected Result:** The field **rejects invalid dates/times**.
+- **Actual Result:** The field **rejects invalid dates/times**, and sets the field to the date/time closest to the user input eg, user user inputs 35 into the days field, the field will set it to 31, which is the closest possible date.
+- After noting this i tested what the day field would be set to if it was a month which didn't have 31 days, like February, which only has 28 days.
+- **Result**: The Days field is still set to 31, however, when the user attempts to submit the event data, with the month set to Feb (02), and the days set to (31), the field throws an invalid date error.
+- **Note**: 
+The result wasn't what I expected, but I believe it still improves the user experience.
+- **Status:** ✅ PASS
+
+---
+
+## Test Case: Entering an Extremely Long Event Title
+- **Test ID:** NEG005
+- **Description:** Ensure that the event title has a **maximum character limit**.
+- **Steps:**
+  1. Log in as an **organizer**.
+  2. Navigate to the **Create Event** page.
+  3. Enter a title with an **Excessive  amount of characters**.
+  4. Submit the form.
+- **Expected Result:** The system should **reject the submission** and display a message about the character limit.
+- **Actual Result:** When characters are less than 200 event can be created successfully. This then displays the full title which if longer than 25 characters will overflow.
+- If title is over 200 characters user is given an error. 
+- - **Status:** ❌ FAIL
+- **Notes**: Inside the events model, the title field is set a max length of 200 characters, however since titles with char length of over 25, cause page overflow, it is too large of a limit.
+- **Solution**: I set a max length of 25 for event title fields in create and edit, and inside of eventDetail page, I wrapped the display title element in a styled div to keep it within its space.
+- **Status:** ✅ PASS
+---
+## Test Case: Posting an Empty Comment
+- **Test ID:** NEG006
+- **Description:** Ensure that users cannot submit an empty comment.
+- **Steps:**
+  1. Log in as any user.
+  2. Navigate to an **event page**.
+  3. Submit a comment without entering any text.
+  4. Edit an existing comment and make it empty.
+- **Expected Result:** The user is **unable** to submit the comment.
+- **Actual Result:** he user is **unable** to submit the comment.
+- **Status:** ✅ PASS
+---
+## Test Case: Editing Another User’s Comment
+- **Test ID:** NEG007
+- **Description:** Ensure that users can only edit their own comments.
+- **Steps:**
+  1. Log in as a **user**.
+  2. Navigate to an **event with comments**.
+  3. Try to edit a comment posted by another user.
+- **Expected Result:** The user is unable to interact with any comments not owned by them, other than to view the profile of its creator.
+- **Actual Result:** The user is unable to interact with any comments not owned by them, other than to view the profile of its creator.
+- **Status:** ✅ PASS
+---
+## Test Case: Following the Same User Multiple Times
+- **Test ID:** NEG008
+- **Description:** Ensure that a user cannot follow the same person multiple times.
+- **Steps:**
+  1. Log in as any user.
+  2. Navigate to another user’s profile.
+  3. Click **Follow** multiple times.
+- **Expected Result:** The system should **prevent duplicate follows**.
+- **Actual Result:**  The system **prevents duplicate follows**.
+- **Status:** ✅ PASS
+---
+
+## Test Case: Attempting to Upgrade Role More Than Once
+- **Test ID:** NEG009
+- **Description:** Ensure that users can only upgrade their role **once**.
+- **Steps:**
+  1. Log in as a **basic user**.
+  2. Navigate to the **Edit Profile** page.
+  3. Upgrade to **musician** or **organizer**.
+  4. Try upgrading again.
+- **Expected Result:** The system should **block further role changes** after the first upgrade.
+- **Actual Result:** The system **blocks further role changes** after the first upgrade.
+- **Status:** ✅ PASS
+
+---
+
+## Test Case: Attempting to Tag a Non-Musician as a Performer
+- **Test ID:** NEG010
+- **Description:** Ensure that only users with the **musician** role can be tagged as event performers.
+- **Steps:**
+  1. Log in as an **organizer**.
+  2. Create or edit an event.
+  3. Try tagging a **basic user** as a musician.
+- **Expected Result:** The organiser is only able to see users with a role of musician in the musicians field.
+- **Actual Result:** The organiser is only able to see users with a role of musician in the musicians field.
+- **Status:** ✅ PASS
+
+---
+
+## Test Case: Uploading an Image Larger Than the Allowed Limit
+- **Test ID:** NEG011
+- **Description:** Ensure that image uploads are restricted to the **maximum file size limit**.
+- **Steps:**
+  1. Log in as any user.
+  2. Navigate to the **Edit Profile** or **Create Event** or **Edit Event** page.
+  3. Attempt to upload an image **larger than 2MB**.
+- **Expected Result:** The system **rejects the file** and displays an error message about the size limit.
+- **Actual Result:**  The system **rejects the file** and displays an error message about the size limit.
+- **Status:** ✅ PASS
+
+---
+
+## Test Case: Logging In with Incorrect Credentials
+- **Test ID:** NEG012
+- **Description:** Ensure that users cannot log in with incorrect email/password.
+- **Steps:**
+  1. Navigate to the **login page**.
+  2. Enter an **incorrect email/password combination**.
+  3. Attempt to log in.
+- **Expected Result:** The system **denies access** and displays an error message.
+- **Actual Result:** The system **denies access** and displays an error message.
+- **Status:** ✅ PASS
+
+---
+
 ## Deployment
 
 ### Heroku Deployment
