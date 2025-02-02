@@ -78,17 +78,11 @@ function HomePage() {
             </>
           ) : (
             <>
-              <h1 className={styles.HomeTitle}>Welcome to Our Platform</h1>
+              <h1 className={styles.HomeTitle}>Welcome</h1>
               <p className={styles.HomeDescription}>
                 Discover amazing events, discover talented musicians, and share your passion for music. Join our vibrant community today!
               </p>
               <div className={styles.CallToActions}>
-                <Button
-                  className={styles.Button}
-                  onClick={() => history.push("/events")}
-                >
-                  View Events
-                </Button>
                 <Button
                   className={styles.Button}
                   onClick={() => history.push("/signin")}
@@ -100,6 +94,12 @@ function HomePage() {
                   onClick={() => history.push("/signup")}
                 >
                   Sign Up
+                </Button>
+                <Button
+                  className={styles.Button}
+                  onClick={() => history.push("/events")}
+                >
+                  View Events
                 </Button>
               </div>
             </>

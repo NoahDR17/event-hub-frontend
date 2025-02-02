@@ -5,8 +5,8 @@
   color: #c97cff;
   border-radius: 8px;
   box-sizing: border-box;
-  margin-bottom: 15px;
-
+  margin-bottom: 5px;
+  margin-top: 13px;
 }
 
 .EventInfo {
@@ -105,6 +105,7 @@
   background-color: #6A0DAD;
   color: #fff;
 }
+
 .dropdownContainer i {
   color: #ee00ff;
   font-size: 1.6rem;

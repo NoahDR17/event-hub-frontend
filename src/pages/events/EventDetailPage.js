@@ -137,12 +137,12 @@ function EventDetailPage() {
 
         <Col md={6} className={styles.EventInfo} style={{ position: 'relative' }}>
           {isOwner && (
-            <div className={styles.dropdownContainer}>
-              <MoreDropdown
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-              />
-            </div>
+          <div className={styles.dropdownContainer}>
+            <MoreDropdown
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          </div>
           )}
           <h2 className={styles.EventTitle}>{title}</h2>
           <p>

@@ -85,7 +85,7 @@ EventCard.propTypes = {
       PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     ),
   }).isRequired,
-  musicianMap: PropTypes.object.isRequired,
+  musicianMap: PropTypes.object,
   minimal: PropTypes.bool,
 };
 

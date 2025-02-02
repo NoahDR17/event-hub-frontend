@@ -4,11 +4,13 @@
   overflow: hidden;
   width: 80%;
   margin: 0 auto;
+
 }
 
 .CardBody {
   display: flex;
   flex-direction: row;
+
 }
 
 .EventImage {
@@ -22,7 +24,7 @@
 
 .EventDetails {
   padding: 2rem;
-  background-color: #fff;
+  background-color: #d4d4ff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

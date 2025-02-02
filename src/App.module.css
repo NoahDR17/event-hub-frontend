@@ -2,11 +2,10 @@
   font-family: "DM Sans", sans-serif;
   background-color: #110031;
   min-height: 100vh;
-
 }
 
 .Main {
-  padding-top: 81px;
+  margin-top: 81px;
 }
 
 .Content {

@@ -10,9 +10,9 @@ import {
   Spinner,
   Alert,
 } from "react-bootstrap";
-import axios from "axios";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { axiosReq } from "../../api/axiosDefaults";
 import styles from "../../styles/ProfilePage.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
@@ -23,13 +23,12 @@ function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const [showAllUpcomingEvents, setShowAllUpcomingEvents] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const { data } = await axios.get(`/profiles/${id}/`);
+        const { data } = await axiosReq.get(`/profiles/${id}/`);
         setProfile(data);
       } catch (err) {
         console.error("Error fetching profile:", err);
@@ -76,19 +75,52 @@ function ProfilePage() {
     genres,
     instruments,
     created_at,
-
+    followers_count,
+    following_count,
+    following_id,
   } = profile;
 
   const isOwner = currentUser?.id === profile?.id;
+
   const handleToggleUpcomingEvents = () => {
     setShowAllUpcomingEvents((prevState) => !prevState);
   };
-  const joined = created_at
 
+  const handleFollow = async () => {
+    try {
+      const { data } = await axiosReq.post("/followers/", {
+        followed: profile.id,
+        following_id: profile.id
+      });
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        followers_count: (prevProfile.followers_count || 0) + 1,
+        following_id: data.id,
+      }));
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleUnfollow = async () => {
+    try {
+      await axiosReq.delete(`/followers/${following_id}/`);
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        followers_count: (prevProfile.followers_count || 0) - 1,
+        following_id: null,
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const joined = created_at;
   const displayedUpcomingEvents = showAllUpcomingEvents
     ? upcoming_events
     : upcoming_events.slice(0, 5);
-console.log(profile)
+
   return (
     <Container className="my-4">
       <div className={styles.ProfileContainer}>
@@ -103,8 +135,10 @@ console.log(profile)
                   className={`${styles.ProfileImage} mb-3`}
                 />
                 <Card.Title className={styles.CardTitle}>{profile.name}</Card.Title>
-                <Card.Text className={styles.CardText}>{content || "No bio available."}</Card.Text>
-                {isOwner && (
+                <Card.Text className={styles.CardText}>
+                  {content || "No bio available."}
+                </Card.Text>
+                {isOwner ? (
                   <Button
                     variant="outline-primary"
                     className={`${btnStyles.Button} ${styles.Button} mt-2`}
@@ -112,6 +146,16 @@ console.log(profile)
                   >
                     Edit Profile
                   </Button>
+                ) : (
+                  currentUser && (
+                    <Button
+                      variant="outline-primary"
+                      className={`${btnStyles.Button} ${styles.Button} mt-2`}
+                      onClick={following_id ? handleUnfollow : handleFollow}
+                    >
+                      {following_id ? "Unfollow" : "Follow"}
+                    </Button>
+                  )
                 )}
               </Card.Body>
             </Card>
@@ -122,18 +166,20 @@ console.log(profile)
                 <Row>
                   <Col>
                     <div>
-                      <strong>Followers:</strong> 0
+                      <strong className={styles.CardText}>Followers:</strong>{" "}
+                      {followers_count || 0}
                     </div>
                     <div>
-                      <strong>Following:</strong> 0
+                      <strong className={styles.CardText}>Following:</strong>{" "}
+                      {following_count || 0}
                     </div>
                   </Col>
                   <Col>
                     <div>
-                      <strong>Liked:</strong> 0
+                      <strong className={styles.CardText}>Liked:</strong> 0
                     </div>
                     <div>
-                      <strong>Joined:</strong> {joined}
+                      <strong className={styles.CardText}>Joined:</strong> {joined}
                     </div>
                   </Col>
                 </Row>
@@ -145,10 +191,11 @@ console.log(profile)
                 <Card.Header as="h5" className={styles.CardHeader}>Musician Details</Card.Header>
                 <Card.Body>
                   <p>
-                    <strong>Genres:</strong> {genres || "N/A"}
+                    <strong className={styles.CardText}>Genres:</strong> {genres || "N/A"}
                   </p>
                   <p>
-                    <strong>Instruments:</strong> {instruments || "N/A"}
+                    <strong className={styles.CardText}>Instruments:</strong>{" "}
+                    {instruments || "N/A"}
                   </p>
                 </Card.Body>
               </Card>
@@ -159,8 +206,14 @@ console.log(profile)
               {past_events.length > 0 ? (
                 <ListGroup variant="flush">
                   {past_events.map((event) => (
-                    <ListGroup.Item key={event.id} style={{ backgroundColor: "transparent", border: "none", color: "#fffaf0" }}>
-                      <Link to={`/events/${event.id}`} style={{ color: "#c97cff", textDecoration: "none" }}>
+                    <ListGroup.Item
+                      key={event.id}
+                      style={{ backgroundColor: "transparent", border: "none", color: "#fffaf0" }}
+                    >
+                      <Link
+                        to={`/events/${event.id}`}
+                        style={{ color: "#c97cff", textDecoration: "none" }}
+                      >
                         {event.title}
                       </Link>
                       <br />
@@ -172,7 +225,9 @@ console.log(profile)
                 </ListGroup>
               ) : (
                 <ListGroup variant="flush">
-                  <ListGroup.Item style={{ backgroundColor: "transparent", border: "none", color: "#fffaf0" }}>
+                  <ListGroup.Item
+                    style={{ backgroundColor: "transparent", border: "none", color: "#fffaf0" }}
+                  >
                     No past events.
                   </ListGroup.Item>
                 </ListGroup>
@@ -187,8 +242,14 @@ console.log(profile)
                 <>
                   <ListGroup variant="flush">
                     {displayedUpcomingEvents.map((event) => (
-                      <ListGroup.Item key={event.id} style={{ backgroundColor: "transparent", border: "none", color: "#fffaf0" }}>
-                        <Link to={`/events/${event.id}`} style={{ color: "#c97cff", textDecoration: "none" }}>
+                      <ListGroup.Item
+                        key={event.id}
+                        style={{ backgroundColor: "transparent", border: "none", color: "#fffaf0" }}
+                      >
+                        <Link
+                          to={`/events/${event.id}`}
+                          style={{ color: "#c97cff", textDecoration: "none" }}
+                        >
                           {event.title}
                         </Link>
                         <br />
@@ -211,7 +272,9 @@ console.log(profile)
                 </>
               ) : (
                 <ListGroup variant="flush">
-                  <ListGroup.Item style={{ backgroundColor: "transparent", border: "none", color: "#fffaf0" }}>
+                  <ListGroup.Item
+                    style={{ backgroundColor: "transparent", border: "none", color: "#fffaf0" }}
+                  >
                     No upcoming events.
                   </ListGroup.Item>
                 </ListGroup>

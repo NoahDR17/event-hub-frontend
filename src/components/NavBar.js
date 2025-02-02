@@ -38,7 +38,6 @@ const NavBar = () => {
 
   const loggedInIcons = (
     <>
-      {currentUser?.role === "organiser" && createEventIcon}
       {/* <NavLink className={styles.NavLink} activeClassName={styles.Active} to="/liked">
         <i className="fas fa-heart"></i>Liked
       </NavLink> */}
@@ -86,6 +85,7 @@ const NavBar = () => {
             <img className={styles.Logo} src={logo} alt="logo" height="50" />
           </Navbar.Brand>
         </NavLink>
+        {currentUser?.role === "organiser" && createEventIcon}
         <Navbar.Toggle
           ref={ref}
           onClick={() => setExpanded(!expanded)}
