@@ -96,7 +96,7 @@ This platform is built to **bridge the gap** between music fans, artists, and ev
 
     - [Profiles](#profiles)
 
-- [Future Features](#future-features)
+- [Potential Future Features](#future-features)
 
 - [The Skeleton Plane](#the-skeleton-plane)
 
@@ -351,7 +351,7 @@ The site will have a **navigation bar** that includes:
 
 ---
 
-## Future Features
+## Potential Future Features
 
 - **Event Booking System:** Users can RSVP for events.
 
@@ -404,7 +404,7 @@ Using **Google Fonts** for stylish yet readable text
 
 ## Testing
 
-### Manual Test Case: Updating Profile with Musician Fields
+### Test Case: Updating Profile with Musician Fields
 
 **Title:**
 
@@ -474,27 +474,82 @@ Verify that when a basic user changes their role to "musician" and submits the p
 
 - The UI and API response should reflect the changes correctly.
 
-**Actual Result (Before the Fix):**
+### Actual Result (Before the Fix)
 
-- Only the role field was updated to "musician", while the **genres** and **instruments** fields were empty.
+The old `get_serializer_class` method was implemented as follows:
 
-- This happened because the serializer logic was incorrectly configured (the serializer for non-musician profiles was being returned due to mis-indented code in the `get_serializer_class` method).
+```python
+def get_serializer_class(self):
+    """
+    Return a serializer without musician-specific fields for non-musicians.
+    """
+    profile = self.get_object()
+    if profile.role != 'musician':
+        class NonMusicianProfileSerializer(ProfileSerializer):
+            class Meta(ProfileSerializer.Meta):
+                fields = [
+                    field for field in ProfileSerializer.Meta.fields
+                    if field not in ['genres', 'instruments']
+                ]
+        return NonMusicianProfileSerializer
+    return ProfileSerializer
+- **Issue**:
+  This implementation only checked the profile’s current role (via self.get_object()) and did not consider the incoming update data.
 
-**Solution Implemented:**
+  As a result, when a basic user attempted to change their role to "musician" along with filling in genres and instruments, the serializer used during the PUT request excluded those fields.
 
-- The issue was resolved by **correcting the indentation** of the `get_serializer_class` and `perform_update` methods so that all code is properly contained within the `ProfileDetail` class.
+  Consequently, only the role changed while the musician-specific fields were omitted.
 
-- The `get_serializer_class` method was updated to conditionally return:
+- **Solution Implemented**
+I updated the get_serializer_class method to distinguish between PUT (update) requests and GET requests.
+The new method first checks the incoming request data for PUT requests.
 
-- The full `ProfileSerializer` when the role in the PUT request data is **"musician"**.
+python
+def get_serializer_class(self):
+    # For edit/update requests, check the role in the incoming data.
+    if self.request.method == 'PUT':
+        if self.request.data.get('role') == 'musician':
+            return ProfileSerializer
+        else:
+            # Otherwise, use a serializer without musician-specific fields.
+            class NonMusicianProfileSerializer(ProfileSerializer):
+                class Meta(ProfileSerializer.Meta):
+                    fields = [
+                        field for field in ProfileSerializer.Meta.fields
+                        if field not in ['genres', 'instruments']
+                    ]
+            return NonMusicianProfileSerializer
 
-- A dynamically defined serializer that **excludes genres and instruments** for non-musician roles.
+    # For GET requests (and any other non-PUT requests), use the current profile role.
+    profile = self.get_object()
+    if profile.role != 'musician':
+        class NonMusicianProfileSerializer(ProfileSerializer):
+            class Meta(ProfileSerializer.Meta):
+                fields = [
+                    field for field in ProfileSerializer.Meta.fields
+                    if field not in ['genres', 'instruments']
+                ]
+        return NonMusicianProfileSerializer
 
-**Outcome:**
+    return ProfileSerializer
 
-- After re-deploying the updated backend code, the manual test was re-run.
+The serializer now checks self.request.data for the role value.
+If the incoming role is "musician", the full ProfileSerializer (which includes genres and instruments) is returned.
+Otherwise, a modified serializer that excludes these fields is used.
+For GET (and other) requests:
 
-- The musician fields now appear correctly in the API response and are saved in the database, confirming that the solution works as expected.
+The current profile role (from self.get_object()) is used to determine which serializer to return.
+Outcome
+With the updated method:
+
+When a basic user changes their role to "musician" and provides musician-specific information, the full serializer is used during the PUT request.
+This ensures that the musician fields are included in both the response and the saved profile data.
+Conclusion
+After redeploying the backend with the updated get_serializer_class method, I re-ran the test.
+
+✅ The profile now correctly updates the role to "musician" and includes the genres and instruments fields in the response.
+
+✅ The updated musician information persists, confirming that the solution works as expected.
 
 ---
 
