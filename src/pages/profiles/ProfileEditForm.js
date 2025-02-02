@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styles from "../../styles/ProfileEditForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import Asset from "../../components/Asset";
 import Upload from "../../assets/upload.png";
 import { axiosReq } from "../../api/axiosDefaults";
-import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 function ProfileEditForm() {
+  const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
+  const history = useHistory();
 
   const [profileData, setProfileData] = useState({
     name: "",
@@ -18,30 +21,27 @@ function ProfileEditForm() {
     instruments: "",
     image: "",
   });
-
   const [profileImage, setProfileImage] = useState("");
   const [errors, setErrors] = useState({});
-  const [originalRole, setOriginalRole] = useState(""); // Store original role separately
-  const setCurrentUser = useSetCurrentUser();
-
-  const { id } = useParams();
-  const history = useHistory();
+  const [originalRole, setOriginalRole] = useState(""); // To lock the role if not "basic"
 
   const { name, content, role, genres, instruments, image } = profileData;
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const { data } = await axiosReq.get(`/profiles/${id}/`);
-        setProfileData(data);
-        setProfileImage(data.image);
-        setOriginalRole(data.role); // Save the original role
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchProfile();
-  }, [id]);
+    if (currentUser) {
+      const fetchProfile = async () => {
+        try {
+          const { data } = await axiosReq.get(`/profiles/${currentUser.id}/`);
+          setProfileData(data);
+          setProfileImage(data.image);
+          setOriginalRole(data.role);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      fetchProfile();
+    }
+  }, [currentUser]);
 
   const handleChange = (event) => {
     setProfileData({
@@ -73,13 +73,13 @@ function ProfileEditForm() {
     if (typeof image === "object") {
       formData.append("image", image);
     }
-
     try {
-      await axiosReq.put(`/profiles/${id}/`, formData);
-      const { data: updatedUser } = await axiosReq.get(`/profiles/${id}/`);
+      await axiosReq.put(`/profiles/${currentUser.id}/`, formData);
+      const { data: updatedUser } = await axiosReq.get(`/profiles/${currentUser.id}/`);
       setCurrentUser(updatedUser);
       setOriginalRole(role); // Lock the role after successful submission
-      history.push(`/profiles/${id}/`);
+      console.log(currentUser)
+      history.push(`/profiles/${currentUser.id}/`);
     } catch (err) {
       console.error(err);
       if (err.response?.status !== 401) {
@@ -87,6 +87,10 @@ function ProfileEditForm() {
       }
     }
   };
+
+  if (!currentUser) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <Form onSubmit={handleSubmit}>
