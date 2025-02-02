@@ -14,6 +14,8 @@ import EventDetailPage from "./pages/events/EventDetailPage";
 import EventsPage from "./pages/events/EventsPage"
 import EventEditForm from "./pages/events/EventEditForm";
 import HomePage from "./pages/home/HomePage";
+import UnauthorizedPage from "./pages/errors/UnauthorizedPage";
+import ForbiddenPage from "./pages/errors/ForbiddenPage";
 
 function App() {
   const location = useLocation();
@@ -49,8 +51,12 @@ function App() {
             render={() => <ProfileEditForm />}
           />
           <Route exact path="/events/:id" render={() => <EventDetailPage />} />
+          <Route exact path="/401" render={() => <UnauthorizedPage />} />
+          <Route exact path="/403" render={() => <ForbiddenPage />} />
+
 
           <Route render={() => <p>Page not found!</p>} />
+
         </Switch>
       </Container>
     </div>
