@@ -76,41 +76,39 @@ This platform is built to **bridge the gap** between music fans, artists, and ev
 
 - [Agile Planning](#agile-planning)
 
-- [Epics](#epics)
+  - [Epics](#epics)
 
-- [User Stories](#user-stories)
+    - [User Stories](#user-stories)
 
 - [The Structure Plane](#the-structure-plane)
 
-- [Features](#features)
+  - [Features](#features)
 
-- [User Roles & Permissions](#user-roles--permissions)
+    - [User Roles & Permissions](#user-roles--permissions)
 
-- [Navigation Menu](#navigation-menu)
+    - [Navigation Menu](#navigation-menu)
 
-- [Home](#home)
+    - [Home](#home)
 
-- [Events](#events)
+    - [Events](#events)
 
-- [Comments](#comments)
+    - [Comments](#comments)
 
-- [Profiles](#profiles)
+    - [Profiles](#profiles)
 
 - [Future Features](#future-features)
 
 - [The Skeleton Plane](#the-skeleton-plane)
 
-- [Wireframes](#wireframes)
+  - [Wireframes](#wireframes)
 
-- [The Surface Plane](#the-surface-plane)
+  - [The Surface Plane](#the-surface-plane)
 
-- [Design](#design)
+  - [Design](#design)
 
-- [Colour Scheme](#colour-scheme)
+  - [Colour Scheme](#colour-scheme)
 
-- [Typography](#typography)
-
-- [Imagery](#imagery)
+  - [Typography](#typography)
 
 - [Technologies](#technologies)
 
@@ -130,7 +128,6 @@ This platform is built to **bridge the gap** between music fans, artists, and ev
 
 - [Content](#content)
 
-- [Acknowledgements](#acknowledgements)
 ---
 
 ## The Strategy Plane
