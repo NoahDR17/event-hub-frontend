@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import styles from "../../styles/ProfileEditForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import Asset from "../../components/Asset";
-import Upload from "../../assets/upload.png";
+import Upload from "../../assets/upload.webp";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
 

@@ -13,7 +13,7 @@ import { useHistory, useParams } from "react-router-dom";
 import Select from "react-select";
 
 import Asset from "../../components/Asset";
-import Upload from "../../assets/upload.png";
+import Upload from "../../assets/upload.webp";
 
 import styles from "../../styles/EventCreateEditForm.module.css";
 import appStyles from "../../App.module.css";

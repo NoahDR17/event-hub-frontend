@@ -1,249 +1,786 @@
 https://event-hub-frontend-30c8bbf9de26.herokuapp.com/
 
-## Manual Test: 
-Manual Testing: Debugging Circular Structure Error in CommentCreateForm
-Issue Encountered
-When submitting a comment using the CommentCreateForm component, the following error was thrown in the browser console:
+# Event Hub (Front-End)
 
-python
-Copy
-CommentCreateForm.js:40 TypeError: Converting circular structure to JSON
-    --> starting at object with constructor 'HTMLTextAreaElement'
-    |     property '__reactFiber$syrtnyxf2zf' -> object with constructor 'FiberNode'
-    --- property 'stateNode' closes the circle
-Steps to Reproduce the Error
-Start the Application:
-Run the application in development mode.
+  ## Introduction
 
-Navigate to an Event Detail Page:
-Open a page where you can view event details and submit comments.
+The **Event Hub** is a front-end web application designed to showcase and manage live music events. This application serves as a user-friendly platform where music lovers can:
 
-Enter a Comment:
-In the comment creation form, type a comment in the textarea.
+- Explore upcoming music events.
 
-Submit the Comment:
-Click the "post" button to submit the comment.
+- Interact with other attendees through comments.
 
-Observe the Error:
-Check the browser’s console and notice the error related to a circular structure during JSON serialization.
+- Follow musicians and event organizers.
 
-Debugging Process
-Review the Error Message:
-The error message mentioned that there was a circular structure starting at an HTMLTextAreaElement. This suggested that an object with circular references (likely a DOM element or a React synthetic event) was being included in the data sent to the backend.
+- Maintain personalized user profiles.
 
-Inspect the Code in CommentCreateForm.js:
-In the handleSubmit function, the code looked like this:
+The project is connected to a separate **Django-based backend**, which handles:
 
-jsx
-Copy
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  try {
-    const { data } = await axiosReq.post("/comments/", {
-      content,
-      event,  // <--- Problematic line
-    });
-    // Additional code...
-  } catch (err) {
-    console.log(err);
-  }
-};
-Notice that the function parameter is named event. This conflicts with the event prop (which is meant to be the event ID) that is also being used in the POST request.
+- User authentication and role management.
 
-Identify the Naming Conflict:
-The conflict between the function parameter event (the synthetic event object) and the event prop resulted in the wrong object (the synthetic event with circular references) being sent to the server.
+- Event creation, modification, and retrieval.
 
-Implement the Fix:
-Rename the parameter in the handleSubmit function to avoid shadowing the event prop. Change it from event to e:
+- Commenting system.
 
-jsx
-Copy
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const { data } = await axiosReq.post("/comments/", {
-      content,
-      event,  // Now this correctly refers to the prop, not the event object
-    });
-    // Additional code...
-  } catch (err) {
-    console.log(err);
-  }
-};
-Also, update the handleChange function similarly:
-
-jsx
-Copy
-const handleChange = (e) => {
-  setContent(e.target.value);
-};
-Test the Fix:
-
-Save your changes.
-Reload the application.
-Navigate back to the event detail page.
-Enter and submit a comment again.
-Verify that the comment is successfully submitted and that the error no longer appears in the console.
-Conclusion
-By renaming the parameter in the handleSubmit (and handleChange) function, the naming conflict was resolved. This prevented the synthetic event object from overriding the event prop, thus fixing the circular structure error during JSON serialization. The comment now submits correctly.# Event Hub
-
-## Introduction
-A web application built with React (front-end) and Django REST Framework (back-end) to create, discover, and discuss events.
-
-## Technologies
+- Profile and user data processing.
 
 ---
 
-## Agile 
-### Epics 
+## Target Audience
 
- - Epic 1 API - Set up ( Done ) 
-  - User Stories:
-   - 1.1 Project set up ( Done )
-   - 1.2 Cloudinary ( Done )
+**Event Hub** is designed for a diverse audience with a shared passion for music events. It caters to:
 
- - Epic 2 API - Profiles app ( Done )
-  - User Stories:
-   - 2.1 Create "profiles" app ( Done )
-   - 2.2 Create Profile Model ( Done )
-   - 2.3 Create Profile Serializer ( Done )
-   - 2.4 Create Profile View ( Done )
+### 🎶 **Music Enthusiasts**
 
- - Epic 3 API - Events app 
-  - User Stories:
-   - 3.1: Create "events" App - Must have ( Done )
-   - 3.2: Tag Model - Must have ( Done )
-   - 3.3: Event Model - Must have ( Done )
-   - 3.4: Integrate Many-to-Many Tags - Should have ( Done )
-   - 3.5: Location & Event Type - Could have ( Done )
-   - 3.6: Basic CRUD and Permissions Integration - Should have ( In Progress )
-   - 3.7: Event View and Serializer - Must have ( In Progress )
-...
+- Users looking for **upcoming music events**.
 
-## Features (Current State)
+- Fans who want to **engage in discussions** and leave comments about events.
+
+- Individuals who enjoy **following musicians**.
+
+### 🎤 **Musicians**
+
+- Artists who want to **showcase their talent** and connect with event organisers.
+
+- Musicians looking for **gig opportunities** and event collaborations.
+
+- Performers who want to **share their genre and instruments** with followers.
+
+### 🎟️ **Event Organisers**
+
+- Organisers who want to **create, manage, and promote events**.
+
+- Event planners looking for **musicians to book for live performances**.
+
+- Professionals seeking an easy-to-use **platform for event promotion**.
+
+### 🌍 **General Public**
+
+- Anyone interested in **exploring live music experiences**.
+
+- Individuals who want to **engage with their favorite artists**.
+
+- Users who appreciate a **centralised hub for music events**.
+
+This platform is built to **bridge the gap** between music fans, artists, and event organizers, creating a **vibrant and interactive music community**.
+
+---
+  
+## Table of Contents
+
+- [Introduction](#introduction)
+
+- [The Strategy Plane](#the-strategy-plane)
+
+- [Site Goals](#site-goals)
+
+- [Agile Planning](#agile-planning)
+
+- [Epics](#epics)
+
+- [User Stories](#user-stories)
+
+- [The Structure Plane](#the-structure-plane)
+
+- [Features](#features)
+
+- [User Roles & Permissions](#user-roles--permissions)
+
+- [Navigation Menu](#navigation-menu)
+
+- [Home](#home)
+
+- [Events](#events)
+
+- [Comments](#comments)
+
+- [Profiles](#profiles)
+
+- [Future Features](#future-features)
+
+- [The Skeleton Plane](#the-skeleton-plane)
+
+- [Wireframes](#wireframes)
+
+- [The Surface Plane](#the-surface-plane)
+
+- [Design](#design)
+
+- [Colour Scheme](#colour-scheme)
+
+- [Typography](#typography)
+
+- [Imagery](#imagery)
+
+- [Technologies](#technologies)
+
+- [Testing](#testing)
+
+- [Deployment](#deployment)
+
+- [Heroku Deployment](#heroku-deployment)
+
+- [Version Control](#version-control)
+
+- [Run Locally](#run-locally)
+
+- [Forking](#forking)
+
+- [Credits](#credits)
+
+- [Content](#content)
+
+- [Acknowledgements](#acknowledgements)
+---
+
+## The Strategy Plane
+
+
+### Site Goals
+
+- Provide a dynamic and engaging platform for music lovers to discover events.
+
+- Allow different types of users (Basic, Musician, Organiser) to interact uniquely.
+
+- Offer event organizers tools to manage and promote their events.
+
+- Enable musicians to view their upcoming and past performances.
+
+- Ensure a responsive, intuitive UI with a seamless user experience.
+
+### Agile Planning
+
+The project follows an **Agile Development Process**, with a focus on:
+
+- Iterative development through epics.
+ 
+
+### Epics
+
+- **Navigation and Authentication**
+
+- **Event**
+
+- **Commenting**
+
+- **Profile Customization & Follow System**
+
+- **Musician Profile & Event Association**
+
+### User Stories
+
+1. As a **basic user**, I want to browse and follow events so that I can stay updated.
+
+2. As a **basic user**, I want to comment on events to engage with other attendees.
+
+3. As a **basic user**, I want to upgrade my role to either **musician** or **organiser**.
+
+4. As a **musician**, I want to list my genre and instruments on my profile.
+
+5. As a **musician**, I want to see upcoming and past events that I have been tagged in.
+
+6. As an **organiser**, I want to create, edit, and manage my events.
+
+7. As an **organiser**, I want to tag musicians in my events to showcase performances.
+
+---
+
+## The Structure Plane
+
+## Features
+
+**Event Hub** offers a range of features tailored to different user roles: **Basic, Musicians, and Organizers**. Below are the key functionalities:
+
+### 🎨 **UI & Navigation**
+- **Favicon & Logo**: A recognizable branding identity across all pages.
+- **Navbar**: Provides quick navigation to key areas like events, profile, and authentication options.
+
+### 🏡 **Landing Page (Home)**
+The landing page dynamically changes based on the user's authentication and role:
+- **Not Signed In**: 
+  - Call-to-action (CTA) to **sign in / sign up**, and to **view events**.
+  - Sliding carousel of **events**.
+- **Signed In Role: Basic User**:
+  - CTAs to **upgrade account** links to **edit profile form**.
+  - Sliding carousel of **events**.
+- **Signed In Role: Musician**:
+  - CTAs to **view profile** and **explore events**.
+  - Sliding carousel displaying **events the musician is tagged in**.
+- **Signed In Role: Organizer**:
+  - CTAs to **create a new event** and **view profile**.
+  - Carousel displaying **events** created by the user.
+- **Event Carousel:** Displays **a minimized version of events**, showing only:
+  - **Title**
+  - **Date**
+  - **Location**
+  - **CTA** to view event detail
+
+### **Events**
+- **Events Page**:
+  - Displays a **list of events**.
+  - Filter options:
+    - **Location**
+    - **Musician(s)**
+- **Create Event**:
+  - Fields:
+    - **Image**
+    - **Title**
+    - **Description**
+    - **Date/Time**
+    - **Musicians** (can tag profiles with **role** of **musician**)
+    - **Location**
+- **Event Detail Page**:
+  - Full event details and interactions.
+- **Edit Event**:
+  - Users with **organizer role** can update **events** that they are the owner of.
+  - Fields:
+    - **Image**
+    - **Title**
+    - **Description**
+    - **Date/Time**
+    - **Musicians** (can update tagged musicians)
+    - **Location**
+- **Delete Event**:
+  - Organizers can remove their events.
+
+### 💬 **Interactions**
+- **Commenting System**:
+  - **Add a comment** to an event.
+  - **Edit a comment** (only the owner of the comment can edit).
+  - **Delete a comment** (only the owner of the comment can delete).
+  
+- **Follow System**:
+  - Users can **follow/unfollow** other users.
+
+### **User Profiles**
+- **Basic Profile**:
+  - Displays:
+    - **Full Name** ( Set to blank on sign up )
+    - **Bio** ( Set to blank on sign up )
+    - **Joined date**
+    - **Followed users count**
+    - **Followers count**
+    - **User role**
+- **Musician Profile**:
+  - Includes **all basic profile fields** plus:
+    - **Upcoming & past tagged events**.
+    - **Musician details**:
+      - **Genre**
+      - **Instruments**
+- **Organizer Profile**:
+  - Includes **all basic profile fields** plus:
+    - **Upcoming events created**.
+    - **Past events created**.
+
+### 🔧 **Profile Management**
+- **Edit Profile**:
+  - Fields:
+    - **Full Name**
+    - **Bio**
+    - **Change Profile Image**
+    - **Upgrade User Role** (only if the role is **Basic**).
+    
+**renders:** **Genre** and **Instruments** field for users with role of musician.
+
+---  
+
+## User Roles & Permissions
+
+The system includes **three user roles** with unique permissions:
+
+### 1. **"basic" (Default Role)**
+
+✅ Can:
+
+- Browse events.
+
+- Follow other users.
+
+- Comment on events.
+
+❌ Cannot:
+
+- Create or edit events.
+- Be tagged in events
+- Upgrade account more than once.
+  
+### 2. **"musician"**
+
+✅ Can:
+
+- Perform all actions of a **Basic User**.
+
+- Be tagged in events by organisers.
+
+- See a **list of past and upcoming events** they are performing at.
+
+- Fill out **"Genre"** and **"Instruments"** fields on their profile.
+
+❌ Cannot:
+
+- Create or edit events.
+
+### 3. **"organiser"**
+
+✅ Can:
+
+- Perform all actions of a **Basic User**.
+
+- Create, edit, and delete events.
+
+- Tag musicians in their events.
+
+- View a **list of past and upcoming events** they have created.
+
+  ❌ Cannot:
+
+- Be tagged in events by organisers.
+---
+
+## Navigation Menu
+
+The site will have a **navigation bar** that includes:
+- **Logo**
+
+- **Home**
+
+- **Events**
+
+- **Create Event** (Only for Organisers)
+
+- **Logout** (if logged in) / **Sign in**, **Sign Up** (if logged out) 
+
+- **Profile**  (if logged in)
+
+---
+
+## Future Features
+
+- **Event Booking System:** Users can RSVP for events.
+
+- **Social Media Integration:** Share events on social platforms.
+
+- **Live Chat for Events:** Attendees can chat in real time.
+
+- **Event Ratings & Reviews:** Users can rate past events.
+
+---
+
+## The Skeleton Plane
+
+### Wireframes
+
+Wireframes were created to visualize the user interface before development.
+
+---
+
+## The Surface Plane
+
+### Design
+
+The application follows a **modern, sleek, and user-friendly design** with a focus on accessibility.
+
+### Colour Scheme
+
+A well-balanced **positive theme with vibrant accent colors** to enhance readability and engagement.
+
+### Typography
+
+Using **Google Fonts** for stylish yet readable text
+---
+
+## Technologies
+
+- **Frontend:** HTML, CSS, JavaScript, React
+
+- **Backend:** Django (connected via API)
+
+- **Database:** PostgreSQL
+
+- **Styling:** Bootstrap, CSS
+
+- **Version Control:** Git, GitHub
+
+- **Deployment:** Heroku
 
 ---
 
 ## Testing
-### Tests During Development 
-- Test Case 1 (Carried out during the initial stages of backend development/profile-setup): 
- - Verify Default Cloudinay Image.
-  - Ensure that when no custom image is uploaded on profile creation, the application correctly assigns and displays a default image hosted on Cloudinary.
 
- - Steps:
-  - Create Superuser, if one is already created then that one will work fine.
-  - In the devepment server, navigate to "profile/" or "profile/{id}".
-  - Check the image url of a profile.
-  - Ensure url is "https://res.cloudinary.com/<cloud-name>/image/upload/v1/media/../name-of-image"
+### Manual Test Case: Updating Profile with Musician Fields
 
-- Expected Outcome: 
- - The url is "https://res.cloudinary.com/<cloud-name>/image/upload/v1/media/../name-of-image"
+**Title:**
 
-- Actual Outcome: 
- - The url is "/name-of-image" 
+Basic User Upgrading to Musician – Validate Inclusion of Musician Fields
 
-- Fix:
- - From what i gathered while troubleshooting the old method of declaring the default media file storage has been depracated.
-  - it is no longer " DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage' ", and instead is
-    " STORAGES = {
-            "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
-            "default": {"BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"},
-        } " 
- - After making this change, image urls are what they were expected to be.
- - more tests can be carried out once more functionality has been implemented.
- ### Manual Tests
+**Objective:**
 
- ## Manual Test: Creating a New Tag During Event Creation ( ToDo )
+Verify that when a basic user changes their role to "musician" and submits the profile form with musician-specific fields (i.e., "genres" and "instruments"), the update is successful and the musician fields are stored and returned in the API response.
 
-### Purpose
-Confirm that a user can seamlessly create a brand-new tag while creating an event in the front-end interface.
+**Pre-requisites:**
 
-### Prerequisites
-1. A valid, logged-in user account.  
-2. An existing list of known tags (to verify we’re creating a *new* tag, not reusing an existing one).  
-3. Functional front-end form or page that allows entering event details, including tags.
+- The user must be logged in as a basic user.
 
-### Steps
-1. **Log in**  
-   - Open the web application in a browser.  
-   - Log in with a valid user account (e.g., username: `testuser`, password: `password123`).  
-   - Confirm you are successfully redirected to the home/dashboard page.
+- The profile edit UI is accessible.
 
-2. **Navigate to “Create Event” Page**  
-   - Click on the “Create Event” or “New Event” button/link.  
-   - Observe that the event creation form loads properly (title, description, location, date/time, tags, etc.).
+**Test Steps:**
 
-3. **Fill Out Basic Event Details**  
-   - Enter an **Event Title** (e.g., “Future Tech Workshop”).  
-   - Enter a brief **Description** (e.g., “Hands-on exploration of new technologies.”).  
-   - Select a **Date/Time** in the future.  
-   - Enter a **Location** (city, venue name, etc.).  
-   - (Optional) Upload an **Image**.
+1. **Log In as a user with role of "basic"**
 
-4. **Create a Brand-New Tag**  
-   - In the tags section, type in a **new tag name** that does *not* currently exist in the system (e.g., Dog Friendly or Vegan).  
-   - If the UI allows for multiple tags, add the new tag plus any existing tags as needed.  
-   - Confirm you are either shown a “New Tag Created” indicator or that the front-end acknowledges you have entered a new tag.
+- Log in to the application with a basic user account.
 
-5. **Submit the Event**  
-   - Click the **Submit** or **Create Event** button.  
-   - Wait for the success message or confirmation.
+- Ensure that the user’s current role is "basic".
 
-6. **Verify the Event Creation**  
-   - After successful submission, you should see the newly created event in your events list or be redirected to the event detail page.  
-   - Confirm the newly added tag is displayed alongside the event details (e.g., “Tags: Dog Friendly).
+2. **Navigate to Profile Edit Page**
 
-7. **Check Database or API (Optional Advanced Check)**  
-   - Verify that the **Tag** model contains the new tag:'Dog Friendly' in the database.  
-   - Check the **Event** entry to confirm its `tags` field includes the newly created tag ID.
+- Open the profile edit form where the user’s current information is loaded from the backend.
 
-### Expected Outcome
-- The event is created with all entered fields (title, description, date/time, location, image).  
-- The **newly created tag** is visible on the event detail view.  
-- No errors or warnings appear during submission.  
-- Users can search or filter by the new tag (if the front-end supports that feature).
+3. **Change Role to Musician**
 
---------------------------------------------
+- In the role selection dropdown, change the role from "basic" to "musician".
 
-# Manual Test: Ensure Users Cannot Edit Another User's Profile
+- *(Note: This field is enabled only for users with a "basic" role.)*
 
-## Test Objective
-Verify that a logged-in or logged-out user cannot edit another user's profile information.
----
+4. **Enter Musician-Specific Information**
 
-## Test Steps
+- Fill in the musician-specific fields:
 
-1. **Log in as `User A`:**
-   - Navigate to the login form.
-   - Enter `User A`'s credentials (username and password).
-   - Click the **Login** button.
+- **Genres:** e.g., "Rock, Jazz"
 
-2. **Attempt to Edit `User B`'s Profile:**
-   - Locate `User B`'s profile detail page eg = "/profiles/UserB_Id".
+- **Instruments:** e.g., "Guitar, Piano"
 
-3. **Perform Editing Action:**
-   - If an edit form appears, make changes to `User B`'s profile.
-   - Click **Save** or **Submit** to attempt saving the changes.
+5. **Submit the Form**
+
+- Click the "Save" button to submit the updated profile information.
+
+6. **Inspect the API Response**
+
+- Using developer tools or an API client (like Postman), confirm that the API response includes the updated profile data.
+
+- Check for the following:
+
+- The **role** field is now set to "musician".
+
+- The **genres** and **instruments** fields contain the values entered.
+
+- The response includes all expected fields for a musician profile.
+
+7. **Verify Backend**
+
+- Refresh the profile view or perform a GET request on the profile endpoint to ensure that the musician fields are permanently stored and returned correctly.
+
+**Expected Result:**
+
+- The profile update should be successful.
+
+- The returned profile data must include the role as "musician" and display the musician-specific fields (**genres** and **instruments**).
+
+- The UI and API response should reflect the changes correctly.
+
+**Actual Result (Before the Fix):**
+
+- Only the role field was updated to "musician", while the **genres** and **instruments** fields were empty.
+
+- This happened because the serializer logic was incorrectly configured (the serializer for non-musician profiles was being returned due to mis-indented code in the `get_serializer_class` method).
+
+**Solution Implemented:**
+
+- The issue was resolved by **correcting the indentation** of the `get_serializer_class` and `perform_update` methods so that all code is properly contained within the `ProfileDetail` class.
+
+- The `get_serializer_class` method was updated to conditionally return:
+
+- The full `ProfileSerializer` when the role in the PUT request data is **"musician"**.
+
+- A dynamically defined serializer that **excludes genres and instruments** for non-musician roles.
+
+**Outcome:**
+
+- After re-deploying the updated backend code, the manual test was re-run.
+
+- The musician fields now appear correctly in the API response and are saved in the database, confirming that the solution works as expected.
 
 ---
 
-## Expected Result
-- `User A` is **not** able to access the edit form for `User B`'s profile.
-- If `User A` attempts to submit changes directly (e.g., via URL manipulation):
-- `User B`'s profile remains unchanged.
+### Manual Test Case: Ensure Comments Are Unique to Their Event
 
-## Actual Result: When signed in as user A, i opened user B's ProfileDetail Page, and an edit form appeared, after editing the content of the profile, i submitted and the change was made.
+**Objective:**
 
-## Fix: added permission classes to "profiles/views.py" file, and added logic to validate the object permissions before a get request can be sent.
+Verify that a comment created on one event is displayed **only** on that event and **not** on any other.
 
+**Test Steps:**
 
+1. **Create a Comment on Event A**
 
-### Automated Tests
+- Go to the detail page for Event A.
+
+- Create a new comment.
+
+- Confirm that the comment appears on Event A's page.
+
+2. **Check a Different Event**
+
+- Navigate to the detail page for Event B (or any event other than Event A).
+
+- Verify that the comment from Event A is **not displayed** on Event B's page.
+
+**Expected Result:**
+
+- The comment should **only appear on Event A** and must **not** show up on Event B.
+
+**Actual Result (Before Fix):**
+
+- Comments were **not filtered by event**, meaning comments from Event A were also displayed on Event B.
+
+**Solution Implemented:**
+
+- The issue was resolved by integrating the **Django Filter Backend** into the Comments API, which now filters comments based on the event ID.
+
+**Outcome:**
+
+- After deploying the fix, comments are now correctly associated with their respective events, ensuring that they **do not appear on unrelated event pages**.
 
 ---
+
+# Test Cases for Event Hub
+
+Each test case follows this structure
+
+- **Test ID:** Unique identifier for the test.
+
+- **Description:** The purpose of the test.
+
+- **Steps:** Step-by-step instructions to perform the test.
+
+- **Expected Result:** What should happen if the feature works correctly.
+
+- **Actual Result:** The outcome of the test.
+
+- **Pass/Fail Status:** Whether the test was successful.
+
+---
+
+## Test Case: Ensure Event List Displays All Events
+
+- **Test ID:** TC001
+
+- **Description:** Ensure the event list page returns all events.
+
+- **Steps:**
+
+1. Navigate to **Event Hub**.
+
+2. Go to the **Events** page.
+
+3. Verify that all events are displayed in order of newest first.
+
+- **Expected Result:** All events should be displayed in descending order by date (newest first).
+
+- **Actual Result:** As expected.
+
+- **Status:** ✅ **PASS**
+
+---
+
+## Test Case: Ensure Event Detail Page Opens on Click
+
+- **Test ID:** TC002
+
+- **Description:** Ensure that clicking on event "View Details" button, or the event image opens the event detail page.
+
+- **Steps:**
+
+1. Navigate to **Event Hub**.
+
+2. Click on any event in the event list.
+
+3. Verify that the event detail page loads with all fields displayed.
+
+- **Expected Result:** The event detail page should open and display all relevant event information.
+
+- **Actual Result:** As expected.
+
+- **Status:** ✅ **PASS**
+
+---
+
+## Test Case: Ensure Only Organizers Can Create Events
+
+- **Test ID:** TC003
+
+- **Description:** Ensure that only users with the **organiser** role can create events.
+
+- **Steps:**
+
+1. Navigate to the **Create Event** page.
+
+2. If the user is **not** an organiser, verify that the "Create Event" option is disabled.
+
+3. If the user **is** an organiser, create a new event and submit it.
+
+4. Verify that the event is added successfully.
+
+- **Expected Result:** Only organisers should be able to create events.
+
+- **Actual Result:** As expected.
+
+- **Status:** ✅ **PASS**
+
+---
+
+## Test Case: Ensure Comments Stay Unique to Their Events
+
+- **Test ID:** TC004
+
+- **Description:** Ensure that a comment made on an event appears **only** on that event.
+
+- **Steps:**
+
+1. Navigate to **Event A**.
+
+2. Add a comment.
+
+3. Navigate to **Event B**.
+
+4. Verify that the comment from **Event A** does **not** appear on **Event B**.
+
+- **Expected Result:** Comments should only be displayed on the event they were posted on.
+
+- **Actual Result:** As expected.
+
+- **Status:** ✅ **PASS**
+
+---
+
+## Test Case: Ensure Basic Users Can Upgrade to Musician Role
+
+- **Test ID:** TC005
+
+- **Description:** Ensure that basic users can successfully upgrade to a musician profile.
+
+- **Steps:**
+
+1. Log in as a **basic user**.
+
+2. Navigate to the **Edit Profile** page.
+
+3. Change the role to **"musician"**.
+
+4. Fill in musician-specific fields (**Genres** and **Instruments**).
+
+5. Submit the form.
+
+6. Check the API response and profile page.
+
+- **Expected Result:** The user’s profile should update with the new role and musician-specific fields.
+
+- **Actual Result:** As expected.
+
+- **Status:** ✅ **PASS**
+
+---
+
+## Test Case: Ensure Only One Role Upgrade is Allowed
+
+- **Test ID:** TC006
+
+- **Description:** Ensure that users can only upgrade their account **once**.
+
+- **Steps:**
+
+1. Log in as a **basic user**.
+
+2. Upgrade to **musician**.
+
+3. Try to upgrade again to **organiser**.
+
+4. Verify that the upgrade option is no longer available.
+
+- **Expected Result:** Users should be able to upgrade **only once**.
+
+- **Actual Result:** As expected.
+
+- **Status:** ✅ **PASS**
+
+---
+
+## Test Case: Ensure Musicians Can See Their Tagged Events
+
+- **Test ID:** TC007
+
+- **Description:** Ensure that musicians can see a list of events they have been tagged in.
+
+- **Steps:**
+
+1. Log in as a **musician**.
+
+2. Navigate to the **Profile Page**.
+
+3. Verify that the **Upcoming Events** and **Past Events** sections list the correct events.
+
+- **Expected Result:** The musician’s profile should display events they have been tagged in.
+
+- **Actual Result:** As expected.
+
+- **Status:** ✅ **PASS**
+
+---
+
+## Test Case: Ensure Event Organisers Can Tag Musicians
+
+- **Test ID:** TC008
+
+- **Description:** Ensure that event organisers can tag musicians in their events.
+
+- **Steps:**
+
+1. Log in as an **organiser**.
+
+2. Navigate to **Create/Edit Event**.
+
+3. Use the musician selection field to tag musicians.
+
+4. Save the event.
+
+5. Verify that the musician is correctly listed in the event details.
+
+- **Expected Result:** The event should display the tagged musician(s).
+
+- **Actual Result:** As expected.
+
+- **Status:** ✅ **PASS**
+
+---
+
+## Test Case: Ensure Profile Page Displays Correct Role Information
+
+- **Test ID:** TC009
+
+- **Description:** Ensure that user profiles correctly display their role (Basic, Musician, Organiser).
+
+- **Steps:**
+
+1. Log in as any user.
+
+2. Navigate to the **Profile Page**.
+
+3. Verify that the role is displayed correctly.
+
+- **Expected Result:** The profile page should show the correct user role.
+
+- **Actual Result:** As expected.
+
+- **Status:** ✅ **PASS**
 
 ## Deployment
-- Deployed on Heroku at:
 
+### Heroku Deployment
 
-future tests - description of event can be too long look weird, either make maxlength less, or add styling to handle longer descriptions.
+1. Ensure you have a **Heroku account** and the CLI installed.
+
+2. Run:
+
+```sh
+
+heroku create project-name
+
+git push heroku main
