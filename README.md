@@ -493,6 +493,8 @@ def get_serializer_class(self):
                 ]
         return NonMusicianProfileSerializer
     return ProfileSerializer
+```
+
 - **Issue**:
   This implementation only checked the profile’s current role (via self.get_object()) and did not consider the incoming update data.
 
@@ -504,7 +506,7 @@ def get_serializer_class(self):
 I updated the get_serializer_class method to distinguish between PUT (update) requests and GET requests.
 The new method first checks the incoming request data for PUT requests.
 
-python
+```python
 def get_serializer_class(self):
     # For edit/update requests, check the role in the incoming data.
     if self.request.method == 'PUT':
@@ -532,6 +534,7 @@ def get_serializer_class(self):
         return NonMusicianProfileSerializer
 
     return ProfileSerializer
+```
 
 The serializer now checks self.request.data for the role value.
 If the incoming role is "musician", the full ProfileSerializer (which includes genres and instruments) is returned.
