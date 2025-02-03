@@ -49,7 +49,7 @@ function SignInForm() {
       localStorage.setItem("refreshToken", refresh);
   
       history.push("/");
-        } catch (err) {
+    } catch (err) {
       setErrors(err.response?.data);
       console.error("Sign in error:", err);
     }
