@@ -8,12 +8,15 @@ import {
   Col,
 } from "react-bootstrap";
 import axios from "axios";
+import InfiniteScroll from "react-infinite-scroll-component";
 import EventCard from "../../components/EventCard";
 import styles from "../../styles/EventsPage.module.css";
+import { fetchMoreData } from "../../utils/utils";
+import Asset from "../../components/Asset"
 
 function EventsPage() {
-  const [events, setEvents] = useState([]);
-  const [filteredEvents, setFilteredEvents] = useState([]);
+
+  const [eventsResource, setEventsResource] = useState({ results: [], next: null });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,18 +30,8 @@ function EventsPage() {
     const fetchEvents = async () => {
       try {
         const { data } = await axios.get("/events/");
-        if (Array.isArray(data)) {
-          setEvents(data);
-          setFilteredEvents(data);
-        } else if (data.results && Array.isArray(data.results)) {
-          setEvents(data.results);
-          setFilteredEvents(data.results);
-        } else {
-          setEvents([]);
-          setFilteredEvents([]);
-        }
-
-        if (data.length > 0 && Array.isArray(data[0].musicians) && data[0].musicians.length > 0) {
+        setEventsResource(data);
+                if (data.length > 0 && Array.isArray(data[0].musicians) && data[0].musicians.length > 0) {
           console.log("Type of first musician ID:", typeof data[0].musicians[0]);
         }
       } catch (err) {
@@ -51,10 +44,30 @@ function EventsPage() {
     fetchEvents();
   }, []);
 
+  const filteredResults = eventsResource.results.filter((event) => {
+    let matches = true;
+
+    if (searchTerm.trim() !== "") {
+      const lowercasedTerm = searchTerm.toLowerCase();
+      matches =
+        event.title.toLowerCase().includes(lowercasedTerm) ||
+        event.location.toLowerCase().includes(lowercasedTerm);
+    }
+
+    if (matches && selectedMusician.trim() !== "") {
+      const musicianId = Number(selectedMusician);
+      matches =
+        Array.isArray(event.musicians) &&
+        event.musicians.includes(musicianId);
+    }
+
+    return matches;
+  });
+
   useEffect(() => {
     const fetchMusicians = async () => {
       const musicianIds = Array.from(
-        new Set(events.flatMap((event) => event.musicians || []))
+        new Set(eventsResource.results.flatMap((event) => event.musicians || []))
       );
 
       if (musicianIds.length === 0) {
@@ -78,7 +91,7 @@ function EventsPage() {
     };
 
     fetchMusicians();
-  }, [events]);
+  }, [eventsResource.results]);
 
   const musicianMap = {};
   musicians.forEach((musician) => {
@@ -87,40 +100,19 @@ function EventsPage() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    let filtered = events;
-
-    if (searchTerm.trim() !== "") {
-      const lowercasedTerm = searchTerm.toLowerCase();
-      filtered = filtered.filter(
-        (event) =>
-          event.title.toLowerCase().includes(lowercasedTerm) ||
-          event.location.toLowerCase().includes(lowercasedTerm)
-      );
-    }
-
-    if (selectedMusician.trim() !== "") {
-      const musicianId = Number(selectedMusician);
-      if (!isNaN(musicianId)) {
-        filtered = filtered.filter(
-          (event) =>
-            Array.isArray(event.musicians) &&
-            event.musicians.includes(musicianId)
-        );
-      }
-    }
-
-    setFilteredEvents(filtered);
   };
 
   const handleReset = () => {
     setSearchTerm("");
     setSelectedMusician("");
-    setFilteredEvents(events);
   };
 
   if (loading || musicianLoading) {
     return (
-      <Container className="my-4 d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+      <Container
+        className="my-4 d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>
         </Spinner>
@@ -139,7 +131,7 @@ function EventsPage() {
   return (
     <div className={styles.PageContainer}>
       <Col md={4} className={styles.FixedSidebar}>
-        <Form onSubmit={handleSearch} className={`mb-4`}>
+        <Form onSubmit={handleSearch} className="mb-4">
           <Form.Group controlId="search">
             <Form.Label>Search by title or location</Form.Label>
             <Form.Control
@@ -178,20 +170,32 @@ function EventsPage() {
       </Col>
 
       <Col md={8} className={styles.EventsContainer}>
-        {filteredEvents.length === 0 ? (
+        {filteredResults.length === 0 ? (
           <Alert variant="info">No events match your search criteria.</Alert>
         ) : (
-          <div className={styles.EventsList}>
-            {filteredEvents.map((event) => (
-              <div
-                key={event.id}
-                className={styles.EventSection}
-                ref={(el) => (eventRefs.current[event.id] = el)}
-              >
-                <EventCard event={event} musicianMap={musicianMap} />
-              </div>
-            ))}
-          </div>
+          <InfiniteScroll
+            dataLength={eventsResource.results.length}
+            hasMore={!!eventsResource.next}
+            loader={<Asset spinner />}
+            next={() => fetchMoreData(eventsResource, setEventsResource)}
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>You've reached the end of the events list.</b>
+              </p>
+            }
+          >
+            <div className={styles.EventsList}>
+              {filteredResults.map((event) => (
+                <div
+                  key={event.id}
+                  className={styles.EventSection}
+                  ref={(el) => (eventRefs.current[event.id] = el)}
+                >
+                  <EventCard event={event} musicianMap={musicianMap} />
+                </div>
+              ))}
+            </div>
+          </InfiniteScroll>
         )}
       </Col>
     </div>
