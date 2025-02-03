@@ -152,35 +152,84 @@ The project follows an **Agile Development Process**, with a focus on:
 - Iterative development through epics.
  
 
-### Epics
+## Epics
 
-- **Navigation and Authentication**
+### Epic 1: Navigation & Authentication
 
-- **Event**
+### Epic 2: Events
 
-- **Commenting**
+### Epic 3: Comments
 
-- **Profile Customization & Follow System**
+### Epic 4: Home Page
 
-- **Musician Profile & Event Association**
+### Epic 5: Profile
 
-### User Stories
+## User Stories
 
-1. As a **basic user**, I want to browse and follow events so that I can stay updated.
-
-2. As a **basic user**, I want to comment on events to engage with other attendees.
-
-3. As a **basic user**, I want to upgrade my role to either **musician** or **organiser**.
-
-4. As a **musician**, I want to list my genre and instruments on my profile.
-
-5. As a **musician**, I want to see upcoming and past events that I have been tagged in.
-
-6. As an **organiser**, I want to create, edit, and manage my events.
-
-7. As an **organiser**, I want to tag musicians in my events to showcase performances.
+### Epic 1 - React: Navigation & Authentication
+1. **Navigation - Navbar**
+2. **React: Navigation - Routing** _(Must Have)_
+3. **React - Authentication - Sign Up** _(Must Have)_
+4. **React: Authentication - Sign In** _(Must Have)_
+5. **React: Authentication - User stays signed in on page refresh** _(Must Have)_
+6. **React: Navigation - Navbar renders to reflect logged-in user's status** _(Must Have)_
+7. **React Nav/Auth: A User can Sign out in the navbar to end their session** _(Must Have)_
+8. **React: Profile - Add User roles with conditional rendering depending on role** _(Should Have)_
+9. **React: Profile - Add basic profile pages** _(Must Have)_
 
 ---
+
+### Epic 2 - React: Events
+10. **React: Event Creation Form** _(Must Have)_
+11. **React: Filling Out Event Details** _(Must Have)_
+12. **React: Uploading an Event Image** _(Should Have)_
+13. **React: Assigning Musicians to an Event** _(Could Have)_
+14. **React: Restricting Access to Event Creation Route** _(Must Have)_
+15. **React: Displaying "Create Event" Link Based on User Role** _(Must Have)_
+16. **Optimizing User Experience with Loading States** _(Should Have)_
+17. **React: Event list** _(Must Have)_
+18. **React: Infinite scroll** _(Must Have)_
+19. **React: Event search and filter** _(Could Have)_
+20. **React: Like Event Feature** _(Wont Have)_
+
+
+---
+
+### Epic 3 - React: Comments
+21. **React: Add comment to event** _(Must Have)_
+22. **React: Edit a Comment** _(Must Have)_
+23. **React: Delete a Comment** _(Must Have)_
+24. **React: View Comments for an Associated Event** _(Must Have)_
+25. **React: Like Comment Feature** _(Wont Have)_
+
+---
+
+### Epic 4 - React: Home Page
+26. **React: Landing Page for Not-Signed-In Users** _(Must Have)_
+27. **React: Landing Page for Signed-In Basic Users** _(Should Have)_
+28. **React: Landing Page for Signed-In Musicians** _(Should Have)_
+29. **React: Landing Page for Signed-In Organisers** _(Should Have)_
+30. **React: Event Carousel** _(Should Have)_
+
+---
+
+### Epic 5 - React: Profile
+31. **React: Display Basic Profile Information** _(Must Have)_
+32. **React: Display Musician Profile Details** _(Could Have)_
+33. **React: Display Organiser Profile Details** _(Must Have)_
+34. **React: Profile Management & Editing** _(Must Have)_
+35. **React: Follow/Unfollow Users** _(Could Have)_
+
+## Wont Have
+
+20. **React: Like Event Feature** _(Wont Have)_
+25. **React: Like Comment Feature** _(Wont Have)_
+
+### Reasons
+- The Like Feature was low down in terms of priority, and towards the end of my deadline i had to cut some of my tasks left to do down, i came to the conclusion that the likes feature, compared to my other features that still needed to be created, was less important, and also harder to make unique to the walkthrough's "Like" feature.
+
+- One possible way I could have made it unique to the walkthrough would be to change the like model to a track model, allowing the user to track events, and have access to a page listing their tracked events. This would have made more sense for an event discovery platform, as it could have been expanded to have allowed users to save get updates on their tracked events when the organiser updates it, or when the event is nearing its due date, or when an event has happened.
+ Navigate to [Potential Future Features](#future-features) section to see more about **Track Event** Feature.
 
 ## The Structure Plane
 
@@ -353,15 +402,30 @@ The site will have a **navigation bar** that includes:
 
 ## Potential Future Features
 
-- **Event Booking System:** Users can RSVP for events.
-
 - **Social Media Integration:** Share events on social platforms.
 
-- **Live Chat for Events:** Attendees can chat in real time.
+- **Live Chat:** allows users to chat in real time, this would work well with **Apply to play at an Event:** potential feature as it could allow the organiser to interact with the musicians playing at the event, enabling them to coordinate specifics in app, as oposed to using an external service.
 
 - **Event Ratings & Reviews:** Users can rate past events.
 
----
+- **Apply to play at an Event:** Musicians can fill out a contact form which when filled out will send an email to the owner of the event they are applying to play at. To play at an event ( Feature in it ), the organiser has to accept the application Which would then automatically set the musician feature on the even.
+
+- **Track Event:** Users can Track events.
+
+
+## Potential Future Implementation Detailed: "Track Event" Feature  
+
+### Overview  
+The **Track Event** feature would allow users to save and manage events they are interested in. This would enhance the event discovery experience by providing personalized reminders, event updates, and an easy way to revisit tracked events.
+
+### Core Features  
+1. **Tracked Events Page** – A dedicated section where users can view and manage their tracked events.  
+2. **Event Updates & Notifications**  
+   - **Organizer Updates** – Users receive notifications when an organizer modifies event details (e.g., time, location).  
+   - **Event Reminders** – Automated alerts as the event date approaches.  
+3. **Personalized Event Recommendations** – Users receive event suggestions based on their tracking history eg, if they have tracked events with a specific musician being featured at it more than once, than it will recommend more events with that musician tagged.  
+4. **Social Engagement** – Users can see which events their friends are tracking.  
+
 
 ## The Skeleton Plane
 

@@ -55,7 +55,7 @@ function MusicianHomeCarousel({ musicianId }) {
   }
 
   return (
-    <Carousel interval={5000} pause="hover" indicators={false}>
+    <Carousel interval={5000} pause="hover" controls={false}>
       {events.map((event) => (
         <Carousel.Item key={event.id}>
           <Row className="justify-content-center">
