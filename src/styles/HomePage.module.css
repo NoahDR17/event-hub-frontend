@@ -1,13 +1,12 @@
 /* Base Styles */
 .HomeContainer {
-  min-height: 70vh;
+  max-height: 80vh;
   background-color: rgba(0, 0, 0, 0.7);
   border: 2px solid #fffaf0;
   color: #c97cff;
   padding: 20px 30px;
   border-radius: 8px;
   box-sizing: border-box;
-  margin-top: 20px;
   margin-bottom: 15px;
 
 }
@@ -18,10 +17,10 @@
 }
 
 .HomeTitle {
-  font-size: 1.5rem;
+  font-size: 2.75rem;
 }
 .CarouselTitle {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   margin-bottom: 15px;
   text-align: center;
 }
