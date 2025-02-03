@@ -170,7 +170,7 @@ function EventsPage() {
             next={() => fetchMoreData(eventsResource, setEventsResource)}
             endMessage={
               <p style={{ textAlign: "center" }}>
-                <b>You've reached the end of the events list.</b>
+                <b>You&apos;ve reached the end of the events list.</b>
               </p>
             }
           >

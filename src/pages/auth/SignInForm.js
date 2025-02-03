@@ -49,7 +49,7 @@ function SignInForm() {
       localStorage.setItem("refreshToken", refresh);
   
       history.push("/");
-          } catch (err) {
+        } catch (err) {
       setErrors(err.response?.data);
       console.error("Sign in error:", err);
     }
@@ -114,7 +114,7 @@ function SignInForm() {
             ))}
           </Form>
           <Link className={styles.Link} to="/signup">
-            Don't have an account? <span>Sign up now!</span>
+            Don&apos;t have an account? <span>Sign up now!</span>
           </Link>
         </Container>
         

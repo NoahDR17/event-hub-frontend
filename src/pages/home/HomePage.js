@@ -65,7 +65,7 @@ function HomePage() {
                 <br />
                 <strong>Organiser:</strong> Create and manage your own events, get insights on your audience, and more.
                 <br />
-                <strong>Musician:</strong> Showcase your talent, access exclusive opportunities, and feature on events that you're playing at.
+                <strong>Musician:</strong> Showcase your talent, access exclusive opportunities, and feature on events that you&apos;re playing at.
               </p>
               <div className={styles.CallToActions}>
                 <Button
@@ -113,8 +113,8 @@ function HomePage() {
             {currentUser && currentUser.role === "organiser"
               ? "Your Events"
               : currentUser && currentUser.role === "musician"
-              ? "Your Upcoming Gigs"
-              : "Featured Events"}
+                ? "Your Upcoming Gigs"
+                : "Featured Events"}
           </h2>
           {currentUser && currentUser.role === "organiser" ? (
             <OrganiserHomeCarousel/>

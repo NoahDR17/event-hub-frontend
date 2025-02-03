@@ -180,7 +180,7 @@ function ProfileEditForm() {
               </Form.Control>
               {originalRole !== "basic" && (
                 <div className="text-muted mt-1">
-                  Your role is locked because it is no longer "Basic".
+                  Your role is locked because it is no longer &quot;Basic&quot;.
                 </div>
               )}
               {errors?.role?.map((message, idx) => (
