@@ -67,6 +67,9 @@
   .EventCard {
     max-width: 1000px;
   }
+  .EventImage {
+    height: 300px;
+  }
 }
 
 /* Screens up to 992px */

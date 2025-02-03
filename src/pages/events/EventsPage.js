@@ -138,13 +138,13 @@ function EventsPage() {
 
   return (
     <div className={styles.PageContainer}>
-      <Col md={3} className={styles.FixedSidebar}>
+      <Col md={4} className={styles.FixedSidebar}>
         <Form onSubmit={handleSearch} className={`mb-4`}>
           <Form.Group controlId="search">
-            <Form.Label>Search</Form.Label>
+            <Form.Label>Search by title or location</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Search by title or location..."
+              placeholder="Search..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className={styles.SearchInput}
@@ -177,7 +177,7 @@ function EventsPage() {
         </Form>
       </Col>
 
-      <Col md={9} className={styles.EventsContainer}>
+      <Col md={8} className={styles.EventsContainer}>
         {filteredEvents.length === 0 ? (
           <Alert variant="info">No events match your search criteria.</Alert>
         ) : (

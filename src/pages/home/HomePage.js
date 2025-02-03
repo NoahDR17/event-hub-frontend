@@ -53,7 +53,7 @@ function HomePage() {
                   className={styles.Button}
                   onClick={() => history.push("/events")}
                 >
-                  Browse Events
+                  Events
                 </Button>
               </div>
             </>
