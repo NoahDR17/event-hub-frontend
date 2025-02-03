@@ -32,7 +32,7 @@ function ProfilePage() {
         setProfile(data);
       } catch (err) {
         console.error("Error fetching profile:", err);
-        setErrors(err.response?.data || "Error fetching profile.");
+        history.push("/404");
       } finally {
         setLoading(false);
       }
