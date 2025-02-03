@@ -23,7 +23,6 @@ const NavBar = () => {
     } catch (err) {
       console.log(err);
     }
-    console.log("Sign out: Successful");
   };
 
   const createEventIcon = (

@@ -39,7 +39,7 @@ function ProfilePage() {
       }
     };
     fetchProfile();
-  }, [id]);
+  }, [id, history]);
 
   if (loading) {
     return (
@@ -72,7 +72,6 @@ function ProfilePage() {
     content,
     role,
     upcoming_events = [],
-    past_events = [],
     genres,
     instruments,
     created_at,

@@ -96,7 +96,6 @@ function EventCreateForm() {
     if (isSubmitting) return;
 
     setIsSubmitting(true);
-    console.log("Event Data to be submitted:", eventData);
 
     const formData = new FormData();
     formData.append("title", title);
@@ -118,7 +117,6 @@ function EventCreateForm() {
 
     try {
       const { data } = await axiosReq.post("/events/", formData);
-      console.log("Event created successfully:", data);
       history.push(`/events/${data.id}`);
     } catch (err) {
       console.error("Error creating event:", err);

@@ -166,7 +166,7 @@ The project follows an **Agile Development Process**, with a focus on:
 
 ## User Stories
 
-### Epic 1 - React: Navigation & Authentication
+### Epic 1 - React: Navigation & Authentication - **Iteration 1**
 1. **Navigation - Navbar**
 2. **React: Navigation - Routing** _(Must Have)_
 3. **React - Authentication - Sign Up** _(Must Have)_
@@ -179,7 +179,7 @@ The project follows an **Agile Development Process**, with a focus on:
 
 ---
 
-### Epic 2 - React: Events
+### Epic 2 - React: Events - **Iteration 2**
 10. **React: Event Creation Form** _(Must Have)_
 11. **React: Filling Out Event Details** _(Must Have)_
 12. **React: Uploading an Event Image** _(Should Have)_
@@ -195,7 +195,7 @@ The project follows an **Agile Development Process**, with a focus on:
 
 ---
 
-### Epic 3 - React: Comments
+### Epic 3 - React: Comments - **Iteration 3**
 21. **React: Add comment to event** _(Must Have)_
 22. **React: Edit a Comment** _(Must Have)_
 23. **React: Delete a Comment** _(Must Have)_
@@ -204,7 +204,7 @@ The project follows an **Agile Development Process**, with a focus on:
 
 ---
 
-### Epic 4 - React: Home Page
+### Epic 4 - React: Home Page - **Iteration 3**
 26. **React: Landing Page for Not-Signed-In Users** _(Must Have)_
 27. **React: Landing Page for Signed-In Basic Users** _(Should Have)_
 28. **React: Landing Page for Signed-In Musicians** _(Should Have)_
@@ -213,7 +213,7 @@ The project follows an **Agile Development Process**, with a focus on:
 
 ---
 
-### Epic 5 - React: Profile
+### Epic 5 - React: Profile - **Iteration 3**
 31. **React: Display Basic Profile Information** _(Must Have)_
 32. **React: Display Musician Profile Details** _(Could Have)_
 33. **React: Display Organiser Profile Details** _(Must Have)_

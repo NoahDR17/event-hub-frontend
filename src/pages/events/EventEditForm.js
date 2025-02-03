@@ -107,8 +107,6 @@ function EventEditForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Event Data to be submitted:", eventData);
-
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
@@ -123,13 +121,8 @@ function EventEditForm() {
       musicians.forEach((musicianId) => formData.append("musicians", musicianId));
     }
 
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
-
     try {
       const { data } = await axiosReq.put(`/events/${id}/`, formData);
-      console.log("Event edited successfully:", data);
       history.push(`/events/${data.id}`);
     } catch (err) {
       console.error("Error editing event:", err);

@@ -39,7 +39,6 @@ function EventsPage() {
           Array.isArray(data[0].musicians) &&
           data[0].musicians.length > 0
         ) {
-          console.log("Type of first musician ID:", typeof data[0].musicians[0]);
         }
       } catch (err) {
         setError(err.response?.data || "Error fetching events.");
@@ -50,7 +49,7 @@ function EventsPage() {
     };
 
     fetchEvents();
-  }, []);
+  }, [history]);
 
   const filteredResults = eventsResource.results.filter((event) => {
     let matches = true;

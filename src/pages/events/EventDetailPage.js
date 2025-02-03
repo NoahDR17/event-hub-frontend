@@ -43,7 +43,6 @@ function EventDetailPage() {
         setEvent({ results: [eventData] });
         setComments(commentsData);
         if (process.env.NODE_ENV === "development") {
-          console.log("Fetched Event Data:", eventData);
         }
       } catch (err) {
         console.error("Error fetching event details:", err);
@@ -53,7 +52,7 @@ function EventDetailPage() {
     };
 
     handleMount();
-  }, [id]);
+  }, [id, history]);
 
   useEffect(() => {
     const fetchMusicianProfiles = async () => {
@@ -160,37 +159,35 @@ function EventDetailPage() {
               <span className={styles.EventLabel}>Description:</span> {description}
             </p>
           </div>
-          <p>
-            <span className={styles.EventLabel}>Featuring:</span>{" "}
-            {musicianLoading ? (
-              <Spinner
-                animation="border"
-                role="status"
-                size="sm"
-                className="ms-2"
-              />
-            ) : musicianError ? (
-              <span className={styles.Error}>{musicianError}</span>
-            ) : musicianProfiles.length > 0 ? (
-              <div className={styles.MusiciansList}>
-                {musicianProfiles.map((profile) => (
-                  <div key={profile.id} className={styles.MusicianCard}>
-                    <Link to={`/profiles/${profile.id}`} className={styles.MusicianLink}>
-                      <Image
-                        src={profile.image || "/default_profile.png"}
-                        roundedCircle
-                        className={styles.MusicianImage}
-                        alt={`${profile.name}'s profile`}
-                      />
-                      <span className={styles.MusicianName}>{profile.owner}</span>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              "None"
-            )}
-          </p>
+          <span className={styles.EventLabel}>Featuring:</span>{" "}
+          {musicianLoading ? (
+            <Spinner
+              animation="border"
+              role="status"
+              size="sm"
+              className="ms-2"
+            />
+          ) : musicianError ? (
+            <span className={styles.Error}>{musicianError}</span>
+          ) : musicianProfiles.length > 0 ? (
+            <div className={styles.MusiciansList}>
+              {musicianProfiles.map((profile) => (
+                <div key={profile.id} className={styles.MusicianCard}>
+                  <Link to={`/profiles/${profile.id}`} className={styles.MusicianLink}>
+                    <Image
+                      src={profile.image || "/default_profile.png"}
+                      roundedCircle
+                      className={styles.MusicianImage}
+                      alt={`${profile.name}'s profile`}
+                    />
+                    <span className={styles.MusicianName}>{profile.owner}</span>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          ) : (
+            "None"
+          )}
 
           <div className={styles.Buttons}>
             <Button

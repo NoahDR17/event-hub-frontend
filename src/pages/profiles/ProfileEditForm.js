@@ -78,7 +78,6 @@ function ProfileEditForm() {
       const { data: updatedUser } = await axiosReq.get(`/profiles/${currentUser.id}/`);
       setCurrentUser(updatedUser);
       setOriginalRole(role); // Lock the role after successful submission
-      console.log(currentUser)
       history.push(`/profiles/${currentUser.id}/`);
     } catch (err) {
       console.error(err);

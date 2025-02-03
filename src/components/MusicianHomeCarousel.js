@@ -17,7 +17,6 @@ function MusicianHomeCarousel({ musicianId }) {
           Array.isArray(event.musicians) && event.musicians.includes(musicianId)
         );
         setEvents(filteredEvents);
-        console.log("Filtered events:", filteredEvents);
       } catch (err) {
         console.error("Error fetching musician events:", err);
         setErrors("Error fetching events.");
@@ -25,7 +24,6 @@ function MusicianHomeCarousel({ musicianId }) {
         setLoading(false);
       }
     };
-
     fetchEvents();
   }, [musicianId]);
 
