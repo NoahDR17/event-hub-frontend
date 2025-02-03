@@ -11,13 +11,18 @@ import { axiosReq } from "../../api/axiosDefaults";
 function CommentCreateForm(props) {
   const { event, setEvent, setComments, profileImage, profile_id } = props;
   const [content, setContent] = useState("");
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (e) => {
     setContent(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
     try {
       const { data } = await axiosReq.post("/comments/", {
         content,
@@ -38,6 +43,10 @@ function CommentCreateForm(props) {
       setContent("");
     } catch (err) {
       console.log(err);
+    } finally {
+      setTimeout(() => {
+        setIsSubmitting(false);
+      }, 1000);
     }
   };
 
@@ -60,7 +69,7 @@ function CommentCreateForm(props) {
       </Form.Group>
       <button
         className={`${styles.Button} btn d-block ml-auto`}
-        disabled={!content.trim()}
+        disabled={!content.trim() || isSubmitting}
         type="submit"
       >
         post
