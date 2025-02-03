@@ -22,6 +22,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 
 function EventCreateForm() {
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [eventData, setEventData] = useState({
     title: "",
@@ -31,8 +32,7 @@ function EventCreateForm() {
     image: "",
     musicians: [],
   });
-  const { title, description, location, event_date, image, musicians } =
-    eventData;
+  const { title, description, location, event_date, image, musicians } = eventData;
 
   const [musicianProfiles, setMusicianProfiles] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -48,7 +48,7 @@ function EventCreateForm() {
         const musiciansOnly = results.filter(
           (profile) => profile.role === "musician"
         );
-
+        
         setMusicianProfiles(musiciansOnly);
       } catch (err) {
         console.error("Error fetching musician profiles:", err);
@@ -81,7 +81,9 @@ function EventCreateForm() {
   };
 
   const handleMusiciansChange = (selectedOptions) => {
-    const selectedIds = selectedOptions ? selectedOptions.map(option => option.value) : [];
+    const selectedIds = selectedOptions
+      ? selectedOptions.map((option) => option.value)
+      : [];
     setEventData({
       ...eventData,
       musicians: selectedIds,
@@ -91,6 +93,9 @@ function EventCreateForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
     console.log("Event Data to be submitted:", eventData);
 
     const formData = new FormData();
@@ -120,6 +125,10 @@ function EventCreateForm() {
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
+    } finally {
+      setTimeout(() => {
+        setIsSubmitting(false);
+      }, 1000);
     }
   };
 
@@ -252,6 +261,7 @@ function EventCreateForm() {
         <Button
           className={`${btnStyles.Button} ${btnStyles.CreateButton}`}
           type="submit"
+          disabled={isSubmitting}
         >
           Create
         </Button>
