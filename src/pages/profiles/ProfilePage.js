@@ -31,7 +31,8 @@ function ProfilePage() {
         const { data } = await axiosReq.get(`/profiles/${id}/`);
         setProfile(data);
       } catch (err) {
-        console.error("Error fetching profile:", err);
+        console.error("Error fetching profileawd:", err);
+        setErrors(err.response?.data || "Error fetching profile.");
         history.push("/404");
       } finally {
         setLoading(false);

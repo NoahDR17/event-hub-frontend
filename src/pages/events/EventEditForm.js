@@ -30,12 +30,11 @@ function EventEditForm() {
     title: "",
     description: "",
     location: "",
-    event_type: "OTHER",
     event_date: "",
     image: "",
     musicians: [],
   });
-  const { title, description, location, event_type, event_date, image, musicians } =
+  const { title, description, location, event_date, image, musicians } =
     eventData;
 
   const [musicianProfiles, setMusicianProfiles] = useState([]);
@@ -51,7 +50,6 @@ function EventEditForm() {
           title: event.title,
           description: event.description,
           location: event.location,
-          event_type: event.event_type,
           event_date: event.event_date,
           image: event.image,
           musicians: event.musicians,
@@ -115,7 +113,6 @@ function EventEditForm() {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("location", location);
-    formData.append("event_type", event_type);
     formData.append("event_date", event_date);
 
     if (imageInput.current?.files[0]) {

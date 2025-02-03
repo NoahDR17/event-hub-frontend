@@ -27,12 +27,11 @@ function EventCreateForm() {
     title: "",
     description: "",
     location: "",
-    event_type: "OTHER",
     event_date: "",
     image: "",
     musicians: [],
   });
-  const { title, description, location, event_type, event_date, image, musicians } =
+  const { title, description, location, event_date, image, musicians } =
     eventData;
 
   const [musicianProfiles, setMusicianProfiles] = useState([]);
@@ -98,7 +97,6 @@ function EventCreateForm() {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("location", location);
-    formData.append("event_type", event_type);
     formData.append("event_date", event_date);
 
     if (imageInput.current?.files[0]) {

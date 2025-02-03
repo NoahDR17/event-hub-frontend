@@ -12,7 +12,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import EventCard from "../../components/EventCard";
 import styles from "../../styles/EventsPage.module.css";
 import { fetchMoreData } from "../../utils/utils";
-import Asset from "../../components/Asset"
+import Asset from "../../components/Asset";
 
 function EventsPage() {
 
@@ -31,7 +31,11 @@ function EventsPage() {
       try {
         const { data } = await axios.get("/events/");
         setEventsResource(data);
-                if (data.length > 0 && Array.isArray(data[0].musicians) && data[0].musicians.length > 0) {
+        if (
+          data.length > 0 &&
+          Array.isArray(data[0].musicians) &&
+          data[0].musicians.length > 0
+        ) {
           console.log("Type of first musician ID:", typeof data[0].musicians[0]);
         }
       } catch (err) {
@@ -66,23 +70,12 @@ function EventsPage() {
 
   useEffect(() => {
     const fetchMusicians = async () => {
-      const musicianIds = Array.from(
-        new Set(eventsResource.results.flatMap((event) => event.musicians || []))
-      );
-
-      if (musicianIds.length === 0) {
-        setMusicians([]);
-        return;
-      }
-
       setMusicianLoading(true);
       try {
-        const profilePromises = musicianIds.map((id) =>
-          axios.get(`/profiles/${id}/`)
-        );
-        const responses = await Promise.all(profilePromises);
-        const profiles = responses.map((res) => res.data);
-        setMusicians(profiles);
+
+        const { data } = await axios.get("/profiles/");
+
+        setMusicians(data.results || data);
       } catch (err) {
         setMusicianError("Error fetching musician profiles.");
       } finally {
@@ -91,11 +84,11 @@ function EventsPage() {
     };
 
     fetchMusicians();
-  }, [eventsResource.results]);
+  }, []);
 
   const musicianMap = {};
   musicians.forEach((musician) => {
-    musicianMap[musician.id] = musician.name;
+    musicianMap[musician.id] = musician.owner;
   });
 
   const handleSearch = (e) => {
@@ -153,7 +146,7 @@ function EventsPage() {
               <option value="">All Musicians</option>
               {musicians.map((musician) => (
                 <option key={musician.id} value={musician.id}>
-                  {musician.name}
+                  {musician.owner}
                 </option>
               ))}
             </Form.Control>
