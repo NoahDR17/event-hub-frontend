@@ -240,21 +240,27 @@ The project follows an **Agile Development Process**, with a focus on:
 ### 🎨 **UI & Navigation**
 - **Favicon & Logo**: A recognizable branding identity across all pages.
 - **Navbar**: Provides quick navigation to key areas like events, profile, and authentication options.
+![Navbar](docs/page_media/basic_navbar.webp)
 
 ### 🏡 **Landing Page (Home)**
 The landing page dynamically changes based on the user's authentication and role:
 - **Not Signed In**: 
   - Call-to-action (CTA) to **sign in / sign up**, and to **view events**.
   - Sliding carousel of **events**.
+  ![Not Signed In](docs/page_media/logged_out_home.webp)
 - **Signed In Role: Basic User**:
   - CTAs to **upgrade account** links to **edit profile form**.
   - Sliding carousel of **events**.
+  ![Basic Home](docs/page_media/basic_home.webp)
 - **Signed In Role: Musician**:
   - CTAs to **view profile** and **explore events**.
   - Sliding carousel displaying **events the musician is tagged in**.
+  ![Musician Home](docs/page_media/musician_home.webp)
 - **Signed In Role: Organizer**:
   - CTAs to **create a new event** and **view profile**.
   - Carousel displaying **events** created by the user.
+  ![Organiser Home](docs/page_media/organiser_home.webp)
+
 - **Event Carousel:** Displays **a minimized version of events**, showing only:
   - **Title**
   - **Date**
@@ -264,9 +270,11 @@ The landing page dynamically changes based on the user's authentication and role
 ### **Events**
 - **Events Page**:
   - Displays a **list of events**.
+  ![Event List](docs/page_media/eventslist.webp)
   - Filter options:
     - **Location**
     - **Musician(s)**
+    ![Search/Filter](docs/page_media/search_filter.webp)
 - **Create Event**:
   - Fields:
     - **Image**
@@ -275,8 +283,11 @@ The landing page dynamically changes based on the user's authentication and role
     - **Date/Time**
     - **Musicians** (can tag profiles with **role** of **musician**)
     - **Location**
+    ![Create Event](event_create.webp)
 - **Event Detail Page**:
   - Full event details and interactions.
+  ![Event Detail](docs/page_media/event_detail.webp)
+  ![Comment](docs/page_media/comment.webp)
 - **Edit Event**:
   - Users with **organizer role** can update **events** that they are the owner of.
   - Fields:
@@ -286,6 +297,7 @@ The landing page dynamically changes based on the user's authentication and role
     - **Date/Time**
     - **Musicians** (can update tagged musicians)
     - **Location**
+    ![Edit Event](docs/page_media/edit_page.webp)
 - **Delete Event**:
   - Organizers can remove their events.
 
@@ -294,10 +306,13 @@ The landing page dynamically changes based on the user's authentication and role
   - **Add a comment** to an event.
   - **Edit a comment** (only the owner of the comment can edit).
   - **Delete a comment** (only the owner of the comment can delete).
-  
+  ![Comment Form](docs/page_media/comment_form.webp)
+  ![Comment](docs/page_media/comment.webp)
+  ![Comment edit/delete](docs/page_media/comment_toggle.webp)
 - **Follow System**:
   - Users can **follow/unfollow** other users.
-
+  ![Unfollow](docs/page_media/unfollowbtn.webp)
+  ![Follow](docs/page_media/followbtn.webp)
 ### **User Profiles**
 - **Basic Profile**:
   - Displays:
@@ -307,17 +322,20 @@ The landing page dynamically changes based on the user's authentication and role
     - **Followed users count**
     - **Followers count**
     - **User role**
+    ![Basic Role](docs/page_media/basic_profile.webp)
+
 - **Musician Profile**:
   - Includes **all basic profile fields** plus:
     - **Upcoming & past tagged events**.
     - **Musician details**:
       - **Genre**
       - **Instruments**
+    ![Musician Role](docs/page_media/musician_profile.webp)
 - **Organizer Profile**:
   - Includes **all basic profile fields** plus:
     - **Upcoming events created**.
     - **Past events created**.
-
+  ![Organiser Role](docs/page_media/organiser_profile.webp)
 ### 🔧 **Profile Management**
 - **Edit Profile**:
   - Fields:
@@ -325,9 +343,10 @@ The landing page dynamically changes based on the user's authentication and role
     - **Bio**
     - **Change Profile Image**
     - **Upgrade User Role** (only if the role is **Basic**).
+    ![Edit Basic Profile](docs/page_media/edit_profile.webp)
     
 **renders:** **Genre** and **Instruments** field for users with role of musician.
-
+![Musician profile fields](docs/page_media/musician_edit.webp)
 ---  
 
 ## User Roles & Permissions
