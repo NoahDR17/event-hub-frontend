@@ -31,7 +31,7 @@ function EventCard({ event, musicianMap, minimal }) {
             </Link>
             {Array.isArray(musicians) && musicians.length > 0 && (
               <div className={styles.Musicians}>
-                <strong>Musicians:</strong>
+                <strong>Featuring:</strong>
                 <ul className={styles.MusiciansList}>
                   {musicians.map((musicianId) => (
                     <li key={musicianId} className={styles.MusicianItem}>
@@ -42,6 +42,7 @@ function EventCard({ event, musicianMap, minimal }) {
               </div>
             )}
             <Card.Text className={styles.EventDescription}>
+              Description: <span> </span>
               {description.length > 200
                 ? `${description.slice(0, 200)}...`
                 : description}

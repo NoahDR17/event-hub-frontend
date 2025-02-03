@@ -50,24 +50,24 @@
 }
 
 .Musicians {
-  margin-bottom: 1rem;
+  margin-top: 0.8rem;
 }
 
 .MusiciansList {
   list-style-type: disc;
   margin: 0.5rem 0 0 1.5rem;
-  padding: 0;
+  padding: 0.25rem 0;
 }
 
 .MusicianItem {
-  margin-bottom: 0.3rem;
+  padding-bottom: 0.3rem;
   font-size: 1.1rem;
 }
 
 .EventDescription {
   font-size: 1.2rem;
   color: #555;
-  margin-bottom: 1.5rem;
+  margin: 0.5rem 0;
 }
 
 .Button {
