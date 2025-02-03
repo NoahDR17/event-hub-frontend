@@ -454,19 +454,17 @@ Wireframes were created to visualize the user interface before development.
 
 ---
 
-## The Surface Plane
+### The Surface Plane  
 
-### Design
+#### **Design**  
+The application features a modern, sleek, and intuitive design, prioritizing user-friendliness and accessibility. Clean layouts, structured navigation, and responsive elements ensure a seamless experience across all devices.  
 
-The application follows a **modern, sleek, and user-friendly design** with a focus on accessibility.
+#### **Colour Scheme**  
+A thoughtfully curated color palette enhances usability and engagement. The design incorporates a positive and inviting theme, with vibrant accent colors that improve readability and highlight key elements without overwhelming the user.  
 
-### Colour Scheme
+#### **Typography**  
+The application utilizes Google Fonts to achieve a balance between style and readability. The font choices complement the overall design, ensuring clear, aesthetically pleasing text presentation across all sections.
 
-A well-balanced **positive theme with vibrant accent colors** to enhance readability and engagement.
-
-### Typography
-
-Using **Google Fonts** for stylish yet readable text
 ---
 
 ## Technologies
@@ -1089,6 +1087,32 @@ The result wasn't what I expected, but I believe it still improves the user expe
 - **Actual Result:** The system **denies access** and displays an error message.
 - **Status:** ✅ PASS
 
+### Responsiveness
+
+All pages were tested to ensure responsiveness across screen sizes starting from **320px and upwards**, in accordance with the **WCAG 2.1 Reflow criteria** for responsive design. Testing was conducted on **Chrome**.
+
+### Testing Steps:
+
+1. Open a browser and navigate to **Event Hub**.
+2. Open Developer Tools (**Right-click → Inspect**).
+3. Enable **Responsive Mode** and set the width to **320px**.
+4. Adjust the **zoom to 50%** for better visibility.
+5. Click and drag the responsive window to its **maximum width**.
+
+### Expected Behavior:
+
+- The website adapts to all screen sizes **without pixelation or stretching** of images.
+- No **horizontal scrolling** is present.
+- No **overlapping elements** occur.
+
+### Actual Results:
+
+- The website **behaved as expected** across all tested screen sizes.
+
+Additionally, the website was tested on various **physical devices**, and no responsiveness breaks were observed.
+- Iphone 11
+- Samsumg galaxy S10
+- Macbook air 
 ---
 
 ## Deployment
