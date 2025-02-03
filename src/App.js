@@ -57,7 +57,7 @@ function App() {
           <Route exact path="/404" render={() => <NotFoundPage />} />
 
 
-          <Route render={() => <p>Page not found!</p>} />
+          <Route render={() => <NotFoundPage />} />
 
         </Switch>
       </Container>

@@ -13,6 +13,7 @@ import EventCard from "../../components/EventCard";
 import styles from "../../styles/EventsPage.module.css";
 import { fetchMoreData } from "../../utils/utils";
 import Asset from "../../components/Asset";
+import { useHistory } from "react-router-dom";
 
 function EventsPage() {
 
@@ -25,6 +26,8 @@ function EventsPage() {
   const [musicianLoading, setMusicianLoading] = useState(false);
   const [musicianError, setMusicianError] = useState(null);
   const eventRefs = useRef([]);
+  const history = useHistory();
+  
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -40,6 +43,7 @@ function EventsPage() {
         }
       } catch (err) {
         setError(err.response?.data || "Error fetching events.");
+        history.push("/404");
       } finally {
         setLoading(false);
       }

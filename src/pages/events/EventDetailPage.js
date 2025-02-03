@@ -48,6 +48,7 @@ function EventDetailPage() {
       } catch (err) {
         console.error("Error fetching event details:", err);
         setErrors(err.response?.data || "Error fetching event details");
+        history.push("/404");
       }
     };
 
