@@ -254,6 +254,9 @@ function ProfilePage() {
                     <div>
                       <strong className={styles.CardText}>Joined:</strong> {joined}
                     </div>
+                    <div>
+                      <strong className={styles.CardText}>User Type:</strong> {role}
+                    </div>
                   </Col>
                 </Row>
               </Card.Body>
@@ -273,39 +276,6 @@ function ProfilePage() {
                 </Card.Body>
               </Card>
             )}
-
-            <Card className="mb-4" style={{ backgroundColor: "transparent", border: "none" }}>
-              <Card.Header as="h5" className={styles.CardHeader}>Past Events</Card.Header>
-              {past_events.length > 0 ? (
-                <ListGroup variant="flush">
-                  {past_events.map((event) => (
-                    <ListGroup.Item
-                      key={event.id}
-                      style={{ backgroundColor: "transparent", border: "none", color: "#fffaf0" }}
-                    >
-                      <Link
-                        to={`/events/${event.id}`}
-                        style={{ color: "#c97cff", textDecoration: "none" }}
-                      >
-                        {event.title}
-                      </Link>
-                      <br />
-                      <small className="text-muted">
-                        {new Date(event.event_date).toLocaleString()}
-                      </small>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              ) : (
-                <ListGroup variant="flush">
-                  <ListGroup.Item
-                    style={{ backgroundColor: "transparent", border: "none", color: "#fffaf0" }}
-                  >
-                    No past events.
-                  </ListGroup.Item>
-                </ListGroup>
-              )}
-            </Card>
           </Col>
 
           <Col lg={4}>
@@ -352,15 +322,6 @@ function ProfilePage() {
                   </ListGroup.Item>
                 </ListGroup>
               )}
-            </Card>
-
-            <Card className="mb-4" style={{ backgroundColor: "transparent", border: "none" }}>
-              <Card.Header as="h5" className={styles.CardHeader}>User Type</Card.Header>
-              <Card.Body>
-                <Card.Text className={styles.CardText}>
-                  <strong>{role}</strong>
-                </Card.Text>
-              </Card.Body>
             </Card>
           </Col>
         </Row>
