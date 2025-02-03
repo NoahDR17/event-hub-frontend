@@ -117,7 +117,7 @@ function HomePage() {
               : "Featured Events"}
           </h2>
           {currentUser && currentUser.role === "organiser" ? (
-            <OrganiserHomeCarousel organiserId={currentUser.id} />
+            <OrganiserHomeCarousel/>
           ) : currentUser && currentUser.role === "musician" ? (
             <MusicianHomeCarousel musicianId={currentUser.id} />
           ) : (

@@ -42,8 +42,6 @@ function EventDetailPage() {
         ]);
         setEvent({ results: [eventData] });
         setComments(commentsData);
-        if (process.env.NODE_ENV === "development") {
-        }
       } catch (err) {
         console.error("Error fetching event details:", err);
         setErrors(err.response?.data || "Error fetching event details");
@@ -124,7 +122,7 @@ function EventDetailPage() {
   const isOwner = currentUser?.owner === owner;
 
   return (
-    <Container className={`${appStyles.Content} ${styles.EventContainer}`} style={{ position: 'relative' }}>
+    <Container className={`${appStyles.Content} ${styles.EventContainer}`} style={{ position: "relative" }}>
       <Row className="align-items-center">
         <Col md={6} className="text-center">
           <Image
@@ -135,7 +133,7 @@ function EventDetailPage() {
           />
         </Col>
 
-        <Col md={6} className={styles.EventInfo} style={{ position: 'relative' }}>
+        <Col md={6} className={styles.EventInfo} style={{ position: "relative" }}>
           {isOwner && (
             <div className={styles.dropdownContainer}>
               <MoreDropdown

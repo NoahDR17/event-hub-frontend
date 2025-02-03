@@ -4,7 +4,7 @@ import { axiosReq } from "../api/axiosDefaults";
 import EventCard from "./EventCard";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 
-function OrganiserHomeCarousel({ organiserId }) {
+function OrganiserHomeCarousel() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState(null);

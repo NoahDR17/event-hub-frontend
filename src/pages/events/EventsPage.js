@@ -34,12 +34,6 @@ function EventsPage() {
       try {
         const { data } = await axios.get("/events/");
         setEventsResource(data);
-        if (
-          data.length > 0 &&
-          Array.isArray(data[0].musicians) &&
-          data[0].musicians.length > 0
-        ) {
-        }
       } catch (err) {
         setError(err.response?.data || "Error fetching events.");
         history.push("/404");

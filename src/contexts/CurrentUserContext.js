@@ -1,3 +1,4 @@
+import React from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
@@ -38,13 +39,13 @@ export const CurrentUserProvider = ({ children }) => {
       async (config) => {
         try {
           const response = await axios.post("/dj-rest-auth/token/refresh/", {
-            refresh: localStorage.getItem('refreshToken'),
+            refresh: localStorage.getItem("refreshToken"),
           });
           const newAccessToken = response.data.access;
-          localStorage.setItem('accessToken', newAccessToken);
-          const token = localStorage.getItem('accessToken');
+          localStorage.setItem("accessToken", newAccessToken);
+          const token = localStorage.getItem("accessToken");
           if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`;
+            config.headers["Authorization"] = `Bearer ${token}`;
           }
         } catch (err) {
           setCurrentUser((prevCurrentUser) => {
@@ -68,10 +69,10 @@ export const CurrentUserProvider = ({ children }) => {
         if (err.response?.status === 401) {
           try {
             const response = await axios.post("/dj-rest-auth/token/refresh/", {
-              refresh: localStorage.getItem('refreshToken'),
+              refresh: localStorage.getItem("refreshToken"),
             });
             const newAccessToken = response.data.access;
-            localStorage.setItem('accessToken', newAccessToken);
+            localStorage.setItem("accessToken", newAccessToken);
             // const response = await axiosInstance.post('/token/refresh/', {
             //   refresh: localStorage.getItem('refresh_token'),
             // });

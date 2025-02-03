@@ -45,8 +45,8 @@ function SignInForm() {
   
       setCurrentUser(profileData);
 
-      localStorage.setItem('accessToken', access);
-      localStorage.setItem('refreshToken', refresh);
+      localStorage.setItem("accessToken", access);
+      localStorage.setItem("refreshToken", refresh);
   
       history.push("/");
           } catch (err) {

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import styles from "../../styles/Comment.module.css";
-import Avatar from '../../components/Avatar';
+import Avatar from "../../components/Avatar";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Media } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Media } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import CommentEditForm from "./CommentEditForm";
-import { axiosReq } from '../../api/axiosDefaults';
+import { axiosReq } from "../../api/axiosDefaults";
 
 const Comment = (props) => {
   const { profile_id, profile_image, owner, updated_at, content,
