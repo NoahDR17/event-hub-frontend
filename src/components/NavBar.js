@@ -107,7 +107,6 @@ const NavBar = () => {
               <i className="fas fa-stream"></i>Events
             </NavLink>
 
-            {/* Logged-in vs. Logged-out icons */}
             {currentUser ? loggedInIcons : loggedOutIcons}
             
           </Nav>

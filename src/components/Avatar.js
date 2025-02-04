@@ -12,7 +12,7 @@ const Avatar = ({ src, height = 45, text }) => {
         width={height}
         alt='avatar'
         onError={(e) => {
-          e.target.onerror = null; // Prevent infinite loop
+          e.target.onerror = null;
           console.log("Error occured")
         }}
       />

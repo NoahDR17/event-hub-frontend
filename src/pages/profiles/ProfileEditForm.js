@@ -23,7 +23,7 @@ function ProfileEditForm() {
   });
   const [profileImage, setProfileImage] = useState("");
   const [errors, setErrors] = useState({});
-  const [originalRole, setOriginalRole] = useState(""); // To lock the role if not "basic"
+  const [originalRole, setOriginalRole] = useState("");
 
   const { name, content, role, genres, instruments, image } = profileData;
 
@@ -77,7 +77,7 @@ function ProfileEditForm() {
       await axiosReq.put(`/profiles/${currentUser.id}/`, formData);
       const { data: updatedUser } = await axiosReq.get(`/profiles/${currentUser.id}/`);
       setCurrentUser(updatedUser);
-      setOriginalRole(role); // Lock the role after successful submission
+      setOriginalRole(role);
       history.push(`/profiles/${currentUser.id}/`);
     } catch (err) {
       console.error(err);
@@ -172,7 +172,7 @@ function ProfileEditForm() {
                 name="role"
                 value={role}
                 onChange={handleChange}
-                disabled={originalRole !== "basic"} // Allow editing only if the original role is "basic"
+                disabled={originalRole !== "basic"}
               >
                 <option value="basic">Basic User</option>
                 <option value="organiser">Event Organiser</option>

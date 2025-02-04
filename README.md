@@ -1113,18 +1113,55 @@ Additionally, the website was tested on various **physical devices**, and no res
 - Iphone 11
 - Samsumg galaxy S10
 - Macbook air 
----
 
-## Deployment
+
+### Eslint: 
+-**Eslint** was installed and configured to iterate through my files, returning warnings and errors, the majority of the errors returned were single qoutes used instead of double quotes, indentation and white space, some characters needed chagning to html character entitys eg, `&quot;`.
+final errors were left, as they had no effect on functionalty or where from files automatically generated on react app creation.
+
+![Eslint](docs/eslint/eslint.webp)
+
+
+# Deployment
+
+### Version Control
+
+
+The **Event Hub Frontend** project was developed using **Gitpod** as the IDE, with Git for version control, and the code was stored in a remote GitHub repository.
+
+
+Throughout development, the following Git commands were used to manage and push code updates:
+-  **`git add <file>`**
+
+Adds the specified file(s) to the staging area, preparing them for a commit.
+
+-  **`git commit -m "commit message"`**
+
+Commits the changes in the staging area to the local repository with a descriptive message.
+
+-  **`git push`**
+
+Pushes all committed changes from the local repository to the remote repository on GitHub.
+
 
 ### Heroku Deployment
 
-1. Ensure you have a **Heroku account** and the CLI installed.
+The **Event Hub** site was deployed to Heroku, a cloud platform that allows easy deployment and scaling of web applications. Follow these steps to deploy the project on Heroku:
 
-2. Run:
+1. **Set Up Heroku**
+   - Go to [Heroku](https://www.heroku.com/) and create an account (or log in if you already have one).
+   - In your Heroku dashboard, click the **New** button in the top right corner and select **Create New App**.
+   - Choose an **App Name** (it must be unique across Heroku) and select the appropriate **Region** based on your location.
+   - Click **Create App**.
 
-```sh
+2. **Deploy with GitHub Integration**
+   - Go to the **Deploy** tab and scroll down to **Deployment method**.
+   - Under **Connect to GitHub**, click **Connect** and authorize Heroku to access your GitHub account if prompted.
+   - In the search box, find the repository you want to deploy, then click **Connect** to link it to Heroku.
 
-heroku create project-name
+3. **Deploy the Application**
+   - In the **Manual deploy** section, select the **main** branch and click **Deploy Branch**.
+   - Heroku will begin building and deploying your app. Once completed, a message should confirm that the app was successfully deployed.
+   - Click **View** to open your live site.
 
-git push heroku main
+The application should now be live on Heroku! This setup provides a scalable and reliable environment for your Django project.
