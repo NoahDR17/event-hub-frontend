@@ -1114,7 +1114,65 @@ Additionally, the website was tested on various **physical devices**, and no res
 - Samsumg galaxy S10
 - Macbook air 
 
+### Analysis
 
+I believe this warning typically occurs when an asynchronous operation, such as a network request, attempts to update the component's state after it has already unmounted. This can lead to memory leaks and unintended behavior.
+
+### UNRESOLVED 
+### Attempted Fix
+I encountered some warnings when using react’s useEffect:
+```
+Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function. Error Component Stack
+    at MusicianHomeCarousel (MusicianHomeCarousel.js:7:1)
+```
+To fix this issue, I implemented a cleanup function within `useEffect`. The cleanup function cancels any pending `GET` requests when the component unmounts. This approach helped reduce the frequency of the warning, though I was unable to completely eliminate it before submitting the project.
+
+I am still unsure on the underlying cause, and correct solution, and due to the fact that it is only a warning message, and doesn't affect functionality or to the best of my knowledge impact the security of my site, i have decided to move onto higher priority tasks.
+
+For reference, I consulted [this article on LogRocket](https://blog.logrocket.com/understanding-react-useeffect-cleanup-function/) to better understand `useEffect` cleanup functions.
+
+```
+useEffect(() => {
+----------------------------------------------
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+  -----------------------------------------------
+
+    const fetchEvents = async () => {
+      try {                                              ------------------------
+        const { data } = await axiosReq.get("/events/", {cancelToken:source.token});
+                                                         ------------------------
+        const filteredEvents = data.results.filter((event) =>
+          Array.isArray(event.musicians) && event.musicians.includes(musicianId)
+        );
+        setEvents(filteredEvents);
+      } catch (err) {
+           ----------------------
+        if (!axios.isCancel(err)) {
+           ----------------------
+          console.error("Error fetching musician events:", err);
+          setErrors("Error fetching events.");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEvents();
+    ------------------------
+    // return cleanup function
+    return() => {
+      source.cancel();
+    };
+    ------------------------
+  }, [musicianId]);
+```
+code with ```------------------------``` above and below was implemented in attempted fix, and left in as it did seem to reduce the rate the error occured.
+
+```
+------------------------
+IMPLEMENTED CODE
+------------------------
+```
 ### Eslint: 
 -**Eslint** was installed and configured to iterate through my files, returning warnings and errors, the majority of the errors returned were single qoutes used instead of double quotes, indentation and white space, some characters needed chagning to html character entitys eg, `&quot;`.
 final errors were left, as they had no effect on functionalty or where from files automatically generated on react app creation.
@@ -1165,3 +1223,10 @@ The **Event Hub** site was deployed to Heroku, a cloud platform that allows easy
    - Click **View** to open your live site.
 
 The application should now be live on Heroku! This setup provides a scalable and reliable environment for your Django project.
+
+
+# Credits 
+
+### Research & References
+- **LogRocket Blog**: Referenced [this article](https://blog.logrocket.com/understanding-react-useeffect-cleanup-function/) to better understand `useEffect` cleanup functions and how to manage asynchronous operations in React.
+
