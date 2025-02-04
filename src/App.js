@@ -24,11 +24,9 @@ function App() {
   const currentUser = useCurrentUser();
 
   const isAuthPage = location.pathname === "/signup" || location.pathname === "/signin" || location.pathname.startsWith("/profiles/");
-  const isEventsPage = location.pathname.startsWith("/events/") || location.pathname === "/";
 
   return (
-    <div className={`${styles.App} ${isAuthPage ? styles.AuthBackground : ""}
-                    ${styles.App} ${isEventsPage ? styles.EventsBackground : ""} `}>
+    <div className={`${styles.App} ${isAuthPage ? styles.AuthBackground : ""} `}>
       <NavBar />
       <Container className={styles.Main}>
         <Switch>

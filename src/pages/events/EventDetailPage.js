@@ -88,7 +88,7 @@ function EventDetailPage() {
   const handleDelete = async () => {
     try {
       await axiosReq.delete(`/events/${id}/`);
-      history.goBack();
+      history.push(`/events/`);
     } catch (err) {
       console.log(err);
       setErrors("Failed to delete the event. Please try again.");

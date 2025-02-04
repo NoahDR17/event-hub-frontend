@@ -11,21 +11,17 @@ import {
 } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import Select from "react-select";
-
 import Asset from "../../components/Asset";
 import Upload from "../../assets/upload.webp";
-
 import styles from "../../styles/EventCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-
 import { axiosReq } from "../../api/axiosDefaults";
 
 function EventEditForm() {
   const { id } = useParams();
   const history = useHistory();
   const [errors, setErrors] = useState({});
-
   const [eventData, setEventData] = useState({
     title: "",
     description: "",
@@ -42,6 +38,13 @@ function EventEditForm() {
   const imageInput = useRef(null);
   const [loading, setLoading] = useState(true);
 
+  const getMinDate = () => {
+    const now = new Date();
+    now.setSeconds(0, 0);
+    const tzOffset = now.getTimezoneOffset() * 60000;
+    return new Date(now - tzOffset).toISOString().slice(0, 16);
+  };
+
   useEffect(() => {
     const fetchEventAndMusicians = async () => {
       try {
@@ -54,14 +57,11 @@ function EventEditForm() {
           image: event.image,
           musicians: event.musicians,
         });
-
         const { data } = await axiosReq.get("/profiles/");
         const results = data?.results || data;
-
         const musiciansOnly = results.filter(
           (profile) => profile.role === "musician"
         );
-
         setMusicianProfiles(musiciansOnly);
       } catch (err) {
         console.error("Error fetching event or musician profiles:", err);
@@ -70,7 +70,6 @@ function EventEditForm() {
         setLoading(false);
       }
     };
-
     fetchEventAndMusicians();
   }, [id]);
 
@@ -106,26 +105,29 @@ function EventEditForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    const selectedDate = new Date(event_date);
+    const now = new Date();
+    if (selectedDate < now) {
+      setErrors({
+        event_date: ["Event date and time cannot be in the past."],
+      });
+      return;
+    }
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
     formData.append("location", location);
     formData.append("event_date", event_date);
-
     if (imageInput.current?.files[0]) {
       formData.append("image", imageInput.current.files[0]);
     }
-
     if (musicians.length > 0) {
       musicians.forEach((musicianId) => formData.append("musicians", musicianId));
     }
-
     try {
       const { data } = await axiosReq.put(`/events/${id}/`, formData);
       history.push(`/events/${data.id}`);
     } catch (err) {
-      console.error("Error editing event:", err);
       if (err.response?.status === 401) {
         setErrors(err.response?.data);
         history.push("/401");
@@ -156,7 +158,6 @@ function EventEditForm() {
           {message}
         </Alert>
       ))}
-
       <Form.Group>
         <Form.Label>Description</Form.Label>
         <Form.Control
@@ -197,7 +198,6 @@ function EventEditForm() {
           {message}
         </Alert>
       ))}
-
       <Form.Group>
         <Form.Label>Event Date & Time</Form.Label>
         <Form.Control
@@ -206,6 +206,7 @@ function EventEditForm() {
           name="event_date"
           value={event_date}
           onChange={handleChange}
+          min={getMinDate()}
         />
       </Form.Group>
       {errors?.event_date?.map((message, idx) => (
@@ -213,7 +214,6 @@ function EventEditForm() {
           {message}
         </Alert>
       ))}
-
       <Form.Group>
         <Form.Label>Musicians (Optional)</Form.Label>
         <Form.Control
@@ -223,7 +223,6 @@ function EventEditForm() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className={`${styles.Input} mb-2`}
         />
-
         <Select
           isMulti
           name="musicians"
@@ -236,9 +235,7 @@ function EventEditForm() {
           value={musicians
             .map((id) => {
               const profile = musicianProfiles.find((m) => m.id === id);
-              return profile
-                ? { value: profile.id, label: profile.owner }
-                : null;
+              return profile ? { value: profile.id, label: profile.owner } : null;
             })
             .filter((option) => option !== null)}
           placeholder="Select musicians..."
@@ -254,7 +251,6 @@ function EventEditForm() {
           {message}
         </Alert>
       ))}
-
       <div className={styles.ButtonGroup}>
         <Button
           className={`${btnStyles.Button} ${btnStyles.CancelButton}`}
@@ -328,15 +324,12 @@ function EventEditForm() {
                 {message}
               </Alert>
             ))}
-
             <Container className={styles.DetailsContainer}>
               {titleDescriptionFields}
             </Container>
-
             <div className="d-md-none">{otherFields}</div>
           </Container>
         </Col>
-
         <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
           <Container className={`${appStyles.Content} ${styles.Container}`}>
             {otherFields}

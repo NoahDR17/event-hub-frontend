@@ -62,6 +62,15 @@ function EventCreateForm() {
     profile.owner.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const getMinDate = () => {
+    const now = new Date();
+    now.setSeconds(0, 0);
+    // Adjust for the timezone offset
+    const tzOffset = now.getTimezoneOffset() * 60000;
+    const localISOTime = new Date(now - tzOffset).toISOString().slice(0, 16);
+    return localISOTime;
+  };
+
   const handleChange = (event) => {
     setEventData({
       ...eventData,
@@ -94,6 +103,15 @@ function EventCreateForm() {
     event.preventDefault();
 
     if (isSubmitting) return;
+
+    const selectedDate = new Date(event_date);
+    const now = new Date();
+    if (selectedDate < now) {
+      setErrors({
+        event_date: ["Event date and time cannot be in the past."],
+      });
+      return;
+    }
 
     setIsSubmitting(true);
 
@@ -200,6 +218,7 @@ function EventCreateForm() {
           name="event_date"
           value={event_date}
           onChange={handleChange}
+          min={getMinDate()}
         />
       </Form.Group>
       {errors?.event_date?.map((message, idx) => (
