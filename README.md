@@ -237,117 +237,149 @@ The project follows an **Agile Development Process**, with a focus on:
 
 **Event Hub** offers a range of features tailored to different user roles: **Basic, Musicians, and Organizers**. Below are the key functionalities:
 
+---
+
 ### 🎨 **UI & Navigation**
 - **Favicon & Logo**: A recognizable branding identity across all pages.
-- **Navbar**: Provides quick navigation to key areas like events, profile, and authentication options.
-![Navbar](docs/page_media/basic_navbar.webp)
+  ![Logo and Favicon](docs/page_media/logo.webp)
+- **Navbar**: Provides quick navigation to key areas like events, profile, and authentication options.  
+  ![Navbar](docs/page_media/basic_navbar.webp)
+
+---
 
 ### 🏡 **Landing Page (Home)**
 The landing page dynamically changes based on the user's authentication and role:
-- **Not Signed In**: 
-  - Call-to-action (CTA) to **sign in / sign up**, and to **view events**.
-  - Sliding carousel of **events**.
+
+#### 🔹 **Not Signed In**
+- Call-to-action (CTA) to **sign in / sign up**, and to **view events**.
+- Sliding carousel of **events**.  
   ![Not Signed In](docs/page_media/logged_out_home.webp)
-- **Signed In Role: Basic User**:
-  - CTAs to **upgrade account** links to **edit profile form**.
-  - Sliding carousel of **events**.
+
+#### 🔹 **Signed In Role: Basic User**
+- CTAs to **upgrade account**, links to **edit profile form**.
+- Sliding carousel of **events**.  
   ![Basic Home](docs/page_media/basic_home.webp)
-- **Signed In Role: Musician**:
-  - CTAs to **view profile** and **explore events**.
-  - Sliding carousel displaying **events the musician is tagged in**.
+
+#### 🔹 **Signed In Role: Musician**
+- CTAs to **view profile** and **explore events**.
+- Sliding carousel displaying **events the musician is tagged in**.  
   ![Musician Home](docs/page_media/musician_home.webp)
-- **Signed In Role: Organizer**:
-  - CTAs to **create a new event** and **view profile**.
-  - Carousel displaying **events** created by the user.
-  ![Organiser Home](docs/page_media/organiser_home.webp)
 
-- **Event Carousel:** Displays **a minimized version of events**, showing only:
-  - **Title**
-  - **Date**
-  - **Location**
-  - **CTA** to view event detail
+#### 🔹 **Signed In Role: Organizer**
+- CTAs to **create a new event** and **view profile**.
+- Carousel displaying **events** created by the user.  
+  ![Organizer Home](docs/page_media/organiser_home.webp)
 
-### **Events**
-- **Events Page**:
-  - Displays a **list of events**.
+#### 🎟️ **Event Carousel**
+Displays **a minimized version of events**, showing only:
+- **Title**
+- **Date**
+- **Location**
+- **CTA** to view event detail
+
+---
+
+### 🎭 **Events**
+
+#### 📌 **Events Page**
+- Displays a **list of events**.  
   ![Event List](docs/page_media/eventslist.webp)
-  - Filter options:
-    - **Location**
-    - **Musician(s)**
-    ![Search/Filter](docs/page_media/search_filter.webp)
-- **Create Event**:
-  - Fields:
-    - **Image**
-    - **Title**
-    - **Description**
-    - **Date/Time**
-    - **Musicians** (can tag profiles with **role** of **musician**)
-    - **Location**
-    ![Create Event](event_create.webp)
-- **Event Detail Page**:
-  - Full event details and interactions.
-  ![Event Detail](docs/page_media/event_detail.webp)
+- Filter options:
+  - **Location**
+  - **Musician(s)**  
+  ![Search/Filter](docs/page_media/search_filter.webp)
+
+#### 📝 **Create Event**
+- Fields:
+  - **Image**
+  - **Title**
+  - **Description**
+  - **Date/Time**
+  - **Musicians** (can tag profiles with **role** of **musician**)
+  - **Location**  
+  ![Create Event](event_create.webp)
+
+#### 🔍 **Event Detail Page**
+- Full event details and interactions.  
+  ![Event Detail](docs/page_media/event_detail.webp)  
   ![Comment](docs/page_media/comment.webp)
-- **Edit Event**:
-  - Users with **organizer role** can update **events** that they are the owner of.
-  - Fields:
-    - **Image**
-    - **Title**
-    - **Description**
-    - **Date/Time**
-    - **Musicians** (can update tagged musicians)
-    - **Location**
-    ![Edit Event](docs/page_media/edit_page.webp)
-- **Delete Event**:
-  - Organizers can remove their events.
+
+#### ✏️ **Edit Event**
+- Users with **organizer role** can update **events** they own.
+- Fields:
+  - **Image**
+  - **Title**
+  - **Description**
+  - **Date/Time**
+  - **Musicians** (can update tagged musicians)
+  - **Location**  
+  ![Edit Event](docs/page_media/edit_page.webp)
+
+#### 🗑️ **Delete Event**
+- Organizers can remove their events.
+
+---
 
 ### 💬 **Interactions**
-- **Commenting System**:
-  - **Add a comment** to an event.
-  - **Edit a comment** (only the owner of the comment can edit).
-  - **Delete a comment** (only the owner of the comment can delete).
-  ![Comment Form](docs/page_media/comment_form.webp)
-  ![Comment](docs/page_media/comment.webp)
-  ![Comment edit/delete](docs/page_media/comment_toggle.webp)
-- **Follow System**:
-  - Users can **follow/unfollow** other users.
-  ![Unfollow](docs/page_media/unfollowbtn.webp)
-  ![Follow](docs/page_media/followbtn.webp)
-### **User Profiles**
-- **Basic Profile**:
-  - Displays:
-    - **Full Name** ( Set to blank on sign up )
-    - **Bio** ( Set to blank on sign up )
-    - **Joined date**
-    - **Followed users count**
-    - **Followers count**
-    - **User role**
-    ![Basic Role](docs/page_media/basic_profile.webp)
 
-- **Musician Profile**:
-  - Includes **all basic profile fields** plus:
-    - **Upcoming & past tagged events**.
-    - **Musician details**:
-      - **Genre**
-      - **Instruments**
-    ![Musician Role](docs/page_media/musician_profile.webp)
-- **Organizer Profile**:
-  - Includes **all basic profile fields** plus:
-    - **Upcoming events created**.
-    - **Past events created**.
-  ![Organiser Role](docs/page_media/organiser_profile.webp)
+#### 💻 **Commenting System**
+- **Add a comment** to an event.
+- **Edit a comment** (only the owner of the comment can edit).
+- **Delete a comment** (only the owner of the comment can delete).  
+  ![Comment Form](docs/page_media/comment_form.webp)  
+  ![Comment](docs/page_media/comment.webp)  
+  ![Comment edit/delete](docs/page_media/comment_toggle.webp)
+
+#### 🔔 **Follow System**
+- Users can **follow/unfollow** other users.  
+  ![Unfollow](docs/page_media/unfollowbtn.webp)  
+  ![Follow](docs/page_media/followbtn.webp)
+
+---
+
+### 👤 **User Profiles**
+
+#### 🏷️ **Basic Profile**
+Displays:
+- **Full Name** (Set to blank on sign up)
+- **Bio** (Set to blank on sign up)
+- **Joined date**
+- **Followed users count**
+- **Followers count**
+- **User role**  
+  ![Basic Role](docs/page_media/basic_profile.webp)
+
+#### 🎸 **Musician Profile**
+Includes **all basic profile fields** plus:
+- **Upcoming & past tagged events**.
+- **Musician details**:
+  - **Genre**
+  - **Instruments**  
+  ![Musician Role](docs/page_media/musician_profile.webp)
+
+#### 🎟️ **Organizer Profile**
+Includes **all basic profile fields** plus:
+- **Upcoming events created**.
+- **Past events created**.  
+  ![Organizer Role](docs/page_media/organiser_profile.webp)
+
+---
+
 ### 🔧 **Profile Management**
-- **Edit Profile**:
-  - Fields:
-    - **Full Name**
-    - **Bio**
-    - **Change Profile Image**
-    - **Upgrade User Role** (only if the role is **Basic**).
-    ![Edit Basic Profile](docs/page_media/edit_profile.webp)
-    
-**renders:** **Genre** and **Instruments** field for users with role of musician.
-![Musician profile fields](docs/page_media/musician_edit.webp)
----  
+
+#### ✏️ **Edit Profile**
+- Fields:
+  - **Full Name**
+  - **Bio**
+  - **Change Profile Image**
+  - **Upgrade User Role** (only if the role is **Basic**).  
+  ![Edit Basic Profile](docs/page_media/edit_profile.webp)
+
+- **Additional Fields for Musicians**:
+  - **Genre**
+  - **Instruments**  
+  ![Musician profile fields](docs/page_media/musician_edit.webp)
+
 
 ## User Roles & Permissions
 
@@ -522,6 +554,44 @@ The application utilizes Google Fonts to achieve a balance between style and rea
 - **Deployment:** Heroku
 
 ---
+## 📦 Dependencies Overview
+
+The **Moments** project relies on various dependencies to provide essential functionalities such as UI components, API handling, authentication, and testing. Below is a breakdown of the key dependencies:
+
+---
+
+### 🖥️ **Core Dependencies**
+- **react (`^17.0.2`)** - The core JavaScript library for building user interfaces.
+- **react-dom (`^17.0.2`)** - Provides DOM-specific methods for React.
+- **react-scripts (`^4.0.3`)** - Scripts and configuration for a Create React App (CRA) project.
+
+---
+
+### 🎨 **UI & Styling**
+- **bootstrap (`^4.6.2`)** - A popular CSS framework for responsive design.
+- **react-bootstrap (`^1.6.8`)** - React components for Bootstrap, enabling easier integration.
+- **react-select (`^5.10.0`)** - A flexible dropdown/select component with support for filtering and multi-selection.
+
+---
+
+### 🔀 **Routing & State Management**
+- **react-router-dom (`^5.3.4`)** - Provides client-side routing for React applications.
+
+---
+
+### 🔄 **API & Data Handling**
+- **axios (`^0.21.4`)** - A promise-based HTTP client for making API requests.
+
+---
+
+### 🔐 **Authentication & Security**
+- **jwt-decode (`^3.1.2`)** - Decodes JSON Web Tokens (JWT) to extract authentication data.
+
+---
+
+### 🔃 **Enhancements & Performance**
+- **react-infinite-scroll-component (`^6.1.0`)** - Enables infinite scrolling to improve UX by dynamically loading content.
+- **web-vitals (`^1.1.2`)** - Measures and reports core web performance metrics.
 
 ## Testing
 
@@ -1273,7 +1343,7 @@ Pushes all committed changes from the local repository to the remote repository 
 
 ### Heroku Deployment
 
-The **Event Hub** site was deployed to Heroku, a cloud platform that allows easy deployment and scaling of web applications. Follow these steps to deploy the project on Heroku:
+The **Event Hub Frontend** site was deployed to Heroku, a cloud platform that allows easy deployment and scaling of web applications. Follow these steps to deploy the project on Heroku:
 
 1. **Set Up Heroku**
    - Go to [Heroku](https://www.heroku.com/) and create an account (or log in if you already have one).
