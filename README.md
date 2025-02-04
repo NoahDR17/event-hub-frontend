@@ -1219,6 +1219,35 @@ final errors were left, as they had no effect on functionalty or where from file
 
 ![Eslint](docs/eslint/eslint.webp)
 
+All CSS files have been validated. 1 error was found relating to a media query.
+```
+  .ImagePreview {
+    max-width: 500px;
+    max-height: 300px;
+    object-fit: cover; 
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+      max-width: 100%; 
+      max-height: 200px; 
+    }
+  }
+```
+And was fixed:
+```
+.ImagePreview {
+  object-fit: contain; 
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  height: auto;
+}
+```
+
+![CSS](docs/testing/css_validator.webp)
 
 # Deployment
 
@@ -1266,7 +1295,12 @@ The application should now be live on Heroku! This setup provides a scalable and
 
 
 # Credits 
+## Content 
+- **Pexels**: Source for high-quality images featured on the site, includes about us image, and carousel images.
 
 ### Research & References
 - **LogRocket Blog**: Referenced [this article](https://blog.logrocket.com/understanding-react-useeffect-cleanup-function/) to better understand `useEffect` cleanup functions and how to manage asynchronous operations in React.
+- **Eslint**: Referenced [this article](https://eslint.org/docs/latest/) to better understand installation and testing.
+
+
 
