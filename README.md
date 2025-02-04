@@ -448,11 +448,51 @@ The **Track Event** feature would allow users to save and manage events they are
 
 ## The Skeleton Plane
 
-### Wireframes
+## Wireframes
 
-Wireframes were created to visualize the user interface before development.
+Below are the wireframes designed for the core pages of the application.
 
----
+### Home & Authentication Screens
+- **Welcome Home**  
+  ![Welcome Home](docs/wireframe/welcom_home.webp)
+- **Basic Home**  
+  ![Basic Home](docs/wireframe/basic_home.webp)
+- **Sign In**  
+  ![Sign In](docs/wireframe/signin.webp)
+- **Sign Up**  
+  ![Sign Up](docs/wireframe/signup.webp)
+
+### User Profiles
+- **Basic Profile**  
+  ![Basic Profile](docs/wireframe/basic_profile.webp)
+- **Musician Profile**  
+  ![Musician Profile](docs/wireframe/musician_profile.webp)
+- **Organizer Profile**  
+  ![Organizer Profile](docs/wireframe/org_profile.webp)
+
+### Dashboard Views
+- **Musician Home**  
+  ![Musician Home](docs/wireframe/musician_home.webp)
+- **Organizer Home**  
+  ![Organizer Home](docs/wireframe/organiser_home.webp)
+
+### Event Management
+- **Events List**  
+  ![Events List](docs/wireframe/events_list.webp)
+- **Event Detail**  
+  ![Event Detail](docs/wireframe/event_detail.webp)
+- **Create Event**  
+  ![Create Event](docs/wireframe/create_event.webp)
+- **Edit Event**  
+  ![Edit Event](docs/wireframe/edit_event.webp)
+
+### Profile Editing
+- **Edit Basic Profile**  
+  ![Edit Basic Profile](docs/wireframe/edit_bprofile.webp)
+- **Edit Musician Profile**  
+  ![Edit Musician Profile](docs/wireframe/edit_mprofile.webp)
+- **Edit Organizer Profile**  
+  ![Edit Organizer Profile](docs/wireframe/edit_oprofile.webp)
 
 ### The Surface Plane  
 
