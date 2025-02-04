@@ -204,7 +204,7 @@ function ProfileEditForm() {
             {role === "musician" && (
               <>
                 <Form.Group controlId="profileGenres">
-                  <Form.Label>Genres</Form.Label>
+                  <Form.Label className={styles.Label}>Genres</Form.Label>
                   <Form.Control
                     type="text"
                     value={genres || ""}
@@ -220,7 +220,7 @@ function ProfileEditForm() {
                 </Form.Group>
 
                 <Form.Group controlId="profileInstruments">
-                  <Form.Label>Instruments</Form.Label>
+                  <Form.Label className={styles.Label}>Instruments</Form.Label>
                   <Form.Control
                     type="text"
                     value={instruments || ""}

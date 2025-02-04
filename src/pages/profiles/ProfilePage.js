@@ -290,7 +290,7 @@ function ProfilePage() {
 
           <Col lg={4}>
             <Card className="mb-4" style={{ backgroundColor: "transparent", border: "none" }}>
-              <Card.Header as="h5" className={styles.CardHeader}>Upcoming Events</Card.Header>
+              <Card.Header as="h5" className={styles.CardText}>Upcoming Events</Card.Header>
               {upcoming_events.length > 0 ? (
                 <>
                   <ListGroup variant="flush">
