@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Carousel, Spinner, Alert, Container, Row, Col } from "react-bootstrap";
 import { axiosReq } from "../api/axiosDefaults";
 import EventCard from "./EventCard";
+import axios from "axios";
 
 function MusicianHomeCarousel({ musicianId }) {
   const [events, setEvents] = useState([]);
@@ -10,21 +11,31 @@ function MusicianHomeCarousel({ musicianId }) {
   const [musicianMap] = useState({});
 
   useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
     const fetchEvents = async () => {
       try {
-        const { data } = await axiosReq.get("/events/");
+        const { data } = await axiosReq.get("/events/", {cancelToken:source.token});
         const filteredEvents = data.results.filter((event) =>
           Array.isArray(event.musicians) && event.musicians.includes(musicianId)
         );
         setEvents(filteredEvents);
       } catch (err) {
-        console.error("Error fetching musician events:", err);
-        setErrors("Error fetching events.");
+        if (!axios.isCancel(err)) {
+          console.error("Error fetching musician events:", err);
+          setErrors("Error fetching events.");
+        }
       } finally {
         setLoading(false);
       }
     };
     fetchEvents();
+
+    // return cleanup function
+    return() => {
+      source.cancel();
+    };
   }, [musicianId]);
 
   if (loading) {

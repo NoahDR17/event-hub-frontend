@@ -3,6 +3,7 @@ import { Carousel, Spinner, Alert, Container, Row, Col } from "react-bootstrap";
 import { axiosReq } from "../api/axiosDefaults";
 import EventCard from "./EventCard";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
+import axios from "axios";
 
 function OrganiserHomeCarousel() {
   const [events, setEvents] = useState([]);
@@ -11,22 +12,31 @@ function OrganiserHomeCarousel() {
   const currentUser = useCurrentUser();
 
   useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
     const fetchEvents = async () => {
       try {
-        const { data } = await axiosReq.get("/events");
+        const { data } = await axiosReq.get("/events", {cancelToken:source.token});
         const filteredEvents = data.results.filter(
           (event) => event.owner === currentUser.owner
         );
         setEvents(filteredEvents);
       } catch (err) {
-        console.error("Error fetching events:", err);
-        setErrors("Error fetching events.");
+        if (!axios.isCancel(err)) {
+          console.error("Error fetching events:", err);
+          setErrors("Error fetching events.");
+        }
       } finally {
         setLoading(false);
       }
     };
 
     fetchEvents();
+
+    // return cleanup function
+    return() => {
+      source.cancel();
+    };
   });
 
   if (loading) {

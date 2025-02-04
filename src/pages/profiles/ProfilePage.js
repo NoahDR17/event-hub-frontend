@@ -15,6 +15,7 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../api/axiosDefaults";
 import styles from "../../styles/ProfilePage.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import axios from "axios";
 
 function ProfilePage() {
   const { id } = useParams();
@@ -26,19 +27,29 @@ function ProfilePage() {
   const [showAllUpcomingEvents, setShowAllUpcomingEvents] = useState(false);
 
   useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
     const fetchProfile = async () => {
       try {
-        const { data } = await axiosReq.get(`/profiles/${id}/`);
+        const { data } = await axiosReq.get(`/profiles/${id}/`, {cancelToken:source.token});
         setProfile(data);
       } catch (err) {
-        console.error("Error fetching profileawd:", err);
-        setErrors(err.response?.data || "Error fetching profile.");
-        history.push("/404");
+        if (!axios.isCancel(err)) {
+          console.error("Error fetching profileawd:", err);
+          setErrors(err.response?.data || "Error fetching profile.");
+          history.push("/404");
+        }
       } finally {
         setLoading(false);
       }
     };
     fetchProfile();
+
+    // return cleanup function
+    return() => {
+      source.cancel();
+    };
   }, [id, history]);
 
   if (loading) {

@@ -7,6 +7,7 @@ import Asset from "../../components/Asset";
 import Upload from "../../assets/upload.webp";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import axios from "axios";
 
 function ProfileEditForm() {
   const currentUser = useCurrentUser();
@@ -28,18 +29,28 @@ function ProfileEditForm() {
   const { name, content, role, genres, instruments, image } = profileData;
 
   useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
     if (currentUser) {
       const fetchProfile = async () => {
         try {
-          const { data } = await axiosReq.get(`/profiles/${currentUser.id}/`);
+          const { data } = await axiosReq.get(`/profiles/${currentUser.id}/`, {cancelToken:source.token});
           setProfileData(data);
           setProfileImage(data.image);
           setOriginalRole(data.role);
         } catch (err) {
-          console.error(err);
+          if (!axios.isCancel(err)) {
+            console.error(err);
+          }
         }
       };
       fetchProfile();
+
+      // return cleanup function
+      return() => {
+        source.cancel();
+      };
     }
   }, [currentUser]);
 
