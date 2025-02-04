@@ -1,8 +1,10 @@
-https://event-hub-frontend-30c8bbf9de26.herokuapp.com/
 
 # Event Hub (Front-End)
+<br>
+The live link can be found here: [Live Site - Event Hub](https://event-hub-frontend-30c8bbf9de26.herokuapp.com/)
+<br>
 
-  ## Introduction
+## Introduction
 
 The **Event Hub** is a front-end web application designed to showcase and manage live music events. This application serves as a user-friendly platform where music lovers can:
 
