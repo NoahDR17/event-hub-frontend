@@ -74,6 +74,7 @@ function SignInForm() {
                 type="text"
                 placeholder="Username"
                 name="username"
+                autoComplete="username"
                 className={styles.Input}
                 value={username}
                 onChange={handleChange}
@@ -91,6 +92,7 @@ function SignInForm() {
                 type="password"
                 placeholder="Password"
                 name="password"
+                autoComplete="current-password"
                 className={styles.Input}
                 value={password}
                 onChange={handleChange}

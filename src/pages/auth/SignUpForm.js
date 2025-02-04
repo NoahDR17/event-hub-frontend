@@ -62,6 +62,7 @@ const SignUpForm = () => {
                 type="text"
                 placeholder="Username"
                 name="username"
+                autoComplete="username"
                 value={username}
                 onChange={handleChange}
               />
@@ -79,6 +80,7 @@ const SignUpForm = () => {
                 type="password"
                 placeholder="Password"
                 name="password1"
+                autoComplete="new-password"
                 value={password1}
                 onChange={handleChange}
               />
@@ -96,6 +98,7 @@ const SignUpForm = () => {
                 type="password"
                 placeholder="Confirm password"
                 name="password2"
+                autoComplete="new-password"
                 value={password2}
                 onChange={handleChange}
               />
