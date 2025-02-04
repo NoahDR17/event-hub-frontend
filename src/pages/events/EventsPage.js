@@ -69,20 +69,19 @@ function EventsPage() {
     const fetchMusicians = async () => {
       setMusicianLoading(true);
       try {
-
         const { data } = await axios.get("/profiles/");
-
-        setMusicians(data.results || data);
+        const musicians = (data.results || data).filter(user => user.role === "musician");
+        setMusicians(musicians);
       } catch (err) {
         setMusicianError("Error fetching musician profiles.");
       } finally {
         setMusicianLoading(false);
       }
     };
-
+  
     fetchMusicians();
   }, []);
-
+  
   const musicianMap = {};
   musicians.forEach((musician) => {
     musicianMap[musician.id] = musician.owner;
